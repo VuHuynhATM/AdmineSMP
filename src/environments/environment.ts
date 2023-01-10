@@ -3,6 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  firebase: {
+    projectId: 'esmp-4b85e',
+    appId: '1:688134919204:web:8d4fd7ee3736a5d73974b1',
+    storageBucket: 'esmp-4b85e.appspot.com',
+    locationId: 'asia-southeast1',
+    apiKey: 'AIzaSyBaUaNJe050MkvaSfL2LOw24AnXKN2Sl60',
+    authDomain: 'esmp-4b85e.firebaseapp.com',
+    messagingSenderId: '688134919204',
+    measurementId: 'G-PKZSYV6D3P',
+    vapidKey: "BLPi04v_CZMNOOxR-3sxwTuKPjkphknlWrNm_JAth-B7GnEKA4rJc16Hd93xuMtWE-aOjmF4rCUxueQsz5six2g",
+  },
   production: false
 };
 

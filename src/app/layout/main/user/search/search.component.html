@@ -1,0 +1,72 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-3">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <input type="text" pInputText placeholder="Tên" [(ngModel)]="search" />
+                    <p-dropdown [options]="roleIDs" [(ngModel)]="roleID"></p-dropdown>
+                    <p-dropdown [options]="isactives" [(ngModel)]="isactive"></p-dropdown>
+                </div>
+            
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search"(click)="searchuser()" ></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div>
+            <p-table [value]="listUser">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Mã</th>
+                        <th>Ảnh đại diện</th>
+                        <th>Họ và tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr (click)="viewdetail(customer.userID)">
+                        <td>
+                            {{customer.userID}}
+                        </td>
+                        <td>
+                            <p-image [src]="customer.image.path" alt="Image" height="32"></p-image>
+                        </td>
+                        <td>
+                            {{customer.userName}}
+                        </td>
+                        <td>
+                            {{customer.phone}}
+                        </td>
+                        <td>
+                            {{customer.email}}
+                        </td>
+                        <td>
+                            {{customer.role.roleName}}
+                        </td>
+                        <td>
+                            <div *ngIf="customer.isActive; else elseBlock">Hoạt động</div>
+                            <ng-template #elseBlock>Khóa</ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

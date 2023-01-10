@@ -1,0 +1,76 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-3">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div class="info bg-blue-50 border-round">
+            <div class="card">
+                <div class="card-container overflow-hidden">
+                    <div class="flex grid">
+                        <div class="col">
+                            <p-image [src]="user.image.path" alt="Image" width="450" [preview]="true"></p-image>
+                            <div style="text-align: center;">
+                                <button pButton pRipple label="Chỉnh sửa ảnh đại diện" class="p-button-text"
+                                    (click)="showEditAvartaDialog()"></button>
+                                <p-dialog header="Chỉnh sửa ảnh đại diện" [(visible)]="displayEditAvarta" [modal]="true"
+                                    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
+                                    [resizable]="false">
+                                    <p-fileUpload [customUpload]="true" (uploadHandler)="editAvatar($event)"
+                                        [multiple]="false" accept="image/*" [maxFileSize]="1000000" [showCancelButton]="false" chooseLabel="Chọn hình ảnh" uploadLabel="Lưu"> 
+                                    </p-fileUpload>
+                                    <ng-template pTemplate="footer">
+                                        <p-button icon="pi pi-times" (click)="displayEditAvarta=false"
+                                            label="Hủy"></p-button>
+                                    </ng-template>
+                                </p-dialog>
+                            </div>
+                        </div>
+                        <div class="col card">
+                            <div class="field" (click)="showEditNameDialog()">
+                                <label for="username" class="block">Họ và tên</label>
+                                <input id="username" type="username" [disabled]="true" aria-describedby="username1-help"
+                                    pInputText [(ngModel)]="user.userName"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <p-dialog header="Chỉnh sửa họ và tên" [(visible)]="displayEditName" [modal]="true"
+                                [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                                <input id="username" type="username" aria-describedby="username1-help" pInputText
+                                    [(ngModel)]="user.userName"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                <ng-template pTemplate="footer">
+                                    <p-button icon="pi pi-check" (click)="editName(user.userName)" label="Lưu"
+                                        class="p-button-text"></p-button>
+                                    <p-button icon="pi pi-times" (click)="displayEditName=false" label="Hủy"></p-button>
+                                </ng-template>
+                            </p-dialog>
+                            <div class="field">
+                                <label for="username" class="block">Số điện thoại</label>
+                                <input id="username" type="username" [disabled]="true" aria-describedby="username1-help"
+                                    pInputText [(ngModel)]="user.phone"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Email</label>
+                                <input id="username" type="username" [disabled]="true" aria-describedby="username1-help"
+                                    pInputText [(ngModel)]="user.email"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Giới tính</label>
+                                <p-dropdown id="username" [options]="gender" [disabled]="true"
+                                    [(ngModel)]="selectgender" optionLabel="label"></p-dropdown>
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Ngày sinh</label>
+                                <p-calendar [(ngModel)]="time" [disabled]="true" [showTime]="true" [showSeconds]="true"
+                                    inputId="time"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

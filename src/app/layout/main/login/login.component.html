@@ -1,0 +1,19 @@
+<app-header></app-header>
+<div class="flex">
+    <app-sidebar></app-sidebar>
+    <div>
+        <p-toast></p-toast>
+        <div class="body">
+            <div class="txt">Chào bạn đến với eSMP</div>
+            <div class="txtinput">
+                <div style="padding-bottom: 15px;padding-top: 15px;"><input type="text" placeholder="Email"
+                        style="width: 100%" pInputText [(ngModel)]="userName" /></div>
+                <div><input type="password" placeholder="Mật khẩu" style="width: 100%;" pInputText
+                        [(ngModel)]="password" /></div>
+                <div style="text-align: center;padding-top: 20px;">
+                    <p-button label="Đăng nhập" [style]="{'width':'30%'}" (onClick)="signIn()"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

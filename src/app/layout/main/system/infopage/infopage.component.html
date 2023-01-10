@@ -1,0 +1,110 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-3">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div class="flex grid info">
+            <div class="col">
+                <div class="leftinfo bg-blue-50 border-round">
+                    <div class="card">
+                        <div class="card-container overflow-hidden">
+                            <div class="flex grid">
+                                <div class="col card">
+                                    <!-- <div class="field">
+                                        <label for="username" class="block">Tài sản</label>
+                                        <div class="grid">
+                                            <div class="col">
+                                                <p-inputNumber id="username" type="username" aria-describedby="username1-help"
+                                                    [(ngModel)]="systemInfo.asset" mode="currency" currency="VND"
+                                                    [disabled]="true">
+                                                </p-inputNumber>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="field">
+                                        <label for="username" class="block">Hoa hồng trên mỗi đơn hàng</label>
+                                        <div class="grid">
+                                            <div class="col">
+                                                <p-inputNumber [(ngModel)]="systemInfo.commission_Precent"
+                                                    inputId="percent" suffix="%" [disabled]="true"
+                                                    (click)="showCommission_PrecentDialog()"></p-inputNumber>
+                                            </div>
+                                            <p-dialog header="Chỉnh sửa hoa hồng trên mỗi đơn hàng" [(visible)]="displayCommission_Precent" [modal]="true"
+                                                [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
+                                                [resizable]="false">
+                                                <p-inputNumber [(ngModel)]="systemInfo.commission_Precent"
+                                                    inputId="percent" suffix="%"></p-inputNumber>
+                                                <ng-template pTemplate="footer">
+                                                    <p-button icon="pi pi-check" (click)="displayCommission_Precent=false"
+                                                        label="Yes" class="p-button-text"></p-button>
+                                                    <p-button icon="pi pi-times" (click)="displayCommission_Precent=false"
+                                                        label="No"></p-button>
+                                                </ng-template>
+                                            </p-dialog>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label for="username" class="block">Phí mở gian hàng</label>
+                                        <div class="grid">
+                                            <div class="col">
+                                                <p-inputNumber id="username" type="username"
+                                                    aria-describedby="username1-help"
+                                                    [(ngModel)]="systemInfo.amountActive" mode="currency" currency="VND"
+                                                    [disabled]="true">
+                                                </p-inputNumber>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label for="username" class="block">Phàn trăm hoàn tiền khi đơn hàng thất
+                                            bại</label>
+                                        <div class="grid">
+                                            <div class="col">
+                                                <p-inputNumber [(ngModel)]="systemInfo.refund_Precent" inputId="percent"
+                                                    prefix="%" [disabled]="true"></p-inputNumber>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label for="username" class="block">Trạng Thái</label>
+                                        <div class="grid">
+                                            <div class="col">
+                                                <div class="button">
+                                                    <div *ngIf="systemInfo.isActive; else elseBlocktext">
+                                                        <input id="username" type="username"
+                                                            aria-describedby="username1-help" [disabled]="true"
+                                                            pInputText value="Hoạt động" />
+                                                    </div>
+                                                    <ng-template #elseBlocktext>
+                                                        <input id="username" type="username"
+                                                            aria-describedby="username1-help" [disabled]="true"
+                                                            pInputText value="khóa" />
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="col" style="text-align: center;">
+                                            <div *ngIf="!systemInfo.isActive; else elseBlockbutton">
+                                                <button pButton pRipple label="Kích hoạt" icon="pi pi-check"></button>
+
+                                            </div>
+                                            <ng-template #elseBlockbutton>
+                                                <button pButton pRipple label="Khóa" icon="pi pi-times"
+                                                    class="p-button-raised p-button-warning"></button>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">ádá</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-3">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <button pButton pRipple label="Trở lại" class="p-button-text" icon="pi pi-chevron-left"
+            routerLink="/searchuser"></button>
+        <div class="info bg-blue-50 border-round">
+            <div class="card">
+                <div class="card-container overflow-hidden">
+                    <div class="flex grid">
+                        <div class="col">
+                            <p-image [src]="user.image.path" alt="Image" width="450" [preview]="true"></p-image>
+                            <div class="button">
+                                <div *ngIf="!user.isActive; else elseBlockbutton">
+                                    <div *ngIf="check">
+                                        <button pButton pRipple label="Kích hoạt" (click)="activeUser(user.userID)"
+                                            icon="pi pi-check"></button>
+                                    </div>
+                                </div>
+                                <ng-template #elseBlockbutton>
+                                    <div *ngIf="check">
+                                        <button pButton pRipple label="Khóa" (click)="blockUser(user.userID)"
+                                            icon="pi pi-times" class="p-button-raised p-button-warning"></button>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="col card">
+                            <div class="field">
+                                <label for="username" class="block">Họ và tên</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.userName"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Số điện thoại</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.phone"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Địa chỉ</label>
+                                <div (click)="op.toggle($event)">
+                                    <input id="username" type="username" aria-describedby="username1-help"
+                                        [disabled]="true" pInputText placeholder="Xem danh sách địa chỉ"
+                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                </div>
+                                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '750px'}">
+                                    <ng-template pTemplate>
+                                        <p-table [value]="notilist" selectionMode="single" [paginator]="true"
+                                            [rows]="5">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th pSortableColumn="name">Họ tên<p-sortIcon
+                                                            field="name"></p-sortIcon></th>
+                                                    <th pSortableColumn="name">Số điện thoại<p-sortIcon
+                                                            field="name"></p-sortIcon></th>
+                                                    <th pSortableColumn="name">Số nhà, đường<p-sortIcon
+                                                            field="name"></p-sortIcon></th>
+                                                    <th pSortableColumn="name">Phường(Xã)<p-sortIcon
+                                                            field="name"></p-sortIcon></th>
+                                                    <th pSortableColumn="name">Quận(Huyện, Thị trấn)<p-sortIcon
+                                                            field="name"></p-sortIcon></th>
+                                                    <th pSortableColumn="name">Tỉnh(Thành phố)<p-sortIcon
+                                                            field="name"></p-sortIcon></th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-rowData let-address>
+                                                <tr [pSelectableRow]="rowData">
+                                                    <td>{{address.userName}}</td>
+                                                    <td>{{address.phone}}</td>
+                                                    <td>{{address.context}}</td>
+                                                    <td>{{address.ward}}</td>
+                                                    <td>{{address.district}}</td>
+                                                    <td>{{address.province}}</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </ng-template>
+                                </p-overlayPanel>
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Email</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.email"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Giới tính</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.gender"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Ngày sinh</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.dateOfBirth"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Người dùng</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.role.roleName"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block">Trạng Thái</label>
+                                <div class="button">
+                                    <div *ngIf="user.isActive; else elseBlocktext">
+                                        <input id="username" type="username" aria-describedby="username1-help"
+                                            [disabled]="true" pInputText value="Hoạt động"
+                                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                    </div>
+                                    <ng-template #elseBlocktext>
+                                        <input id="username" type="username" aria-describedby="username1-help"
+                                            [disabled]="true" pInputText value="khóa"
+                                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
