@@ -104,7 +104,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col">ádá</div>
+            <div class="col">
+                <p-card header="Tài khoản" [subheader]="systemInfo.asset" [style]="{width: '300px'}" styleClass="p-card-shadow">
+                        <p-button label="Rút tiền" icon="pi pi-money-bill" styleClass="p-button-link"></p-button>
+                        <p-button label="Lịch sử" icon="pi pi-stopwatch" styleClass="p-button-secondary p-button-link" [style]="{'margin-left': '.5em'}"></p-button>
+                </p-card>
+            </div>
         </div>
     </div>
 </div>
