@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layout/main/home/home.component';
 import { LoginComponent } from './layout/main/login/login.component';
 import { LogoutComponent } from './layout/main/logout/logout.component';
+import { SearchsupComponent } from './layout/main/supplier/searchsup/searchsup.component';
 import { InfopageComponent } from './layout/main/system/infopage/infopage.component';
 import { ProfileComponent } from './layout/main/user/profile/profile.component';
 import { SearchComponent } from './layout/main/user/search/search.component';
@@ -15,11 +16,11 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: InfopageComponent
   },
   {
     path: '',
-    component: HomeComponent
+    component: LoginComponent
   },
   {
     path: 'logout',
@@ -34,12 +35,16 @@ const routes: Routes = [
     component: SearchComponent
   },
   {
-    path: 'userdetail',
+    path: 'userdetail/:id',
     component: UserdetailComponent
   },
   {
     path: 'systeminfo',
     component: InfopageComponent
+  },
+  {
+    path: 'searchsupplier',
+    component: SearchsupComponent
   },
 ];
 

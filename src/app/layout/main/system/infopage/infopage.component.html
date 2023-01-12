@@ -3,26 +3,30 @@
     <div class="col-3">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col">
+    <div class="col-9">
         <p-toast></p-toast>
-        <div class="flex grid info">
-            <div class="col">
+        <div class="info">
+            <div style="margin-right: 15px;">
                 <div class="leftinfo bg-blue-50 border-round">
                     <div class="card">
                         <div class="card-container overflow-hidden">
                             <div class="flex grid">
-                                <div class="col card">
-                                    <!-- <div class="field">
-                                        <label for="username" class="block">Tài sản</label>
-                                        <div class="grid">
-                                            <div class="col">
-                                                <p-inputNumber id="username" type="username" aria-describedby="username1-help"
-                                                    [(ngModel)]="systemInfo.asset" mode="currency" currency="VND"
-                                                    [disabled]="true">
-                                                </p-inputNumber>
-                                            </div>
+                                <div class="col">
+                                    <p-card header="Tài khoản" styleClass="p-card-shadow">
+                                        <div>
+                                            <p-inputNumber id="username" type="username"
+                                                aria-describedby="username1-help" [(ngModel)]="systemInfo.asset"
+                                                mode="currency" currency="VND" [disabled]="true">
+                                            </p-inputNumber>
                                         </div>
-                                    </div> -->
+                                        <ng-template pTemplate="footer">
+                                            <p-button label="Rút tiền" styleClass="p-button-link"></p-button>
+                                            <p-button label="Lịch sử" styleClass="p-button-secondary p-button-link"
+                                                [style]="{'margin-left': '.5em'}"></p-button>
+                                        </ng-template>
+                                    </p-card>
+                                </div>
+                                <div class="col card">
                                     <div class="field">
                                         <label for="username" class="block">Hoa hồng trên mỗi đơn hàng</label>
                                         <div class="grid">
@@ -31,16 +35,19 @@
                                                     inputId="percent" suffix="%" [disabled]="true"
                                                     (click)="showCommission_PrecentDialog()"></p-inputNumber>
                                             </div>
-                                            <p-dialog header="Chỉnh sửa hoa hồng trên mỗi đơn hàng" [(visible)]="displayCommission_Precent" [modal]="true"
+                                            <p-dialog header="Chỉnh sửa hoa hồng trên mỗi đơn hàng"
+                                                [(visible)]="displayCommission_Precent" [modal]="true"
                                                 [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
                                                 [resizable]="false">
-                                                <p-inputNumber [(ngModel)]="systemInfo.commission_Precent"
-                                                    inputId="percent" suffix="%"></p-inputNumber>
+                                                <p-inputNumber [(ngModel)]="Commission_Precent" inputId="percent"
+                                                    suffix="%"></p-inputNumber>
                                                 <ng-template pTemplate="footer">
-                                                    <p-button icon="pi pi-check" (click)="displayCommission_Precent=false"
-                                                        label="Yes" class="p-button-text"></p-button>
-                                                    <p-button icon="pi pi-times" (click)="displayCommission_Precent=false"
-                                                        label="No"></p-button>
+                                                    <p-button icon="pi pi-check"
+                                                        (click)="editCommission_PrecentDialog()" label="Lưu"
+                                                        class="p-button-text"></p-button>
+                                                    <p-button icon="pi pi-times"
+                                                        (click)="displayCommission_Precent=false"
+                                                        label="Hủy"></p-button>
                                                 </ng-template>
                                             </p-dialog>
                                         </div>
@@ -52,51 +59,47 @@
                                                 <p-inputNumber id="username" type="username"
                                                     aria-describedby="username1-help"
                                                     [(ngModel)]="systemInfo.amountActive" mode="currency" currency="VND"
-                                                    [disabled]="true">
+                                                    [disabled]="true" (click)="showAmount_Dialog()">
                                                 </p-inputNumber>
                                             </div>
+                                            <p-dialog header="Chỉnh sửa phí mở gian hàng" [(visible)]="displayAmount"
+                                                [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+                                                [draggable]="false" [resizable]="false">
+                                                <p-inputNumber id="username" type="username"
+                                                    aria-describedby="username1-help" [(ngModel)]="Amount"
+                                                    mode="currency" currency="VND">
+                                                </p-inputNumber>
+                                                <ng-template pTemplate="footer">
+                                                    <p-button icon="pi pi-check" (click)="editAmount_Dialog()"
+                                                        label="Lưu" class="p-button-text"></p-button>
+                                                    <p-button icon="pi pi-times" (click)="displayAmount=false"
+                                                        label="Hủy"></p-button>
+                                                </ng-template>
+                                            </p-dialog>
                                         </div>
                                     </div>
                                     <div class="field">
-                                        <label for="username" class="block">Phàn trăm hoàn tiền khi đơn hàng thất
+                                        <label for="username" class="block">Phần trăm hoàn tiền khi đơn hàng thất
                                             bại</label>
                                         <div class="grid">
                                             <div class="col">
                                                 <p-inputNumber [(ngModel)]="systemInfo.refund_Precent" inputId="percent"
-                                                    prefix="%" [disabled]="true"></p-inputNumber>
+                                                    prefix="%" [disabled]="true"
+                                                    (click)="showRefund_PrecentDialog()"></p-inputNumber>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="field">
-                                        <label for="username" class="block">Trạng Thái</label>
-                                        <div class="grid">
-                                            <div class="col">
-                                                <div class="button">
-                                                    <div *ngIf="systemInfo.isActive; else elseBlocktext">
-                                                        <input id="username" type="username"
-                                                            aria-describedby="username1-help" [disabled]="true"
-                                                            pInputText value="Hoạt động" />
-                                                    </div>
-                                                    <ng-template #elseBlocktext>
-                                                        <input id="username" type="username"
-                                                            aria-describedby="username1-help" [disabled]="true"
-                                                            pInputText value="khóa" />
-                                                    </ng-template>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div class="col" style="text-align: center;">
-                                            <div *ngIf="!systemInfo.isActive; else elseBlockbutton">
-                                                <button pButton pRipple label="Kích hoạt" icon="pi pi-check"></button>
-
-                                            </div>
-                                            <ng-template #elseBlockbutton>
-                                                <button pButton pRipple label="Khóa" icon="pi pi-times"
-                                                    class="p-button-raised p-button-warning"></button>
+                                        <p-dialog header="Chỉnh sửa phần trăm hoàn tiền khi đơn hàng thất bại"
+                                            [(visible)]="displayRefund_Precent" [modal]="true" [style]="{width: '50vw'}"
+                                            [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                                            <p-inputNumber [(ngModel)]="Refund_Precent" inputId="percent"
+                                                suffix="%"></p-inputNumber>
+                                            <ng-template pTemplate="footer">
+                                                <p-button icon="pi pi-check" (click)="editRefund_PrecentDialog()"
+                                                    label="Lưu" class="p-button-text"></p-button>
+                                                <p-button icon="pi pi-times" (click)="displayRefund_Precent=false"
+                                                    label="Hủy"></p-button>
                                             </ng-template>
-                                        </div>
+                                        </p-dialog>
                                     </div>
                                 </div>
                             </div>
@@ -105,10 +108,53 @@
                 </div>
             </div>
             <div class="col">
-                <p-card header="Tài khoản" [subheader]="systemInfo.asset" [style]="{width: '300px'}" styleClass="p-card-shadow">
-                        <p-button label="Rút tiền" icon="pi pi-money-bill" styleClass="p-button-link"></p-button>
-                        <p-button label="Lịch sử" icon="pi pi-stopwatch" styleClass="p-button-secondary p-button-link" [style]="{'margin-left': '.5em'}"></p-button>
-                </p-card>
+                <div class="grid">
+                    <div class="col-3">
+                        <p-card header="Gian hàng">
+                            <div class="grid">
+                                <div class="col" style="text-align: center;">
+                                    {{systemInfo.totalSupplier}}
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                    <div class="col-3">
+                        <p-card header="người mua">
+                            <div class="grid">
+                                <div class="col" style="text-align: center;">
+                                    {{systemInfo.totalCustomer}}
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                    <div class="col-3">
+                        <p-card header="Phụ tùng">
+                            <div class="grid">
+                                <div class="col" style="text-align: center;">
+                                    {{systemInfo.totalItem}}
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                    <div class="col-3" style="height: 10px;">
+                        <p-card header="Đơn hàng">
+                            <div class="grid">
+                                <div class="col" style="text-align: center;">
+                                    {{systemInfo.totalOrder}}
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+                <div>
+                    <div class="card" style="font-size: 20px;">
+                            Biểu đồ
+                            <p-calendar [(ngModel)]="year" view="year" [style]="{'margin-left':'50px'}" dateFormat="yy" [maxDate]="maxyear"
+                                placeholder="Năm" inputId="yearpicker" (onSelect)="changeChart()"></p-calendar>
+                            <p-button label="Tất cả" (onClick)="allChart()" styleClass="p-button-link"></p-button>
+                        <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

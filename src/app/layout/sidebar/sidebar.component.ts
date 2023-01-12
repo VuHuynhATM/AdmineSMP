@@ -29,7 +29,8 @@ export class SidebarComponent implements OnInit {
         },
         {
           label: 'Quản lý gian hàng',
-          icon: 'pi pi-fw pi-home'
+          icon: 'pi pi-fw pi-home',
+          routerLink: '/searchsupplier'
         },
         {
           label: 'Quản lý phụ tùng',

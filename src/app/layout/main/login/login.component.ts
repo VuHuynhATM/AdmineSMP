@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('USER')!=undefined){
+      this.router.navigate(['/home']);
+    }
   }
   signIn() {
     const reg = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g);

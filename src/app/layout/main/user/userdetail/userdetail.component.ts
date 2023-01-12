@@ -12,16 +12,22 @@ export class UserdetailComponent implements OnInit {
   user!: any;
   check: boolean = true;
   notilist!:any;
+  userID!:any;
   constructor(
     private messageService: MessageService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) {
+    this.userID=this.route.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {
     const yourid = JSON.parse(localStorage.getItem("USER") || "").userID;
     this.user = JSON.parse(localStorage.getItem("USER_DETAIL") || "");
+    if(this.user==undefined){
+      this.user=this.getUserDetail(this.userID);
+    }
     if (yourid == this.user.userID) {
       this.check = false;
     }
@@ -48,5 +54,16 @@ export class UserdetailComponent implements OnInit {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
     })
+  }
+  getUserDetail(id: any) :any{
+    this.userService.getUserDetail(id).subscribe((result) => {
+      if (result.success) {
+        return result.data;
+      }else{
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+    }, err => {
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    });
   }
 }

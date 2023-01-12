@@ -18,7 +18,8 @@
                                     [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
                                     [resizable]="false">
                                     <p-fileUpload [customUpload]="true" (uploadHandler)="editAvatar($event)"
-                                        [multiple]="false" accept="image/*" [maxFileSize]="1000000" [showCancelButton]="false" chooseLabel="Chọn hình ảnh" uploadLabel="Lưu"> 
+                                        [multiple]="false" accept="image/*" [maxFileSize]="1000000"
+                                        [showCancelButton]="false" chooseLabel="Chọn hình ảnh" uploadLabel="Lưu">
                                     </p-fileUpload>
                                     <ng-template pTemplate="footer">
                                         <p-button icon="pi pi-times" (click)="displayEditAvarta=false"
@@ -62,11 +63,21 @@
                                 <p-dropdown id="username" [options]="gender" [disabled]="true"
                                     [(ngModel)]="selectgender" optionLabel="label"></p-dropdown>
                             </div>
-                            <div class="field">
+                            <div class="field" (click)="showEditDoBDialog()">
                                 <label for="username" class="block">Ngày sinh</label>
                                 <p-calendar [(ngModel)]="time" [disabled]="true" [showTime]="true" [showSeconds]="true"
                                     inputId="time"></p-calendar>
                             </div>
+                            <p-dialog header="Chỉnh sửa ngày sinh" [(visible)]="displayEditDoB" [modal]="true"
+                                [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                                <p-calendar [(ngModel)]="time" [inline]="true" [style]="{'width':'47vw'}"
+                                    [showWeek]="true" ></p-calendar>
+                                <ng-template pTemplate="footer">
+                                    <p-button icon="pi pi-check" (click)="editDoB(time)" label="Lưu"
+                                        class="p-button-text"></p-button>
+                                    <p-button icon="pi pi-times" (click)="displayEditDoB=false" label="Hủy"></p-button>
+                                </ng-template>
+                            </p-dialog>
                         </div>
                     </div>
                 </div>

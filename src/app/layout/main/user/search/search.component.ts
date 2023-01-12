@@ -27,9 +27,9 @@ export class SearchComponent implements OnInit {
     this.getlistuser();
     this.roleIDs = [
       { label: 'Người dùng', value: '' },
-      { label: 'Customer', value: '2' },
-      { label: 'Admin', value: '1' },
-      { label: 'Supplier', value: '3' }
+      { label: 'Người mua', value: '2' },
+      { label: 'Quản trị', value: '1' },
+      { label: 'Nhà cung cấp', value: '3' }
     ]
     this.isactives = [
       { label: 'Trạng thái', value: '' },
@@ -78,7 +78,7 @@ export class SearchComponent implements OnInit {
     this.userService.getUserDetail(id).subscribe((result) => {
       if (result.success) {
         localStorage.setItem("USER_DETAIL", JSON.stringify(result.data))
-        this.router.navigate(['/userdetail']);
+        this.router.navigate(['/userdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }

@@ -20,6 +20,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {DialogModule} from 'primeng/dialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {CardModule} from 'primeng/card';
+import {ChartModule} from 'primeng/chart';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { ProfileComponent } from './layout/main/user/profile/profile.component';
 import { SearchComponent } from './layout/main/user/search/search.component';
 import { UserdetailComponent } from './layout/main/user/userdetail/userdetail.component';
 import { InfopageComponent } from './layout/main/system/infopage/infopage.component';
+import { SearchsupComponent } from './layout/main/supplier/searchsup/searchsup.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { InfopageComponent } from './layout/main/system/infopage/infopage.compon
     ProfileComponent,
     SearchComponent,
     UserdetailComponent,
-    InfopageComponent
+    InfopageComponent,
+    SearchsupComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { InfopageComponent } from './layout/main/system/infopage/infopage.compon
     DialogModule,
     FileUploadModule,
     CardModule,
+    ChartModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],
