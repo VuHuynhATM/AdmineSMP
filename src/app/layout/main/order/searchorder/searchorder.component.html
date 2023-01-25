@@ -1,0 +1,158 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <input type="text" pInputText placeholder="Tên người mua" [(ngModel)]="userName" />
+                    <input type="text" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
+                    <p-dropdown [options]="shipStatuses" [(ngModel)]="shipStatus"></p-dropdown>
+                    <p-calendar [(ngModel)]="dateFrom" placeholder="từ ngày" [maxDate]="dateTo" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                    <p-calendar [(ngModel)]="dateTo" placeholder="đến ngày" [minDate]="dateFrom" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                </div>
+
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search" (click)="searchorder()"></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div>
+            <p-table [value]="listorder">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 450px;">Thông tin đơn hàng</th>
+                        <th>Khách hàng</th>
+                        <th>Hàng hóa</th>
+                        <th style="width: 200px;">Thao tác</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-order>
+                    <tr>
+                        <td>
+                            <div class="p-2">
+                                Đơn hàng: {{order.orderID}}
+                            </div>
+                            <div class="p-2">
+                                Mã vận đơn: {{order.orderShip.labelID}}
+                            </div>
+                            <div class="p-2">
+                                Tiền hàng: {{order.priceItem}} VND
+                            </div>
+                            <div class="p-2">
+                                Tiền vận chuyển: {{order.feeShip}} VND
+                            </div>
+                            <div class="p-2 cursor-pointer" (click)="op.show($event, getliststatus(order.orderID))">
+                                Trạng thái:
+                                <span *ngIf="order.orderStatus.item_StatusID==3;else nomarlstatus"
+                                    class=" border-round-2xl border-1 border-red-500 p-1 surface-overlay justify-content-center">
+                                    {{order.orderShip.status}}
+                                </span>
+                                <ng-template #nomarlstatus>
+                                    <span
+                                        class=" border-round-2xl border-1 border-blue-500 p-1 surface-overlay justify-content-center">{{order.orderShip.status}}</span>
+                                </ng-template>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div style="border-bottom: 1px solid gray;">
+                                <div class="cursor-pointer" (click)="viewstoredetail(order.storeView.storeID)">Điểm lấy
+                                    hàng/ Nhà cung cấp:</div>
+                                <div>Họ tên: {{order.pick_Name}}</div>
+                                <div>SĐT: {{order.pick_Tel}}</div>
+                                <div>Địa chỉ: {{order.pick_Address}}, {{order.pick_Ward}}, {{order.pick_Province}},
+                                    {{order.pick_District}} </div>
+                            </div>
+                            <div>
+                                <div class="cursor-pointer" (click)="viewuserdetail(order.userID)">Điểm nhận hàng/ Người
+                                    mua</div>
+                                <div>Họ tên: {{order.name}}</div>
+                                <div>SĐT: {{order.tel}}</div>
+                                <div>Địa chỉ: {{order.address}}, {{order.ward}}, {{order.district}}, {{order.province}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let item of order.details" style="padding-bottom: 5px;">
+                                <div class="flex align-items-center cursor-pointer"
+                                    (click)="viewitemdetail(item.itemID)">
+                                    <p-avatar [image]="item.sub_ItemImage" styleClass="mr-2" size="large"
+                                        shape="circle"></p-avatar>
+                                    {{item.sub_ItemName}}
+                                </div>
+                                <div class="grid">
+                                    <div class="col-6">
+                                        <div>
+                                            Số lượng: {{item.amount}}
+                                        </div>
+                                        <div>
+                                            Tiền hàng: {{item.pricePurchase*(1-item.discountPurchase)}} VND
+                                        </div>
+                                    </div>
+                                    <div class="col-6"
+                                        *ngIf="order.orderShip.shipStatusID=='5'||order.orderShip.shipStatusID=='45'||order.orderShip.shipStatusID=='6'">
+                                        <button pButton pRipple label="Đánh giá" icon="pi pi-times" (click)="viewFeedbackDetail(item.orderDetailID)"
+                                            class="p-button-text p-button-warning"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngIf="order.orderShip.shipStatusID=='-2'||order.orderShip.shipStatusID=='1'">
+                                <button pButton pRipple label="hủy" icon="pi pi-times" (click)="displayCancelOrder=true"
+                                    class="p-button-text p-button-warning"></button>
+                                <p-dialog header="Hủy đơn hàng" [(visible)]="displayCancelOrder" [modal]="true"
+                                    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
+                                    [resizable]="false">
+                                    <input id="username" type="username" aria-describedby="username1-help" pInputText
+                                        [(ngModel)]="reason" placeholder="Nguyên nhân"
+                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                    <ng-template pTemplate="footer">
+                                        <p-button icon="pi pi-check" (click)="cancelOrder(order.orderID)"
+                                            label="Xác nhận" class="p-button-text"></p-button>
+                                        <p-button icon="pi pi-times" (click)="displayCancelOrder=false"
+                                            label="Hủy"></p-button>
+                                    </ng-template>
+                                </p-dialog>
+                            </div>
+                            <div>
+                                <button pButton pRipple label="Nhãn in" icon="pi pi-times"
+                                    (click)="getTiket(order.orderID)" class="p-button-text"></button>
+                            </div>
+
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+<p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+    <ng-template pTemplate>
+        <p-table [value]="shiplist.shipStatusModels">
+            <ng-template pTemplate="body" let-rowData let-product>
+                <tr [pSelectableRow]="rowData">
+                    <td>{{product.status}}</td>
+                    <td>{{product.create_Date}}</td>
+                    <td>{{product.reason}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+</p-overlayPanel>

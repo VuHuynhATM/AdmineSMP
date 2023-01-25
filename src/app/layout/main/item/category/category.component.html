@@ -1,0 +1,81 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div class="card grid h-full">
+            <div class="col-5 border-right-1 border-black-500">
+                <div class="text-4xl" style="margin-bottom: 10px;">Các loại phụ tùng</div>
+                <button pButton pRipple label="Thêm loại phụ tùng" class="p-button-text" (click)="displayAdCategory=true" ></button>
+                <p-dialog header="Thêm loại phụ tùng" [(visible)]="displayAdCategory" [modal]="true"
+                    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                    <input id="username" type="username" aria-describedby="username1-help" pInputText
+                        [(ngModel)]="categoryName" placeholder="Nhập loại phụ tùng"
+                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    <ng-template pTemplate="footer">
+                        <p-button icon="pi pi-check" (click)="addCategory()" label="Lưu"
+                            class="p-button-text"></p-button>
+                        <p-button icon="pi pi-times" (click)="displayAdCategory=false" label="Hủy"></p-button>
+                    </ng-template>
+                </p-dialog>
+                <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;"
+                    *ngFor="let cate of categories">
+                    <div class="col-8 cursor-pointer" (click)="getsubcategory(cate.categoryID)">
+                        <div class="flex text-2xl">{{cate.name}}</div>
+                        <div class="flex" *ngIf="cate.isActive; else cateblock">Hoạt động</div>
+                        <ng-template #cateblock>
+                            khóa
+                        </ng-template>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div *ngIf="cate.isActive; else catebtnblock">
+                            <button pButton pRipple label="Khóa" (click)="blockCategory(cate.categoryID)"
+                                icon="pi pi-times" class="p-button-raised p-button-warning"></button>
+                        </div>
+                        <ng-template #catebtnblock>
+                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
+                                (click)="activeCategory(cate.categoryID)"></button>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" style="margin-left: 20px;">
+                <div class="text-4xl" style="margin-bottom: 10px; padding-left: 100px; ">Phân loại phụ tùng</div>
+                <button *ngIf="subcategories" pButton pRipple label="Thêm phân loại phụ tùng"  (click)="displaysubAdCategory=true"
+                    class="p-button-text"></button>
+                    <p-dialog header="Thêm phân loại phụ tùng" [(visible)]="displaysubAdCategory" [modal]="true"
+                    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                    <input id="username" type="username" aria-describedby="username1-help" pInputText
+                        [(ngModel)]="subcategoryName" placeholder="Nhập phân loại phụ tùng"
+                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    <ng-template pTemplate="footer">
+                        <p-button icon="pi pi-check" (click)="addSubCategory()" label="Lưu"
+                            class="p-button-text"></p-button>
+                        <p-button icon="pi pi-times" (click)="displaysubAdCategory=false" label="Hủy"></p-button>
+                    </ng-template>
+                </p-dialog>
+                <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;"
+                    *ngFor="let cate of subcategories">
+                    <div class="col-8">
+                        <div class="flex text-2xl">{{cate.sub_categoryName}}</div>
+                        <div class="flex" *ngIf="cate.isActive; else cateblock">Hoạt động</div>
+                        <ng-template #cateblock>
+                            khóa
+                        </ng-template>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div *ngIf="cate.isActive; else catebtnblock">
+                            <button pButton pRipple label="Khóa" (click)="blocksubCategory(cate.sub_CategoryID)"
+                                icon="pi pi-times" class="p-button-raised p-button-warning"></button>
+                        </div>
+                        <ng-template #catebtnblock>
+                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
+                                (click)="activesubCategory(cate.sub_CategoryID)"></button>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

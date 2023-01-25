@@ -11,33 +11,30 @@ import { UserService } from 'src/app/service/user/user.service';
 export class UserdetailComponent implements OnInit {
   user!: any;
   check: boolean = true;
-  notilist!:any;
-  userID!:any;
+  notilist!: any;
+  userID!: any;
   constructor(
     private messageService: MessageService,
     private router: Router,
     private userService: UserService,
     private route: ActivatedRoute
   ) {
-    this.userID=this.route.snapshot.paramMap.get('id')!;
+    this.userID = this.route.snapshot.paramMap.get('id')!;
   }
 
   ngOnInit(): void {
     const yourid = JSON.parse(localStorage.getItem("USER") || "").userID;
-    this.user = JSON.parse(localStorage.getItem("USER_DETAIL") || "");
-    if(this.user==undefined){
-      this.user=this.getUserDetail(this.userID);
-    }
+    this.getUserDetail(this.userID);
     if (yourid == this.user.userID) {
       this.check = false;
     }
-    this.notilist=this.user.addresses;
+    this.notilist = this.user.addresses;
   }
   activeUser(userID: number) {
     this.userService.updateStatusUser(userID, true).subscribe((result) => {
       if (result.success) {
         this.user.isActive = true;
-        localStorage.setItem("USER_DETAIL",JSON.stringify(this.user));
+        localStorage.setItem("USER_DETAIL", JSON.stringify(this.user));
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
@@ -48,19 +45,19 @@ export class UserdetailComponent implements OnInit {
     this.userService.updateStatusUser(userID, false).subscribe((result) => {
       if (result.success) {
         this.user.isActive = false;
-        localStorage.setItem("USER_DETAIL",JSON.stringify(this.user));
+        localStorage.setItem("USER_DETAIL", JSON.stringify(this.user));
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
     })
   }
-  getUserDetail(id: any) :any{
+  getUserDetail(id: any) {
     this.userService.getUserDetail(id).subscribe((result) => {
       if (result.success) {
-        return result.data;
-      }else{
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+        this.user= result.data;
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
     }, err => {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });

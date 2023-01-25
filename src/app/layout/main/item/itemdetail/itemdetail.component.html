@@ -1,0 +1,201 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div class="card grid">
+            <div class="col-6">
+                <p-galleria [value]="item.list_Image" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+                    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"
+                    [showIndicatorsOnItem]="true">
+                    <ng-template pTemplate="item" let-imge>
+                        <span *ngIf="subitem==undefined; else imagedisplay">
+                            <img [src]="imge.path" style="width: 100%; display: block; height: 500px;" />
+                        </span>
+                        <ng-template #imagedisplay>
+                            <img [src]="subitem.image.path" style="width: 100%; display: block; height: 500px;" />
+                        </ng-template>
+                    </ng-template>
+                    <ng-template pTemplate="thumbnail" let-imge>
+                        <div class="grid grid-nogutter justify-content-center">
+                            <p-image [src]="imge.path" height="80"></p-image>
+                        </div>
+                    </ng-template>
+                </p-galleria>
+            </div>
+            <div class="col-6">
+                <div class="flex text-4xl">
+                    <span *ngIf="subitem==undefined; else subname">
+                        {{item.name}}
+                    </span>
+                    <ng-template #subname>
+                        {{subitem.sub_ItemName}}
+                    </ng-template>
+                </div>
+                <div class="flex text-1xl " style="margin-top: 10px;">
+                    Mô tả: {{item.description}}
+                </div>
+                <div class="flex gird" style="margin-top: 25px;">
+                    <div class="flex col-4">
+                        <p-rating [ngModel]="item.rate" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                    </div>
+                    <div class="flex col-4"
+                        style="border-left: 1px solid rgba(0,0,0,.14);border-right: 1px solid rgba(0,0,0,.14);">
+                        {{item.num_Feedback}} đánh giá
+                    </div>
+                    <div class="flex col-4">
+                        {{item.num_Sold}} đã bán
+                    </div>
+                </div>
+                <div class="flex text-xl" style="margin-top: 25px;margin-bottom: 25px;">
+                    <span *ngIf="firstPrice!=undefined" class="line-through" style="margin-right: 30px;">
+                        {{firstPrice}}
+                    </span>
+                    <span class="text-red-400" style="margin-right: 30px;">
+                        {{secondPrice}}
+                    </span>
+                    <span>
+                        {{discount}}
+                    </span>
+                </div>
+                <div class="flex grid" *ngFor="let subItem of item.listSubItem">
+                    <div class="flex" style="margin: 5px;">
+                        <span *ngIf="subitem==undefined; else subundefined">
+                            <button pButton pRipple type="button" [label]="subItem.sub_ItemName"
+                                (click)="onSubItem(subItem.sub_ItemID)"
+                                class="p-button-outlined p-button-secondary"></button>
+                        </span>
+                        <ng-template #subundefined>
+                            <span *ngIf="subitem.sub_ItemID==subItem.sub_ItemID; else subelse">
+                                <button pButton pRipple type="button" [label]="subItem.sub_ItemName"
+                                    (click)="offSubItem(subItem.sub_ItemID)" class="p-button-outlined"></button>
+                            </span>
+                            <ng-template #subelse>
+                                <button pButton pRipple type="button" [label]="subItem.sub_ItemName"
+                                    (click)="onSubItem(subItem.sub_ItemID)"
+                                    class="p-button-outlined p-button-secondary"></button>
+                            </ng-template>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="flex text-xl" style="margin-top: 25px;">
+                    Trạng thái:
+                    <span *ngIf="subitem==undefined; else statusdisplay" style="margin-left: 10px;">
+                        {{item.item_Status.statusName}}
+                    </span>
+                    <ng-template #statusdisplay>
+                        {{subitem.subItem_Status.statusName}}
+                    </ng-template>
+                </div>
+                <div class="flex align-items-center text-xl" style="margin-top: 20px;">
+                    <div routerLink="/searchsupplier" (click)="viewstoredetail(item.store.storeID)"
+                        class="cursor-pointer border-round-2xl border-1 border-blue-500 p-2 surface-overlay font-bold flex align-items-center justify-content-center">
+                        <p-avatar [image]="item.store.imagepath" size="xlarge" shape="circle"></p-avatar>
+                        <div style="margin-left: 20px;">{{item.store.storeName}}</div>
+                    </div>
+                </div>
+                <div class="flex align-items-end" style="height: 100px;">
+                    <div class="col text-center">
+                        <div class="button">
+                            <div *ngIf="subitem==undefined; else elsesubbutton">
+                                <span *ngIf="item.item_Status.item_StatusID==2; else blockitembutton">
+                                    <button pButton pRipple label="Kích hoạt" (click)="activeItem(item.itemID)"
+                                        icon="pi pi-check"></button>
+                                </span>
+                                <ng-template #blockitembutton>
+                                    <button pButton pRipple label="Khóa" icon="pi pi-times"
+                                        (click)="blockItem(item.itemID)"
+                                        class="p-button-raised p-button-warning"></button>
+                                </ng-template>
+                            </div>
+                            <ng-template #elsesubbutton>
+                                <span *ngIf="subitem.subItem_Status.item_StatusID==2; else blocksubitembutton">
+                                    <button pButton pRipple label="Kích hoạt"
+                                        (click)="activeSubItem(subitem.sub_ItemID)" icon="pi pi-check"></button>
+                                </span>
+                                <ng-template #blocksubitembutton>
+                                    <button pButton pRipple label="Khóa" icon="pi pi-times"
+                                        (click)="blockSubItem(subitem.sub_ItemID)"
+                                        class="p-button-raised p-button-warning"></button>
+                                </ng-template>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="col text-3xl" style="margin-bottom: 15px;">Thông số kỹ thuật</div>
+            <div class="grid">
+                <div class="col-6 grid text-xl" *ngFor="let spec of item.specification_Tag">
+                    <div class="col-4">
+                        {{spec.specificationName}}
+                    </div>
+                    <div class="col-8" *ngIf="spec.specificationID==2; else specnonweight">
+                        {{spec.value}} mg
+                    </div>
+                    <ng-template #specnonweight>
+                        <div class="col-8">
+                            {{spec.value}}
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="col text-3xl" style="margin-bottom: 15px;">Phương tiện chuyên dụng</div>
+            <div class="grid text-xl" *ngFor="let brand of item.listModel">
+                <div class="col-2">
+                    {{brand.name}}
+                </div>
+                <div class="col-10">
+                    <span *ngFor="let model of brand.listModel">
+                        {{model.name}}, 
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="col flex text-3xl" style="margin-bottom: 15px;">
+                <span>Đánh giá</span>
+                <span style="margin-left: 20px;">
+                    <p-rating [ngModel]="item.rate" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                </span>
+            </div>
+            <div class="grid">
+                <div class="col grid text-xl" *ngFor="let feedback of item.listFeedBack">
+                    <div class="col-1">
+                        <p-avatar [image]="feedback.userAvatar" styleClass="mr-2" size="xlarge"
+                            shape="circle"></p-avatar>
+                    </div>
+                    <div class="col-10">
+                        <div>
+                            {{feedback.userName}}
+                        </div>
+                        <div>
+                            <p-rating [ngModel]="feedback.rate" [readonly]="true" [stars]="5"
+                                [cancel]="false"></p-rating>
+                        </div>
+                        <div>
+                            {{feedback.create_Date}}
+                        </div>
+                        <div>
+                            Phụ tùng: {{feedback.sub_itemName}}
+                        </div>
+                        <div>
+                            {{feedback.comment}}
+                        </div>
+                        <div class="flex" *ngFor="let feedbackimg of feedback.imagesFB">
+                            <p-image [src]="feedbackimg.path" alt="Image" width="150"></p-image>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" *ngIf="page<totalpage">
+                <button pButton pRipple label="Xem thêm" (click)="getlisFeedback()"></button>
+            </div>
+        </div>
+    </div>
+</div>

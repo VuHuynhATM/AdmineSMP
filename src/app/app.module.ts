@@ -21,6 +21,16 @@ import {DialogModule} from 'primeng/dialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {CardModule} from 'primeng/card';
 import {ChartModule} from 'primeng/chart';
+import {AvatarModule} from 'primeng/avatar';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { ChipModule } from 'primeng/chip';
+import {RatingModule} from 'primeng/rating';
+import {SidebarModule} from 'primeng/sidebar';
+import {DataViewModule} from 'primeng/dataview';
+import {GalleriaModule} from 'primeng/galleria';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {OrderListModule} from 'primeng/orderlist';
+import {ListboxModule} from 'primeng/listbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,6 +47,15 @@ import { SearchComponent } from './layout/main/user/search/search.component';
 import { UserdetailComponent } from './layout/main/user/userdetail/userdetail.component';
 import { InfopageComponent } from './layout/main/system/infopage/infopage.component';
 import { SearchsupComponent } from './layout/main/supplier/searchsup/searchsup.component';
+import { LoadingComponent } from './layout/loading/loading.component';
+import { SuppdetailComponent } from './layout/main/supplier/suppdetail/suppdetail.component';
+import { ItemsearchComponent } from './layout/main/item/itemsearch/itemsearch.component';
+import { ItemdetailComponent } from './layout/main/item/itemdetail/itemdetail.component';
+import { SearchorderComponent } from './layout/main/order/searchorder/searchorder.component';
+import { FeedbackComponent } from './layout/main/order/feedback/feedback.component';
+import { CategoryComponent } from './layout/main/item/category/category.component';
+import { BrandComponent } from './layout/main/item/brand/brand.component';
+import { SpecificationComponent } from './layout/main/item/specification/specification.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +69,16 @@ import { SearchsupComponent } from './layout/main/supplier/searchsup/searchsup.c
     SearchComponent,
     UserdetailComponent,
     InfopageComponent,
-    SearchsupComponent
+    SearchsupComponent,
+    LoadingComponent,
+    SuppdetailComponent,
+    ItemsearchComponent,
+    ItemdetailComponent,
+    SearchorderComponent,
+    FeedbackComponent,
+    CategoryComponent,
+    BrandComponent,
+    SpecificationComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +103,16 @@ import { SearchsupComponent } from './layout/main/supplier/searchsup/searchsup.c
     FileUploadModule,
     CardModule,
     ChartModule,
+    AvatarModule,
+    ProgressSpinnerModule,
+    ChipModule,
+    RatingModule,
+    SidebarModule,
+    DataViewModule,
+    GalleriaModule,
+    ToggleButtonModule,
+    OrderListModule,
+    ListboxModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],

@@ -1,0 +1,51 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div class="card grid">
+            <div class="col-6 cursor-pointer">
+                <div>
+                    <p-image [src]="feedback.subItemImage" alt="Image" width="100%" [preview]="true"></p-image>
+                </div>
+                <div class="cursor-pointer p-2 text-3xl" (click)="viewItemdetail(feedback.itemID)">
+                    {{feedback.sub_itemName}}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="flex align-items-center text-2xl cursor-pointer" (click)="viewuserdetail(feedback.userID)">
+                    <p-avatar [image]="feedback.useravatar" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                    {{feedback.userName}}
+                </div>
+                <div class="p-2 text-2xl">
+                    <p-rating [ngModel]="feedback.rate" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                </div>
+                <div class="p-2 text-2xl">
+                    {{feedback.create_Date}}
+                </div>
+                <div class="p-2 text-2xl">
+                    Đánh giá: {{feedback.comment}}
+                </div>
+                <div class="p-2 text-1xl">
+                    <p-galleria [value]="feedback.imagesFB" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+                        [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"
+                        [showIndicatorsOnItem]="true">
+                        <ng-template pTemplate="item" let-imge>
+                            <img [src]="imge.path" style="display: block; height: 400px;" />
+                        </ng-template>
+                        <ng-template pTemplate="thumbnail" let-imge>
+                            <div class="grid grid-nogutter justify-content-center">
+                                <p-image [src]="imge.path" height="80"></p-image>
+                            </div>
+                        </ng-template>
+                    </p-galleria>
+                </div>
+                <div class="p-2 text-2xl">
+                    Trạng thái: {{feedback.feedback_Status.statusName}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div class="card grid h-full">
+            <div class="col-5 border-right-1 border-black-500">
+                <div class="text-4xl" style="margin-bottom: 10px;">Các hãng xe</div>
+                <button pButton pRipple label="Thêm hãng xe" class="p-button-text" (click)="displayAddBrand=true" ></button>
+                <p-dialog header="Thêm hãng xe" [(visible)]="displayAddBrand" [modal]="true"
+                    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                    <input id="username" type="username" aria-describedby="username1-help" pInputText
+                        [(ngModel)]="brandName" placeholder="Nhập hãng xe"
+                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    <ng-template pTemplate="footer">
+                        <p-button icon="pi pi-check" (click)="addBrand()" label="Lưu"
+                            class="p-button-text"></p-button>
+                        <p-button icon="pi pi-times" (click)="displayAddBrand=false" label="Hủy"></p-button>
+                    </ng-template>
+                </p-dialog>
+                <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;"
+                    *ngFor="let brand of brands">
+                    <div class="col-8 cursor-pointer" (click)="getsubcategory(brand.brandID)">
+                        <div class="flex text-2xl">{{brand.name}}</div>
+                        <div class="flex" *ngIf="brand.isActive; else cateblock">Hoạt động</div>
+                        <ng-template #cateblock>
+                            khóa
+                        </ng-template>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div *ngIf="brand.isActive; else catebtnblock">
+                            <button pButton pRipple label="Khóa" (click)="blockBrand(brand.brandID)"
+                                icon="pi pi-times" class="p-button-raised p-button-warning"></button>
+                        </div>
+                        <ng-template #catebtnblock>
+                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
+                                (click)="activeBrand(brand.brandID)"></button>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" style="margin-left: 20px;">
+                <div class="text-4xl" style="margin-bottom: 10px; padding-left: 100px; ">Phương tiện</div>
+                <button *ngIf="Motorcycles" pButton pRipple label="Thêm phương tiện"  (click)="displayAddMotorcyle=true"
+                    class="p-button-text"></button>
+                    <p-dialog header="Thêm phương tiện" [(visible)]="displayAddMotorcyle" [modal]="true"
+                    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                    <input id="username" type="username" aria-describedby="username1-help" pInputText
+                        [(ngModel)]="motorcycleName" placeholder="Nhập tên phương tiện"
+                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                    <ng-template pTemplate="footer">
+                        <p-button icon="pi pi-check" (click)="addSubCategory()" label="Lưu"
+                            class="p-button-text"></p-button>
+                        <p-button icon="pi pi-times" (click)="displayAddMotorcyle=false" label="Hủy"></p-button>
+                    </ng-template>
+                </p-dialog>
+                <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;"
+                    *ngFor="let motor of Motorcycles">
+                    <div class="col-8">
+                        <div class="flex text-2xl">{{motor.name}}</div>
+                        <div class="flex" *ngIf="motor.isActive; else cateblock">Hoạt động</div>
+                        <ng-template #cateblock>
+                            khóa
+                        </ng-template>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div *ngIf="motor.isActive; else catebtnblock">
+                            <button pButton pRipple label="Khóa" (click)="blockMotorcycle(motor.brand_ModelID)"
+                                icon="pi pi-times" class="p-button-raised p-button-warning"></button>
+                        </div>
+                        <ng-template #catebtnblock>
+                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
+                                (click)="activeMotorcycle(motor.brand_ModelID)"></button>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

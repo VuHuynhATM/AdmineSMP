@@ -1,0 +1,81 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DOMAIN } from 'src/app/utils/AppConfig';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ItemService {
+
+  headers: any;
+
+  constructor(private httpClient: HttpClient) {
+    this.headers = new HttpHeaders({
+      'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+      'accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
+    });
+  }
+  getListItemSearch(search:string, min:number, max:number, rate:number, cateID:number, subCateID:number, brandID:number, brandModelID:number, sortBy:string, storeID:number, page:number ): Observable<any> {
+    var searchtxt="";
+    if(search!=undefined){
+      searchtxt=search;
+    }
+    var mintxt="";
+    if(min!=undefined){
+      mintxt=min+"";
+    }
+    var maxtxt="";
+    if(max!=undefined){
+      maxtxt=max+"";
+    }
+    var ratetxt="";
+    if(rate!=undefined){
+      ratetxt=rate+"";
+    }
+    var cateIDtxt="";
+    if(cateID!=undefined){
+      cateIDtxt=cateID+"";
+    }
+    var subCateIDtxt="";
+    if(subCateID!=undefined){
+      subCateIDtxt=subCateID+"";
+    }
+    var brandIDtxt="";
+    if(brandID!=undefined){
+      brandIDtxt=brandID+"";
+    }
+    var brandModelIDtxt="";
+    if(brandModelID!=undefined){
+      brandModelIDtxt=brandModelID+"";
+    }
+    var sortBytxt="";
+    if(sortBy!=undefined){
+      sortBytxt=sortBy+"";
+    }
+    var storeIDtxt="";
+    if(storeID!=undefined){
+      storeIDtxt=storeID+"";
+    }
+    return this.httpClient.get(DOMAIN + `Item/search_admin?search=${searchtxt}&min=${mintxt}&max=${maxtxt}&rate=${ratetxt}&cateID=${cateIDtxt}&subCateID=${subCateIDtxt}&brandID=${brandIDtxt}&brandModelID=${brandModelIDtxt}&sortBy=${sortBytxt}&storeID=${storeIDtxt}&page=${page}&isSupplier=${false}`, )
+  }
+  getItemDetail(id:number):Observable<any>{
+    return this.httpClient.get(DOMAIN + `Item/item_detail?itemID=${id}`,{ headers: this.headers });
+  }
+  activeItem(id:number):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Item/active_item?itemID=${id}`, null,{ headers: this.headers });
+  }
+  activeSubItem(id:number):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Item/active_subItem?subItemID=${id}`, null,{ headers: this.headers });
+  }
+  blockItem(id:number):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Item/block_item?itemID=${id}`, null,{ headers: this.headers });
+  }
+  blockSubItem(id:number):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Item/block_subItem?subItemID=${id}`, null,{ headers: this.headers });
+  }
+  getlistFeedback(itemID:number,page:number):Observable<any>{
+    return this.httpClient.get(DOMAIN + `Item/item_feedback?itemID=${itemID}&page=${page}`,{ headers: this.headers });
+  }
+}

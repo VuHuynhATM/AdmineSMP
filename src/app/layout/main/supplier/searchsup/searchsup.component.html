@@ -1,10 +1,71 @@
 <app-header></app-header>
 <div class="flex grid">
-    <div class="col-3">
+    <div class="col-2">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col-9">
+    <div class="col">
         <p-toast></p-toast>
-        <p>home works!</p>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <input type="text" pInputText placeholder="Tên gian hàng" [(ngModel)]="search" />
+                    <p-dropdown [options]="statuses" [(ngModel)]="status"></p-dropdown>
+                </div>
+
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search" (click)="getlistsupplier()"></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div>
+            <p-table [value]="listSupplier">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Mã</th>
+                        <th>Ảnh đại diện</th>
+                        <th>Tên gian hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Ngày tạo</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-supplier>
+                    <tr (click)="viewdetail(supplier.storeID)">
+                        <td>
+                            {{supplier.storeID}}
+                        </td>
+                        <td>
+                            <p-avatar [image]="supplier.image.path" styleClass="mr-2" size="xlarge"
+                                shape="circle"></p-avatar>
+                        </td>
+                        <td>
+                            {{supplier.storeName}}
+                        </td>
+                        <td>
+                            {{supplier.phone}}
+                        </td>
+                        <td>
+                            {{supplier.email}}
+                        </td>
+                        <td>
+                            {{supplier.create_date}}
+                        </td>
+                        <td>
+                            {{supplier.store_Status.statusName}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
     </div>
 </div>

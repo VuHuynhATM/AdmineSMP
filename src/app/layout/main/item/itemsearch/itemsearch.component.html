@@ -1,0 +1,119 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <div class="card">
+                <p-toolbar>
+                    <div class="p-toolbar-group-start">
+                    </div>
+                    <div class="p-toolbar-group-end">
+                        <p-button icon="pi pi-search" (click)="visibleSidebar = true"></p-button>
+                    </div>
+                </p-toolbar>
+                <p-sidebar [(visible)]="visibleSidebar" position="right" [baseZIndex]="10000" [blockScroll]="true"
+                    styleClass="p-sidebar-mask p-sidebar-md">
+                    <ng-template pTemplate="content">
+                        <div class="h-screen">
+                            <div class="flex">
+                                <div style="margin-right: 5px;">
+                                    <input type="text" pInputText placeholder="Tên phụ tùng" [(ngModel)]="search" />
+                                </div>
+                                <div style="margin-right: 5px;">
+                                    <input type="number" pInputText placeholder="Mã nhà cung cấp" [(ngModel)]="storeID"
+                                        [min]="0" />
+                                </div>
+                            </div>
+                            <div class="flex" style="margin-top: 5px;">
+                                <div style="margin-right: 5px;">
+                                    <p-inputNumber placeholder="Từ" type="username" aria-describedby="username1-help"
+                                        [(ngModel)]="min" mode="currency" currency="VND">
+                                    </p-inputNumber>
+                                </div>
+                                <div style="margin-right: 5px;">
+                                    <p-inputNumber placeholder="Đến" type="username" aria-describedby="username1-help"
+                                        [(ngModel)]="max" mode="currency" currency="VND">
+                                    </p-inputNumber>
+                                </div>
+                            </div>
+                            <div class="flex" style="margin-top: 5px;">
+                                <div style="margin-right: 5px;">
+                                    <p-dropdown [options]="sorts" [(ngModel)]="sort"></p-dropdown>
+                                </div>
+                                <div style="margin-right: 5px;">
+                                    <p-dropdown [options]="statuses" [(ngModel)]="status"></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="flex" style="margin-top: 5px;">
+                                <div style="margin-right: 5px;">
+                                    <p-dropdown [options]="categories" [(ngModel)]="category"
+                                        (onChange)="getsubcategory()"></p-dropdown>
+                                </div>
+                                <div *ngIf="category!=undefined && category!=''">
+                                    <p-dropdown [options]="subcategories" [(ngModel)]="subcategory"></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="flex" style="margin-top: 5px;">
+                                <div style="margin-right: 5px;">
+                                    <p-dropdown [options]="brands" [(ngModel)]="brand"
+                                        (onChange)="getmoto()"></p-dropdown>
+                                </div>
+                                <div *ngIf="brand!=undefined && brand!=''">
+                                    <p-dropdown [options]="motors" [(ngModel)]="motor"></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="flex" style="margin-top: 5px;">
+                                <p-rating [(ngModel)]="rating"></p-rating>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <p-button label="Tìm kiếm" icon="pi pi-search" iconPos="right"
+                            (onClick)="searchItem()"></p-button>
+                    </ng-template>
+                </p-sidebar>
+                <p-dataView #dv [value]="listitem">
+                    <ng-template let-product pTemplate="listItem">
+                        <div class="col-12 md:col-4 cursor-pointer " (click)="viewdetail(product.itemID)">
+                            <div class="product-grid-item card">
+                                <div class="product-grid-item-top">
+                                    <div>
+                                        <i class="pi pi-map-marker product-category-icon"></i>
+                                        <span class="product-category">{{product.province}}</span>
+                                    </div>
+                                </div>
+                                <div class="product-grid-item-content">
+                                    <img [src]="product.item_Image" [alt]="product.name" />
+                                    <div
+                                        class="product-name surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                                        {{product.name}}</div>
+                                    <div
+                                        class="product-description surface-overlay white-space-nowrap overflow-hidden text-overflow-ellipsis">
+                                        {{product.description}}</div>
+                                    <p-rating [ngModel]="product.rate" [readonly]="true" [cancel]="false"></p-rating>
+                                </div>
+                                <div class="product-grid-item-bottom">
+                                    <span *ngIf="product.discount>0"
+                                        class="product-price line-through">{{product.price}} VND </span>
+                                    <span class="product-price text-red-400">{{product.price*(1-product.discount)}} VND</span>
+                                    <span>Đã bán {{product.num_Sold}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <div style="text-align: center;">
+                            <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                                styleClass="p-button-text"></p-button>
+                            <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                            <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                                styleClass="p-button-text"></p-button>
+                        </div>
+                    </ng-template>
+                </p-dataView>
+            </div>
+        </div>
+    </div>

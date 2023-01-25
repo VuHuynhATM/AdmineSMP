@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div class="card">
+            <div class="text-4xl" style="margin-bottom: 10px;">Các thông số kĩ thuật</div>
+            <button pButton pRipple label="Thêm thông số" class="p-button-text" (click)="displayAddSpec=true"></button>
+            <p-dialog header="Thêm hãng xe" [(visible)]="displayAddSpec" [modal]="true" [style]="{width: '50vw'}"
+                [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                <input id="username" type="username" aria-describedby="username1-help" pInputText
+                    [(ngModel)]="specificationName" placeholder="Nhập thông số"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                <ng-template pTemplate="footer">
+                    <p-button icon="pi pi-check" (click)="addSpecification()" label="Lưu" class="p-button-text"></p-button>
+                    <p-button icon="pi pi-times" (click)="displayAddSpec=false" label="Hủy"></p-button>
+                </ng-template>
+            </p-dialog>
+            <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;" *ngFor="let spec of specifications">
+                <div class="col-8 cursor-pointer">
+                    <div class="flex text-2xl">{{spec.specificationName}}</div>
+                    <div class="flex" *ngIf="spec.isActive; else cateblock">Hoạt động</div>
+                    <ng-template #cateblock>
+                        khóa
+                    </ng-template>
+                </div>
+                <div class="col-4 text-center">
+                    <div *ngIf="spec.isActive; else catebtnblock">
+                        <button *ngIf="spec.specificationID!=2" pButton pRipple label="Khóa" (click)="blockSpecification(spec.specificationID)" icon="pi pi-times"
+                            class="p-button-raised p-button-warning"></button>
+                    </div>
+                    <ng-template #catebtnblock>
+                        <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
+                            (click)="activeSpecification(spec.specificationID)"></button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,1 @@
-export const DOMAIN = "https://localhost:7026/api/"
+export const DOMAIN = "https://esmpfree-001-site1.etempurl.com/api/"

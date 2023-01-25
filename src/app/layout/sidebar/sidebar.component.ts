@@ -38,16 +38,29 @@ export class SidebarComponent implements OnInit {
             {
               label:'Thông tin phụ tùng',
               icon: 'pi pi-fw pi-cog',
+              routerLink: '/searchitem/0'
             },
             {
-              label:'Quản lí thông tin phụ tùng',
+              label:'Quản lí loại phụ tùng',
+              icon: 'pi pi-fw pi-tag',
+              routerLink: '/category'
+            },
+            {
+              label:'Quản lí thông số phụ tùng',
               icon: 'pi pi-fw pi-book',
+              routerLink: '/specification'
+            },
+            {
+              label:'Quản lí phương tiện/hãng',
+              icon: 'pi pi-fw pi-sitemap',
+              routerLink: '/brand'
             },
           ]
         },
         {
           label: 'Quản lý đơn hàng',
-          icon: 'pi pi-fw pi-calendar'
+          icon: 'pi pi-fw pi-calendar',
+          routerLink:'/order'
         },
         {
           label: 'Quản lý yêu cầu rút tiền',

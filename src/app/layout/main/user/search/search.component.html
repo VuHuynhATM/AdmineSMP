@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="flex grid">
-    <div class="col-3">
+    <div class="col-2">
         <app-sidebar></app-sidebar>
     </div>
     <div class="col">
@@ -37,7 +37,8 @@
                             {{customer.userID}}
                         </td>
                         <td>
-                            <p-image [src]="customer.image.path" alt="Image" height="32"></p-image>
+                            <p-avatar [image]="customer.image.path" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                            <!-- <p-image [src]="customer.image.path" alt="Image" height="32"></p-image> -->
                         </td>
                         <td>
                             {{customer.userName}}

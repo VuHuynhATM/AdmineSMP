@@ -11,9 +11,11 @@
                 <div><input type="password" placeholder="Mật khẩu" style="width: 100%;" pInputText
                         [(ngModel)]="password" /></div>
                 <div style="text-align: center;padding-top: 20px;">
-                    <p-button label="Đăng nhập" [style]="{'width':'30%'}" (onClick)="signIn()"></p-button>
+                    <p-button label="Đăng nhập" [style]="{'width':'30%'}" (onClick)="signIn()"
+                        [loading]="checklogin"></p-button>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
