@@ -32,4 +32,17 @@ export class SpecificationService {
   createSpecification(name:string): Observable<any>{
     return this.httpClient.post(DOMAIN + `Specification?specification_Name=${name}`, null, { headers: this.headers });
   }
+
+  getlistSubCate_Specification(id:number): Observable<any>{
+    return this.httpClient.get(DOMAIN + `Specification/sub_category?sub_CategoryID=${id}`, { headers: this.headers });
+  }
+  addSpecification(id:number, addspec:number[], removespec: number[]): Observable<any>{
+    var body={
+      sub_CategoryID:id,
+      specificationIDsaAdd:addspec,
+      specificationIDsRemove:removespec
+    };
+    return this.httpClient.post(DOMAIN + `Specification/add_specification`, body, { headers: this.headers });
+
+  }
 }

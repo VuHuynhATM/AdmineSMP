@@ -31,6 +31,7 @@ import {GalleriaModule} from 'primeng/galleria';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {OrderListModule} from 'primeng/orderlist';
 import {ListboxModule} from 'primeng/listbox';
+import {PickListModule} from 'primeng/picklist';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -113,6 +114,7 @@ import { SpecificationComponent } from './layout/main/item/specification/specifi
     ToggleButtonModule,
     OrderListModule,
     ListboxModule,
+    PickListModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],

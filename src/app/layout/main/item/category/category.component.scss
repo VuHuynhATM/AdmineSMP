@@ -4,3 +4,16 @@
     border-radius: 4px;
     margin: 1rem;
 }
+
+.product-item {
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    width: 100%;
+}
+
+@media screen and (max-width: 576px) {
+    .product-item {
+        flex-wrap: wrap;
+    }
+}
