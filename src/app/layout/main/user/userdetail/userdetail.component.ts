@@ -23,12 +23,7 @@ export class UserdetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const yourid = JSON.parse(localStorage.getItem("USER") || "").userID;
     this.getUserDetail(this.userID);
-    if (yourid == this.user.userID) {
-      this.check = false;
-    }
-    this.notilist = this.user.addresses;
   }
   activeUser(userID: number) {
     this.userService.updateStatusUser(userID, true).subscribe((result) => {
@@ -55,7 +50,12 @@ export class UserdetailComponent implements OnInit {
   getUserDetail(id: any) {
     this.userService.getUserDetail(id).subscribe((result) => {
       if (result.success) {
-        this.user= result.data;
+        this.user = result.data;
+        const yourid = JSON.parse(localStorage.getItem("USER") || "").userID;
+        if (yourid == this.user.userID) {
+          this.check = false;
+        }
+        this.notilist = this.user.addresses;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }

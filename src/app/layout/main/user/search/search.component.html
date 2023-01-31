@@ -32,7 +32,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-customer>
-                    <tr (click)="viewdetail(customer.userID)">
+                    <tr (click)="viewdetail(customer.userID)" class="cursor-pointer">
                         <td>
                             {{customer.userID}}
                         </td>

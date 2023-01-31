@@ -26,15 +26,13 @@ export class SuppdetailComponent implements OnInit {
     this.storeID = this.route.snapshot.paramMap.get('id')!;
   }
   ngOnInit(): void {
-      this.viewdetail(this.storeID);
-    this.price = new Intl.NumberFormat('en-DE').format(this.supplier.asset);
-    console.log(this.supplier);
+    this.viewdetail(this.storeID);
   }
 
-  viewitem(){
-    this.router.navigate(['/searchitem/'+this.storeID]);
+  viewitem() {
+    this.router.navigate(['/searchitem/' + this.storeID]);
   }
-  vieworder(){
+  vieworder() {
     let navigationExtras: NavigationExtras = {
       queryParams: { 'storeID': this.storeID },
       fragment: 'anchor'
@@ -71,6 +69,7 @@ export class SuppdetailComponent implements OnInit {
     this.storeService.getStoreDetail(id).subscribe((result) => {
       if (result.success) {
         this.supplier = result.data;
+        this.price = new Intl.NumberFormat('en-DE').format(this.supplier.asset);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }

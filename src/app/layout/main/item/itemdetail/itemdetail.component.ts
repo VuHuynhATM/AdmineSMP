@@ -29,21 +29,22 @@ export class ItemdetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.viewdetail(this.itemID);
-    if (this.item.discount != 0) {
-      if (this.item.minPrice != this.item.maxPrice)
-        this.firstPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice) + 'VND - ' + new Intl.NumberFormat('en-DE').format(this.item.maxPrice) + 'VND';
-      else
-        this.firstPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice) + 'VND';
-      this.secondPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice * (1 - this.item.discount)) + 'VND';
-      this.discount = this.item.discount * 100 + '% Giảm'
-    } else {
-      this.secondPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice * (1 - this.item.discount)) + 'VND';
-    }
+    
   }
   viewdetail(id: number) {
     this.itemService.getItemDetail(id).subscribe((result) => {
       if (result.success) {
         this.item = result.data;
+        if (this.item.discount != 0) {
+          if (this.item.minPrice != this.item.maxPrice)
+            this.firstPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice) + 'VND - ' + new Intl.NumberFormat('en-DE').format(this.item.maxPrice) + 'VND';
+          else
+            this.firstPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice) + 'VND';
+          this.secondPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice * (1 - this.item.discount)) + 'VND';
+          this.discount = this.item.discount * 100 + '% Giảm'
+        } else {
+          this.secondPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice * (1 - this.item.discount)) + 'VND';
+        }
         console.log(this.item);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });

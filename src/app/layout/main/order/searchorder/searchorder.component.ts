@@ -49,14 +49,6 @@ export class SearchorderComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.shiplist = [
-      { name: "thông báo 1" },
-      { name: "thông báo 2" },
-      { name: "thông báo 3" },
-      { name: "thông báo 4" },
-      { name: "thông báo 5" },
-      { name: "thông báo 6" },
-    ]
     console.log(this.idstoreparam);
     if (this.idstoreparam != 0) {
       this.storeID = this.idstoreparam;
@@ -162,6 +154,7 @@ export class SearchorderComponent implements OnInit {
     }
   }
   getliststatus(orderID: number) {
+    this.shiplist=undefined;
     this.orderService.getShipstatus(orderID).subscribe((result) => {
       if (result.success) {
         this.shiplist = result.data;

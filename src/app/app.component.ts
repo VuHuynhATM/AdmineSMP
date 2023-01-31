@@ -24,7 +24,7 @@ export class AppComponent {
     const app = initializeApp(environment.firebase);
     const messaging = getMessaging(app);
     getToken(messaging,
-      { vapidKey: environment.firebase.vapidKey }).then(
+      { vapidKey: "BLPi04v_CZMNOOxR-3sxwTuKPjkphknlWrNm_JAth-B7GnEKA4rJc16Hd93xuMtWE-aOjmF4rCUxueQsz5six2g" }).then(
         (currentToken) => {
           if (currentToken) {
             console.log("Hurraaa!!! we got the token.....");

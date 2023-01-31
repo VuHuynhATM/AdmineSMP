@@ -53,7 +53,6 @@ export class UserService {
     return this.httpClient.put(DOMAIN + `user/edit_image`, body, { headers: this.headers });
   }
   editDoB(dob: Date, id: number): Observable<any> {
-    console.log(dob.toUTCString());
     var body =new FormData();
     body.append('UserID',id.toString());
     body.append('UserBirth',dob.toISOString());

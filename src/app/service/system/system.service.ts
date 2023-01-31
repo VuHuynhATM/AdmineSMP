@@ -35,4 +35,35 @@ export class SystemService {
   editRefund_Precent(precent:number):Observable<any>{
     return this.httpClient.put(DOMAIN + `Asset/update_refund_precent?refund_Precent=${precent}`,null, { headers: this.headers })
   }
+  getStoreWithdrawal(storeID:number, page:number, statusID:number, from: Date, to: Date):Observable<any>{
+    var storeIDtxt: string = "";
+    if(storeID!=undefined){
+      storeIDtxt=storeID+'';
+    }
+    var statusIDtxt="";
+    if(statusID!=undefined){
+      statusIDtxt=statusID+'';
+    }
+    var fromtxt="";
+    if(from!=undefined){
+      fromtxt=from+'';
+    }
+    var totxt="";
+    if(to!=undefined){
+      totxt=to+'';
+    }
+    return this.httpClient.get(DOMAIN + `Asset/get_store_withdrawal?storeID=${storeIDtxt}&page=${page}&statusID=${statusIDtxt}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
+  }
+  aceptwithdrawal(id:number):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Asset/accept_store_withdrawal?storeWithdrawalID=${id}`,null, { headers: this.headers })
+  }
+  cancelwithdarawl(id:number, reason:string):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Asset/cancel_store_withdrawal?storeWithdrawalID=${id}&reason=${reason}`,null, { headers: this.headers })
+  }
+  successwithdrawal(id: any, file: File):Observable<any>{
+    var body =new FormData();
+    body.append('Store_WithdrawalID',id.toString());
+    body.append('File',file);
+    return this.httpClient.put(DOMAIN + `Asset/success_store_withdrawal`,body, { headers: this.headers })
+  }
 }

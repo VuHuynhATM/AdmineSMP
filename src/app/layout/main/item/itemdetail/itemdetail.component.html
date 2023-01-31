@@ -5,7 +5,7 @@
     </div>
     <div class="col">
         <p-toast></p-toast>
-        <div class="card grid">
+        <div class="card grid" *ngIf="item!=undefined">
             <div class="col-6">
                 <p-galleria [value]="item.list_Image" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
                     [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"
@@ -38,7 +38,7 @@
                     Mô tả: {{item.description}}
                 </div>
                 <div class="flex gird" style="margin-top: 25px;">
-                    <div class="flex col-4">
+                    <div class="flex col-4" >
                         <p-rating [ngModel]="item.rate" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
                     </div>
                     <div class="flex col-4"
@@ -128,7 +128,7 @@
         </div>
         <div class="card">
             <div class="col text-3xl" style="margin-bottom: 15px;">Thông số kỹ thuật</div>
-            <div class="grid">
+            <div class="grid" *ngIf="item!=undefined">
                 <div class="col-6 grid text-xl" *ngFor="let spec of item.specification_Tag">
                     <div class="col-4">
                         {{spec.specificationName}}
@@ -144,7 +144,7 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card" *ngIf="item!=undefined">
             <div class="col text-3xl" style="margin-bottom: 15px;">Phương tiện chuyên dụng</div>
             <div class="grid text-xl" *ngFor="let brand of item.listModel">
                 <div class="col-2">

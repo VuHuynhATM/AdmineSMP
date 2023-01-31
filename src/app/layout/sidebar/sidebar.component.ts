@@ -64,7 +64,8 @@ export class SidebarComponent implements OnInit {
         },
         {
           label: 'Quản lý yêu cầu rút tiền',
-          icon: 'pi pi-fw pi-wallet'
+          icon: 'pi pi-fw pi-wallet',
+          routerLink:'/supplierwithdrawal'
         },
       ]
     }

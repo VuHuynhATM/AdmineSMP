@@ -57,6 +57,7 @@ import { FeedbackComponent } from './layout/main/order/feedback/feedback.compone
 import { CategoryComponent } from './layout/main/item/category/category.component';
 import { BrandComponent } from './layout/main/item/brand/brand.component';
 import { SpecificationComponent } from './layout/main/item/specification/specification.component';
+import { SupwithdrawalComponent } from './layout/main/supwithdrawal/supwithdrawal.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { SpecificationComponent } from './layout/main/item/specification/specifi
     FeedbackComponent,
     CategoryComponent,
     BrandComponent,
-    SpecificationComponent
+    SpecificationComponent,
+    SupwithdrawalComponent
   ],
   imports: [
     BrowserModule,

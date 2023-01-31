@@ -1,0 +1,118 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <input type="number" pInputText placeholder="Mã nhà cung cấp" [(ngModel)]="storeID" />
+                    <p-dropdown [options]="statuses" [(ngModel)]="status"></p-dropdown>
+                    <p-calendar [(ngModel)]="from" placeholder="từ ngày" [maxDate]="to" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                    <p-calendar [(ngModel)]="to" placeholder="đến ngày" [minDate]="from" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                </div>
+
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search" (click)="searchwithdrawal()"></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div>
+            <p-table [value]="listWithdrawal">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Mã</th>
+                        <th>Thông tin</th>
+                        <th>Ảnh</th>
+                        <th>Lý do</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-withdrawl>
+                    <tr>
+                        <td>
+                            {{withdrawl.store_WithdrawalID}}
+                        </td>
+                        <td>
+                            <div>Nhà cung cáp: {{withdrawl.storeID}}</div>
+                            <div>Ngân hàng: {{withdrawl.bank.bankName}}</div>
+                            <div>Số tài khoản: {{withdrawl.numBankCart}}</div>
+                            <div>Chủ thẻ: {{withdrawl.ownerBankCart}}</div>
+                            <div>Số tiền: {{withdrawl.price}} VND</div>
+                        </td>
+                        <td>
+                            <p-image *ngIf="withdrawl.image!=null" [src]="withdrawl.image.path" alt="Image" width="150"
+                                [preview]="true"></p-image>
+                        </td>
+                        <td>
+                            {{withdrawl.reason}}
+                        </td>
+                        <td>
+                            {{withdrawl.withdrawal_Status.statusName}}
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <button
+                                    *ngIf="withdrawl.withdrawal_Status.item_StatusID!=3&& withdrawl.withdrawal_Status.item_StatusID!=4"
+                                    pButton pRipple label="Huỷ" icon="pi pi-times"
+                                    (click)="showCancel(withdrawl.store_WithdrawalID)"
+                                    class="p-button-warning p-button-text m-2"></button>
+                                <p-dialog header="Hủy thao tác rút tiền" [(visible)]="displaycancel" [modal]="true"
+                                    [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
+                                    [resizable]="false">
+                                    <input id="username" type="username" aria-describedby="username1-help" pInputText
+                                        [(ngModel)]="reason"
+                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                    <ng-template pTemplate="footer">
+                                        <p-button icon="pi pi-check" label="Lưu" class="p-button-text"
+                                            (onClick)="cancelwithdarawl()"></p-button>
+                                        <p-button icon="pi pi-times" (click)="displaycancel=false"
+                                            label="Hủy"></p-button>
+                                    </ng-template>
+                                </p-dialog>
+                            </div>
+
+                            <div>
+                                <button *ngIf="withdrawl.withdrawal_Status.item_StatusID==1" pButton pRipple
+                                    label="Tiếp nhận" icon="pi pi-check" class="p-button-text m-2"
+                                    (click)="acceptwithdrawal(withdrawl.store_WithdrawalID)"></button>
+                            </div>
+
+                            <div>
+                                <button *ngIf="withdrawl.withdrawal_Status.item_StatusID==2" pButton pRipple
+                                    label="Hoàn thành" icon="pi pi-check" class="p-button-text m-2"
+                                    (click)="showSuccess(withdrawl.store_WithdrawalID)"></button>
+                                <p-dialog header="Hoàn thành thao tác rút tiền" [(visible)]="displaysuccess"
+                                    [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
+                                    [resizable]="false">
+                                    <p-fileUpload [customUpload]="true" (uploadHandler)="successwithdrawal($event)"
+                                        [multiple]="false" accept="image/*" [maxFileSize]="1000000"
+                                        [showCancelButton]="false" chooseLabel="Chọn hình ảnh" uploadLabel="Lưu">
+                                    </p-fileUpload>
+                                    <ng-template pTemplate="footer">
+                                        <p-button icon="pi pi-times" (click)="displaysuccess=false"
+                                            label="Hủy"></p-button>
+                                    </ng-template>
+                                </p-dialog>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

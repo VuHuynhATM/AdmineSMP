@@ -12,6 +12,7 @@ import { FeedbackComponent } from './layout/main/order/feedback/feedback.compone
 import { SearchorderComponent } from './layout/main/order/searchorder/searchorder.component';
 import { SearchsupComponent } from './layout/main/supplier/searchsup/searchsup.component';
 import { SuppdetailComponent } from './layout/main/supplier/suppdetail/suppdetail.component';
+import { SupwithdrawalComponent } from './layout/main/supwithdrawal/supwithdrawal.component';
 import { InfopageComponent } from './layout/main/system/infopage/infopage.component';
 import { ProfileComponent } from './layout/main/user/profile/profile.component';
 import { SearchComponent } from './layout/main/user/search/search.component';
@@ -85,6 +86,11 @@ const routes: Routes = [
   {
     path: 'specification',
     component: SpecificationComponent
+  },
+  
+  {
+    path: 'supplierwithdrawal',
+    component: SupwithdrawalComponent
   },
 ];
 
