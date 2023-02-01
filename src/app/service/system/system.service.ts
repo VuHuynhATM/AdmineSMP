@@ -66,4 +66,23 @@ export class SystemService {
     body.append('File',file);
     return this.httpClient.put(DOMAIN + `Asset/success_store_withdrawal`,body, { headers: this.headers })
   }
+  getStoreReveneu(storeID:number, page:number, orderID:number, from: Date, to: Date):Observable<any>{
+    var storeIDtxt: string = "";
+    if(storeID!=undefined){
+      storeIDtxt=storeID+'';
+    }
+    var orderIDtxt="";
+    if(orderID!=undefined){
+      orderIDtxt=orderID+'';
+    }
+    var fromtxt="";
+    if(from!=undefined){
+      fromtxt=from+'';
+    }
+    var totxt="";
+    if(to!=undefined){
+      totxt=to+'';
+    }
+    return this.httpClient.get(DOMAIN + `Asset/get_store_reveneu?storeID=${storeIDtxt}&page=${page}&orderID=${orderIDtxt}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
+  }
 }

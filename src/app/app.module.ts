@@ -58,6 +58,7 @@ import { CategoryComponent } from './layout/main/item/category/category.componen
 import { BrandComponent } from './layout/main/item/brand/brand.component';
 import { SpecificationComponent } from './layout/main/item/specification/specification.component';
 import { SupwithdrawalComponent } from './layout/main/supwithdrawal/supwithdrawal.component';
+import { TransactionComponent } from './layout/main/supplier/transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { SupwithdrawalComponent } from './layout/main/supwithdrawal/supwithdrawa
     CategoryComponent,
     BrandComponent,
     SpecificationComponent,
-    SupwithdrawalComponent
+    SupwithdrawalComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,

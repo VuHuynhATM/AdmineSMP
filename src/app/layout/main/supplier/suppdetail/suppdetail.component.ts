@@ -32,13 +32,8 @@ export class SuppdetailComponent implements OnInit {
   viewitem() {
     this.router.navigate(['/searchitem/' + this.storeID]);
   }
-  vieworder() {
-    let navigationExtras: NavigationExtras = {
-      queryParams: { 'storeID': this.storeID },
-      fragment: 'anchor'
-    };
-    this.router.navigate(['/order']);
-
+  viewtransaction(){
+    this.router.navigate(['/suptransaction/' + this.storeID]);
   }
   activeStore(storeID: number) {
     this.storeService.activeStore(storeID).subscribe((result) => {

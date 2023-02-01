@@ -1,0 +1,64 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <input type="number" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
+                    <p-calendar [(ngModel)]="from" placeholder="từ ngày" [maxDate]="to" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                    <p-calendar [(ngModel)]="to" placeholder="đến ngày" [minDate]="from" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                </div>
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search" (click)="searchtransaction()"></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div>
+            <p-table [value]="listtransaction">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Mã</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Mã giao dịch momo</th>
+                        <th>Ngày tạo</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-transaction>
+                    <tr>
+                        <td>
+                            {{transaction.orderStore_TransactionID}}
+                        </td>
+                        <td>
+                            {{transaction.orderID}}
+                        </td>
+                        <td>
+                            {{transaction.momoTransaction}}
+                        </td>
+                        <td>
+                            {{transaction.create_Date}}
+                        </td>
+                        <td>
+                            {{transaction.price}} VND
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

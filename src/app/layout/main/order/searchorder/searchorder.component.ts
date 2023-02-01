@@ -54,7 +54,7 @@ export class SearchorderComponent implements OnInit {
       this.storeID = this.idstoreparam;
     }
     if (this.iduserparam != 0) {
-      this.storeID = this.iduserparam;
+      this.userID = this.iduserparam;
     }
     this.shipStatuses = [
       { label: 'Trạng thái', value: '' },

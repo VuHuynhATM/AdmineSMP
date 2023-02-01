@@ -88,6 +88,9 @@
                                                 {{supplier.store_Status.statusName}}
                                             </div>
                                         </div>
+                                        <div>
+                                            <button pButton pRipple label="Dòng tiền" class="p-button-text"  (click)="viewtransaction()"></button>
+                                        </div>
                                         <div class="button">
                                             <div *ngIf="supplier.store_Status.item_StatusID==2; else elseBlockbutton">
                                                 <div *ngIf="check">
@@ -110,7 +113,7 @@
                 </div>
                 <div class="col">
                     <div class="grid">
-                        <div class="col-4">
+                        <div class="col-4 cursor-pointer" [routerLink]="['/supplierwithdrawal']" [queryParams]="{storeID: supplier.storeID}">
                             <p-card header="Tài khoản">
                                 <div class="grid">
                                     <div class="col" style="text-align: center;">
@@ -128,7 +131,7 @@
                                 </div>
                             </p-card>
                         </div>
-                        <div class="col-4 cursor-pointer" [routerLink]="['/order']" [queryParams]="{storeID: '1'}">
+                        <div class="col-4 cursor-pointer" [routerLink]="['/order']" [queryParams]="{storeID: supplier.storeID}">
                             <p-card header="Đơn hàng">
                                 <div class="grid">
                                     <div class="col" style="text-align: center;">
