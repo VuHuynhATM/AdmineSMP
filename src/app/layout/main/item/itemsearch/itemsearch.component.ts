@@ -83,6 +83,11 @@ export class ItemsearchComponent implements OnInit {
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlistitem();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
 
@@ -90,6 +95,11 @@ export class ItemsearchComponent implements OnInit {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlistitem();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
   getcategory() {

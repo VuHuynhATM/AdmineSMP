@@ -24,7 +24,7 @@
         <div>
             <p-table [value]="listWithdrawal">
                 <ng-template pTemplate="header">
-                    <tr>
+                    <tr class="text-xs">
                         <th>Mã</th>
                         <th>Thông tin</th>
                         <th>Ảnh</th>
@@ -34,7 +34,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-withdrawl>
-                    <tr>
+                    <tr class="text-xs">
                         <td>
                             {{withdrawl.store_WithdrawalID}}
                         </td>

@@ -17,6 +17,7 @@ export class SearchorderComponent implements OnInit {
 
   idstoreparam!: any;
   iduserparam!: any;
+  idorderparam!: any;
 
   listorder!: any;
 
@@ -43,15 +44,17 @@ export class SearchorderComponent implements OnInit {
     private storeService: SupplierService,
     private itemService: ItemService) {
     this.idstoreparam = this.route.snapshot.queryParamMap.get('storeID')!;
-    console.log(this.idstoreparam);
-
     this.iduserparam = this.route.snapshot.queryParamMap.get('userID')!;
+    this.idorderparam = this.route.snapshot.queryParamMap.get('orderID')!;
 
   }
   ngOnInit(): void {
     console.log(this.idstoreparam);
     if (this.idstoreparam != 0) {
       this.storeID = this.idstoreparam;
+    }
+    if (this.idorderparam != 0) {
+      this.orderID = this.idorderparam;
     }
     if (this.iduserparam != 0) {
       this.userID = this.iduserparam;
@@ -109,7 +112,7 @@ export class SearchorderComponent implements OnInit {
       }
     }, err => {
       window.open(DOMAIN + `Ship/get_ticket?orderID=${orderID}`);
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      //this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
     });
   }
   viewuserdetail(id: any) {

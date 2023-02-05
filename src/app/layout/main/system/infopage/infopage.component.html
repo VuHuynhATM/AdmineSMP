@@ -20,8 +20,8 @@
                                             </p-inputNumber>
                                         </div>
                                         <ng-template pTemplate="footer">
-                                            <p-button label="Rút tiền" styleClass="p-button-link"></p-button>
-                                            <p-button label="Dòng tiền" styleClass="p-button-secondary p-button-link"
+                                            <p-button label="Rút tiền" styleClass="p-button-link" [routerLink]="['/syswithdrawal']"></p-button>
+                                            <p-button label="Dòng tiền" styleClass="p-button-secondary p-button-link" [routerLink]="['/systransaction']"
                                                 [style]="{'margin-left': '.5em'}"></p-button>
                                         </ng-template>
                                     </p-card>
@@ -109,7 +109,7 @@
             </div>
             <div class="col-8 text-center">
                 <div class="grid">
-                    <div class="col-3">
+                    <div class="col-3 cursor-pointer" [routerLink]="['/searchsupplier']">
                         <p-card header="Gian hàng">
                             <div class="grid">
                                 <div class="col" style="text-align: center;">
@@ -118,7 +118,7 @@
                             </div>
                         </p-card>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 cursor-pointer" [routerLink]="['/searchuser']">
                         <p-card header="người mua">
                             <div class="grid">
                                 <div class="col" style="text-align: center;">
@@ -127,7 +127,7 @@
                             </div>
                         </p-card>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 cursor-pointer" [routerLink]="['/searchitem/0']">
                         <p-card header="Phụ tùng">
                             <div class="grid">
                                 <div class="col" style="text-align: center;">
@@ -136,7 +136,7 @@
                             </div>
                         </p-card>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 cursor-pointer" [routerLink]="['/order']">
                         <p-card header="Đơn hàng">
                             <div class="grid">
                                 <div class="col" style="text-align: center;">

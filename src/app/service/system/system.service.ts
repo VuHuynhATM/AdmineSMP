@@ -85,4 +85,44 @@ export class SystemService {
     }
     return this.httpClient.get(DOMAIN + `Asset/get_store_reveneu?storeID=${storeIDtxt}&page=${page}&orderID=${orderIDtxt}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
   }
+  getSystemReveneu(page:number, from: Date, to: Date):Observable<any>{
+    var fromtxt="";
+    if(from!=undefined){
+      fromtxt=from+'';
+    }
+    var totxt="";
+    if(to!=undefined){
+      totxt=to+'';
+    }
+    return this.httpClient.get(DOMAIN + `Asset/get_system_reveneu?page=${page}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
+  }
+  getSystemStoreReveneu(page:number, from: Date, to: Date):Observable<any>{
+    var fromtxt="";
+    if(from!=undefined){
+      fromtxt=from+'';
+    }
+    var totxt="";
+    if(to!=undefined){
+      totxt=to+'';
+    }
+    return this.httpClient.get(DOMAIN + `Asset/system_store_reveneu?page=${page}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
+  }
+  getSystemWithdrawal(page:number, from: Date, to: Date):Observable<any>{
+    var fromtxt="";
+    if(from!=undefined){
+      fromtxt=from+'';
+    }
+    var totxt="";
+    if(to!=undefined){
+      totxt=to+'';
+    }
+    return this.httpClient.get(DOMAIN + `Asset/get_system_withdrawal?page=${page}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
+  }
+  systemwithdrawal(amount: number,context:string, file: File):Observable<any>{
+    var body =new FormData();
+    body.append('Price',amount.toString());
+    body.append('Context',context);
+    body.append('File',file);
+    return this.httpClient.post(DOMAIN + `Asset`,body, { headers: this.headers })
+  }
 }

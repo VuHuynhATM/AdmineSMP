@@ -20,7 +20,7 @@
         <div>
             <p-table [value]="listSupplier">
                 <ng-template pTemplate="header">
-                    <tr>
+                    <tr class="text-xs">
                         <th>Mã</th>
                         <th>Ảnh đại diện</th>
                         <th>Tên gian hàng</th>
@@ -31,7 +31,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-supplier>
-                    <tr class="cursor-pointer" (click)="viewdetail(supplier.storeID)">
+                    <tr class="cursor-pointer text-xs" (click)="viewdetail(supplier.storeID)">
                         <td>
                             {{supplier.storeID}}
                         </td>

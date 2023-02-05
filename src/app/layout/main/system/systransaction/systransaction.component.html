@@ -8,7 +8,7 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <input type="number" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
+                    <p-dropdown [options]="options" [(ngModel)]="option"></p-dropdown>
                     <p-calendar [(ngModel)]="from" placeholder="từ ngày" [maxDate]="to" [showSeconds]="true"
                         inputId="time"></p-calendar>
                     <p-calendar [(ngModel)]="to" placeholder="đến ngày" [minDate]="from" [showSeconds]="true"
@@ -22,30 +22,54 @@
         <div>
             <p-table [value]="listtransaction">
                 <ng-template pTemplate="header">
-                    <tr class="text-xs">
+                    <tr class="text-xs" *ngIf="curentoption==1">
                         <th>Mã</th>
                         <th>Mã đơn hàng</th>
                         <th>Mã giao dịch momo</th>
                         <th>Ngày tạo</th>
                         <th>Thành tiền</th>
                     </tr>
+                    <tr class="text-xs" *ngIf="curentoption==2">
+                        <th>Mã gian hàng</th>
+                        <th>tên gian hàng</th>
+                        <th>Mã giao dịch momo</th>
+                        <th>Ngày kích hoạt</th>
+                        <th>Thành tiền</th>
+                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-transaction>
-                    <tr class="text-xs">
+                    <tr class="text-xs" *ngIf="curentoption==1">
                         <td>
-                            {{transaction.orderStore_TransactionID}}
+                            {{transaction.orderSystem_TransactionID}}
                         </td>
-                        <td class="cursor-pointer"  [routerLink]="['/order']" [queryParams]="{orderID: transaction.orderID}">
-                            {{transaction.orderID}}
+                        <td class="cursor-pointer"  [routerLink]="['/order']" [queryParams]="{orderID: transaction.orderStore_TransactionModel.orderID}">
+                            {{transaction.orderStore_TransactionModel.orderID}}
                         </td>
                         <td>
-                            {{transaction.momoTransaction}}
+                            {{transaction.orderStore_TransactionModel.momoTransaction}}
                         </td>
                         <td>
                             {{transaction.create_Date}}
                         </td>
                         <td>
                             {{transaction.price}} VND
+                        </td>
+                    </tr>
+                    <tr class="text-xs" *ngIf="curentoption==2">
+                        <td class="cursor-pointer"  (click)="viewdetail(transaction.storeID)">
+                            {{transaction.storeID}}
+                        </td>
+                        <td>
+                            {{transaction.storeName}}
+                        </td>
+                        <td>
+                            {{transaction.momoTransaction}}
+                        </td>
+                        <td>
+                            {{transaction.activeDate}}
+                        </td>
+                        <td>
+                            {{transaction.amount}} VND
                         </td>
                     </tr>
                 </ng-template>

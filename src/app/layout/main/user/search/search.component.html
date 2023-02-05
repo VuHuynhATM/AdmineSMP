@@ -8,9 +8,9 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <input type="text" pInputText placeholder="Tên" [(ngModel)]="search" />
-                    <p-dropdown [options]="roleIDs" [(ngModel)]="roleID"></p-dropdown>
-                    <p-dropdown [options]="isactives" [(ngModel)]="isactive"></p-dropdown>
+                    <input type="text" pInputText  class="text-xs" placeholder="Tên" [(ngModel)]="search" />
+                    <p-dropdown [options]="roleIDs" class="text-xs" styleClass="dropdown" [(ngModel)]="roleID"></p-dropdown>
+                    <p-dropdown [options]="isactives" class="text-xs" [(ngModel)]="isactive"></p-dropdown>
                 </div>
             
                 <div class="p-toolbar-group-end">
@@ -21,7 +21,7 @@
         <div>
             <p-table [value]="listUser">
                 <ng-template pTemplate="header">
-                    <tr>
+                    <tr class="text-xs">
                         <th>Mã</th>
                         <th>Ảnh đại diện</th>
                         <th>Họ và tên</th>
@@ -32,7 +32,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-customer>
-                    <tr (click)="viewdetail(customer.userID)" class="cursor-pointer">
+                    <tr (click)="viewdetail(customer.userID)" class="cursor-pointer text-xs">
                         <td>
                             {{customer.userID}}
                         </td>

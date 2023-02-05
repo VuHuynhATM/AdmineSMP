@@ -59,6 +59,8 @@ import { BrandComponent } from './layout/main/item/brand/brand.component';
 import { SpecificationComponent } from './layout/main/item/specification/specification.component';
 import { SupwithdrawalComponent } from './layout/main/supwithdrawal/supwithdrawal.component';
 import { TransactionComponent } from './layout/main/supplier/transaction/transaction.component';
+import { SystransactionComponent } from './layout/main/system/systransaction/systransaction.component';
+import { SyswithdrawalComponent } from './layout/main/system/syswithdrawal/syswithdrawal.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,9 @@ import { TransactionComponent } from './layout/main/supplier/transaction/transac
     BrandComponent,
     SpecificationComponent,
     SupwithdrawalComponent,
-    TransactionComponent
+    TransactionComponent,
+    SystransactionComponent,
+    SyswithdrawalComponent
   ],
   imports: [
     BrowserModule,

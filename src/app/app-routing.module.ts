@@ -15,6 +15,8 @@ import { SuppdetailComponent } from './layout/main/supplier/suppdetail/suppdetai
 import { TransactionComponent } from './layout/main/supplier/transaction/transaction.component';
 import { SupwithdrawalComponent } from './layout/main/supwithdrawal/supwithdrawal.component';
 import { InfopageComponent } from './layout/main/system/infopage/infopage.component';
+import { SystransactionComponent } from './layout/main/system/systransaction/systransaction.component';
+import { SyswithdrawalComponent } from './layout/main/system/syswithdrawal/syswithdrawal.component';
 import { ProfileComponent } from './layout/main/user/profile/profile.component';
 import { SearchComponent } from './layout/main/user/search/search.component';
 import { UserdetailComponent } from './layout/main/user/userdetail/userdetail.component';
@@ -96,6 +98,14 @@ const routes: Routes = [
     path: 'suptransaction/:id',
     component: TransactionComponent
   },
+  {
+    path: 'systransaction',
+    component: SystransactionComponent
+  },
+  {
+    path: 'syswithdrawal',
+    component: SyswithdrawalComponent
+  }
 ];
 
 @NgModule({

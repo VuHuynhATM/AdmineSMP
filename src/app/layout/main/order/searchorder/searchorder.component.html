@@ -22,10 +22,10 @@
                 </div>
             </p-toolbar>
         </div>
-        <div>
+        <div class="text-sm">
             <p-table [value]="listorder">
                 <ng-template pTemplate="header">
-                    <tr>
+                    <tr class="text-sm">
                         <th style="width: 450px;">Thông tin đơn hàng</th>
                         <th>Khách hàng</th>
                         <th>Hàng hóa</th>
@@ -33,7 +33,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-order>
-                    <tr>
+                    <tr class="text-xs">
                         <td>
                             <div class="p-2">
                                 Đơn hàng: {{order.orderID}}
@@ -109,24 +109,24 @@
                         </td>
                         <td>
                             <div *ngIf="order.orderShip.shipStatusID=='-2'||order.orderShip.shipStatusID=='1'">
-                                <button pButton pRipple label="hủy" icon="pi pi-times" (click)="displayCancelOrder=true"
+                                <button pButton pRipple label="Hủy" icon="pi pi-times" class="text-sm"  (click)="displayCancelOrder=true"
                                     class="p-button-text p-button-warning"></button>
                                 <p-dialog header="Hủy đơn hàng" [(visible)]="displayCancelOrder" [modal]="true"
                                     [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
                                     [resizable]="false">
-                                    <input id="username" type="username" aria-describedby="username1-help" pInputText
+                                    <input id="username" type="username" aria-describedby="username1-help" pInputText class="text-sm" 
                                         [(ngModel)]="reason" placeholder="Nguyên nhân"
                                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                                     <ng-template pTemplate="footer">
-                                        <p-button icon="pi pi-check" (click)="cancelOrder(order.orderID)"
+                                        <p-button icon="pi pi-check" class="text-sm"  (click)="cancelOrder(order.orderID)"
                                             label="Xác nhận" class="p-button-text"></p-button>
-                                        <p-button icon="pi pi-times" (click)="displayCancelOrder=false"
+                                        <p-button icon="pi pi-times" class="text-sm" (click)="displayCancelOrder=false"
                                             label="Hủy"></p-button>
                                     </ng-template>
                                 </p-dialog>
                             </div>
                             <div>
-                                <button pButton pRipple label="Nhãn in" icon="pi pi-times"
+                                <button pButton pRipple label="Nhãn in" icon="pi pi-times" class="text-sm"
                                     (click)="getTiket(order.orderID)" class="p-button-text"></button>
                             </div>
 
@@ -150,7 +150,7 @@
     <ng-template pTemplate>
         <p-table [value]="shiplist.shipStatusModels">
             <ng-template pTemplate="body" let-rowData let-product>
-                <tr [pSelectableRow]="rowData">
+                <tr class="text-sm"  [pSelectableRow]="rowData">
                     <td>{{product.status}}</td>
                     <td>{{product.create_Date}}</td>
                     <td>{{product.reason}}</td>
