@@ -1,0 +1,73 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <p-dropdown [options]="reportTypes" class="text-xs" [(ngModel)]="reportType"></p-dropdown>
+                    <input type="text" pInputText *ngIf="reportType!=1" class="text-xs" placeholder="Mã gian hàng" [(ngModel)]="storeID" />
+                </div>
+            
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search"(click)="searchreport()" ></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div>
+            <p-table [value]="listReport">
+                <ng-template pTemplate="header">
+                    <tr class="text-xs">
+                        <th>Mã</th>
+                        <th>
+                            <span *ngIf="reportTypeCurren==2">Mã gian hàng</span>
+                            <span *ngIf="reportTypeCurren==3">Mã Phụ tùng</span>
+                            <span *ngIf="reportTypeCurren==1">Mã đánh giá</span>
+                            
+                        </th>
+                        <th>
+                            <span *ngIf="reportTypeCurren==2">Tên gian hàng</span>
+                            <span *ngIf="reportTypeCurren==3">Tên phụ tùng</span>
+                        </th>
+                        <th>Ghi chú</th>
+                        <th>Mã người báo cáo</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-report>
+                    <tr class="text-xs">
+                        <td>
+                            {{report.reportID}}
+                        </td>
+                        <td>
+                            <span *ngIf="reportTypeCurren==2">{{report.storeID}}</span>
+                            <span *ngIf="reportTypeCurren==3">{{report.itemID}}</span>
+                            <span *ngIf="reportTypeCurren==1">{{report.storeID}}</span>
+                        </td>
+                        <td>
+                            <span *ngIf="reportTypeCurren==2">{{report.storeName}}</span>
+                            <span *ngIf="reportTypeCurren==3">{{report.itemName}}</span>
+                        </td>
+                        <td>
+                            {{report.text}}
+                        </td>
+                        <td>
+                            {{report.userID}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

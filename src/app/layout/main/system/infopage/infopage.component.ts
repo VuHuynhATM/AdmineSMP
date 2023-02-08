@@ -19,7 +19,8 @@ export class InfopageComponent implements OnInit {
     isActive: true,
     totalCustomer: 0,
     totalSupplier: 0,
-    totalItem: 0
+    totalItem: 0,
+    totalOrder:0
   };
   displayCommission_Precent!: boolean;
   Commission_Precent!: any;

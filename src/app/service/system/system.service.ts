@@ -125,4 +125,19 @@ export class SystemService {
     body.append('File',file);
     return this.httpClient.post(DOMAIN + `Asset`,body, { headers: this.headers })
   }
+  getReport(page:number, reportType: number, storeID: number, userID:number):Observable<any>{
+    var reportTypetxt="";
+    if(reportType!=undefined){
+      reportTypetxt=reportType+'';
+    }
+    var storeIDtxt="";
+    if(storeID!=undefined){
+      storeIDtxt=storeID+'';
+    }
+    var userIDtxt="";
+    if(userID!=undefined){
+      userIDtxt=userID+'';
+    }
+    return this.httpClient.get(DOMAIN + `Report/get_report?page=${page}&reportType=${reportTypetxt}&storeID=${storeIDtxt}&userID=${userIDtxt}`, { headers: this.headers })
+  }
 }

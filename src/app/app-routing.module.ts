@@ -10,6 +10,7 @@ import { LoginComponent } from './layout/main/login/login.component';
 import { LogoutComponent } from './layout/main/logout/logout.component';
 import { FeedbackComponent } from './layout/main/order/feedback/feedback.component';
 import { SearchorderComponent } from './layout/main/order/searchorder/searchorder.component';
+import { ReportComponent } from './layout/main/report/report.component';
 import { SearchsupComponent } from './layout/main/supplier/searchsup/searchsup.component';
 import { SuppdetailComponent } from './layout/main/supplier/suppdetail/suppdetail.component';
 import { TransactionComponent } from './layout/main/supplier/transaction/transaction.component';
@@ -105,6 +106,10 @@ const routes: Routes = [
   {
     path: 'syswithdrawal',
     component: SyswithdrawalComponent
+  },
+  {
+    path: 'report',
+    component: ReportComponent
   }
 ];
 

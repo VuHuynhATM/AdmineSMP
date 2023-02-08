@@ -61,6 +61,7 @@ import { SupwithdrawalComponent } from './layout/main/supwithdrawal/supwithdrawa
 import { TransactionComponent } from './layout/main/supplier/transaction/transaction.component';
 import { SystransactionComponent } from './layout/main/system/systransaction/systransaction.component';
 import { SyswithdrawalComponent } from './layout/main/system/syswithdrawal/syswithdrawal.component';
+import { ReportComponent } from './layout/main/report/report.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { SyswithdrawalComponent } from './layout/main/system/syswithdrawal/syswi
     SupwithdrawalComponent,
     TransactionComponent,
     SystransactionComponent,
-    SyswithdrawalComponent
+    SyswithdrawalComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
