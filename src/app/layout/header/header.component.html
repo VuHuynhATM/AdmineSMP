@@ -9,21 +9,24 @@
             <div class="flex">
                 <div style="padding-top: 5px;">
                     <div *ngIf="check;">
-                        <p-button label="Thông báo" icon="pi pi-bell" badge="8" styleClass="p-button-link" (click)="op.toggle($event)"  badgeClass="p-badge-danger"></p-button>
-                        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                        <p-button label="Thông báo" icon="pi pi-bell" styleClass="p-button-link" (click)="op.toggle($event)"  badgeClass="p-badge-danger"></p-button>
+                        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '500px'}">
                             <ng-template pTemplate>
-                                <p-table [value]="notilist" selectionMode="single" [paginator]="true" [rows]="5">
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData let-product>
-                                        <tr [pSelectableRow]="rowData">
-                                            <td>{{product.name}}</td>
+                                <p-table [value]="notilist" selectionMode="single">
+                                    <ng-template pTemplate="body" let-rowData let-notify>
+                                        <tr [pSelectableRow]="rowData"  (click)="viewdetail(notify.storeID)">
+                                            <td class="text-xs">Gian hàng {{notify.storeID}} {{notify.title}}</td>
+                                            <td class="text-xs">{{notify.create_Date}}</td>
                                         </tr>
                                     </ng-template>
                                 </p-table>
+                                <div style="text-align: center;">
+                                    <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                                        styleClass="p-button-text"></p-button>
+                                    <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                                    <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                                        styleClass="p-button-text"></p-button>
+                                </div>
                             </ng-template>
                         </p-overlayPanel>
                     </div>

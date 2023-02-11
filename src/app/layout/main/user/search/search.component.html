@@ -8,9 +8,9 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <input type="text" pInputText  class="text-xs" placeholder="Tên" [(ngModel)]="search" />
-                    <p-dropdown [options]="roleIDs" class="text-xs" styleClass="dropdown" [(ngModel)]="roleID"></p-dropdown>
-                    <p-dropdown [options]="isactives" class="text-xs" [(ngModel)]="isactive"></p-dropdown>
+                    <input type="text" pInputText  class="p-2" placeholder="Tên" [(ngModel)]="search" />
+                    <p-dropdown [options]="roleIDs" class="p-2" styleClass="dropdown" [(ngModel)]="roleID"></p-dropdown>
+                    <p-dropdown [options]="isactives" [(ngModel)]="isactive"></p-dropdown>
                 </div>
             
                 <div class="p-toolbar-group-end">

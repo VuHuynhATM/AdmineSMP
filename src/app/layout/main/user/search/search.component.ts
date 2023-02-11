@@ -38,7 +38,6 @@ export class SearchComponent implements OnInit {
     ]
   }
 
-
   next() {
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
