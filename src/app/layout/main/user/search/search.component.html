@@ -8,7 +8,7 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <input type="text" pInputText  class="p-2" placeholder="Tên" [(ngModel)]="search" />
+                    <input type="text" pInputText placeholder="Tên" [(ngModel)]="search" />
                     <p-dropdown [options]="roleIDs" class="p-2" styleClass="dropdown" [(ngModel)]="roleID"></p-dropdown>
                     <p-dropdown [options]="isactives" [(ngModel)]="isactive"></p-dropdown>
                 </div>
@@ -19,7 +19,7 @@
             </p-toolbar>
         </div>
         <div>
-            <p-table [value]="listUser">
+            <p-table [value]="listUser" >
                 <ng-template pTemplate="header">
                     <tr class="text-xs">
                         <th>Mã</th>
