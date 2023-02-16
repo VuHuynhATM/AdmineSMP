@@ -17,8 +17,8 @@ export class AppComponent {
   message: any = null;
   constructor() { }
   ngOnInit(): void {
-    // this.requestPermission();
-    // this.listen();
+    this.requestPermission();
+    this.listen();
   }
   requestPermission() {
     const app = initializeApp(environment.firebase);
