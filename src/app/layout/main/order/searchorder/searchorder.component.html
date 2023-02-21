@@ -8,12 +8,12 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <input type="text" pInputText placeholder="Tên người mua" [(ngModel)]="userName" />
-                    <input type="text" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
-                    <p-dropdown [options]="shipStatuses" [(ngModel)]="shipStatus"></p-dropdown>
-                    <p-calendar [(ngModel)]="dateFrom" placeholder="từ ngày" [maxDate]="dateTo" [showSeconds]="true"
+                    <input type="text" class="mr-2" pInputText placeholder="Tên người mua" [(ngModel)]="userName" />
+                    <input type="text" class="mr-2" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
+                    <p-dropdown [options]="shipStatuses" class="mr-2" [(ngModel)]="shipStatus"></p-dropdown>
+                    <p-calendar [(ngModel)]="dateFrom" class="mr-2" placeholder="từ ngày" [maxDate]="dateTo" [showSeconds]="true"
                         inputId="time"></p-calendar>
-                    <p-calendar [(ngModel)]="dateTo" placeholder="đến ngày" [minDate]="dateFrom" [showSeconds]="true"
+                    <p-calendar [(ngModel)]="dateTo" class="mr-2" placeholder="đến ngày" [minDate]="dateFrom" [showSeconds]="true"
                         inputId="time"></p-calendar>
                 </div>
 

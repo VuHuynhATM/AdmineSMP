@@ -8,9 +8,9 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <input type="number" pInputText placeholder="Mã nhà cung cấp" [(ngModel)]="storeID" />
-                    <p-dropdown [options]="statuses" [(ngModel)]="status"></p-dropdown>
-                    <p-calendar [(ngModel)]="from" placeholder="từ ngày" [maxDate]="to" [showSeconds]="true"
+                    <input type="number" class="mr-2" pInputText placeholder="Mã nhà cung cấp" [(ngModel)]="storeID" />
+                    <p-dropdown [options]="statuses" class="mr-2" [(ngModel)]="status"></p-dropdown>
+                    <p-calendar [(ngModel)]="from" class="mr-2" placeholder="từ ngày" [maxDate]="to" [showSeconds]="true"
                         inputId="time"></p-calendar>
                     <p-calendar [(ngModel)]="to" placeholder="đến ngày" [minDate]="from" [showSeconds]="true"
                         inputId="time"></p-calendar>
@@ -55,7 +55,7 @@
                         <td>
                             {{withdrawl.withdrawal_Status.statusName}}
                         </td>
-                        <td class="text-center">
+                        <td>
                             <div>
                                 <button
                                     *ngIf="withdrawl.withdrawal_Status.item_StatusID!=3&& withdrawl.withdrawal_Status.item_StatusID!=4"

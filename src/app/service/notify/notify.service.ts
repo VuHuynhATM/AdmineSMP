@@ -19,7 +19,7 @@ export class NotifyService {
       });
     }
   }
-  getSystemInfo(userID:number, page:number):Observable<any>{
+  getNotifications(userID:number, page:number):Observable<any>{
     return this.httpClient.get(DOMAIN + `Notification?userID=${userID}&page=${page}`, { headers: this.headers })
   }
 }

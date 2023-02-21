@@ -9,7 +9,7 @@
             <div class="flex">
                 <div style="padding-top: 5px;">
                     <div *ngIf="check;">
-                        <p-button label="Thông báo" icon="pi pi-bell" styleClass="p-button-link" (click)="op.toggle($event)"  badgeClass="p-badge-danger"></p-button>
+                        <p-button label="Thông báo" icon="pi pi-bell" styleClass="p-button-link" (click)="op.toggle($event)" (onClick)="loadNoti()" badgeClass="p-badge-danger"></p-button>
                         <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '500px'}">
                             <ng-template pTemplate>
                                 <p-table [value]="notilist" selectionMode="single">

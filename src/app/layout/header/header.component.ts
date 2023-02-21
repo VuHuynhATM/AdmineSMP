@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
   
   getNotification(){
     var userJson=JSON.parse(this.user);
-    this.notifyService.getSystemInfo(userJson.userID, this.page).subscribe((result) => {
+    this.notifyService.getNotifications(userJson.userID, this.page).subscribe((result) => {
       if (result.success) {
         this.notilist = result.data;
         this.totalPage = result.totalPage;
@@ -131,5 +131,10 @@ export class HeaderComponent implements OnInit {
       this.page = this.page - 1;
       this.getNotification();
     }
+  }
+  loadNoti(){
+    this.page=1;
+    this.getNotification();
+    
   }
 }
