@@ -78,7 +78,7 @@
                 <p-dataView #dv [value]="listitem">
                     <ng-template let-product pTemplate="listItem">
                         <div class="col-12 md:col-4 cursor-pointer " (click)="viewdetail(product.itemID)">
-                            <div class="product-grid-item card">
+                            <div class="product-grid-item card" [ngClass]="{'surface-400' : product.storeStatusID==2}">
                                 <div class="product-grid-item-top">
                                     <div>
                                         <i class="pi pi-map-marker product-category-icon"></i>

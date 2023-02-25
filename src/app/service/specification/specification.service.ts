@@ -43,6 +43,15 @@ export class SpecificationService {
       specificationIDsRemove:removespec
     };
     return this.httpClient.post(DOMAIN + `Specification/add_specification`, body, { headers: this.headers });
+  }
+  addSpecificationSuggest(id:number, suggeatvalues: string): Observable<any>{
+    var body={
+      specificationID:id,
+      suggsetvalues:suggeatvalues
+    };
+    console.log(body)
+
+    return this.httpClient.post(DOMAIN + `Specification/add_specificationsuggset`, body, { headers: this.headers });
 
   }
 }

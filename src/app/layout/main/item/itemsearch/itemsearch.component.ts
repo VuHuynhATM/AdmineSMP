@@ -70,8 +70,7 @@ export class ItemsearchComponent implements OnInit {
     this.visibleSidebar=false;
   }
   getlistitem() {
-    console.log(this.search+this.page+this.status);
-    this.itemService.getListItemSearch(this.search,this.min,this.max,this.rating,this.category,this.subcategory,this.brand,this.motor,this.sort,this.storeID,this.page).subscribe((result) => {
+    this.itemService.getListItemSearch(this.search,this.min,this.max,this.rating,this.category,this.subcategory,this.brand,this.motor,this.sort,this.storeID,this.page,this.status).subscribe((result) => {
       this.listitem = result.data;
       this.totalPage = result.totalPage;
       console.log(this.listitem);

@@ -32,6 +32,7 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import {OrderListModule} from 'primeng/orderlist';
 import {ListboxModule} from 'primeng/listbox';
 import {PickListModule} from 'primeng/picklist';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -125,6 +126,7 @@ import { ReportComponent } from './layout/main/report/report.component';
     OrderListModule,
     ListboxModule,
     PickListModule,
+    InputTextareaModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],

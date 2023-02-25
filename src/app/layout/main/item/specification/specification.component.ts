@@ -12,6 +12,10 @@ export class SpecificationComponent implements OnInit {
   specifications!: any;
   displayAddSpec!: any;
   specificationName!:any;
+  displaysuggest!:any;
+  suggesttext:any="";
+  specificationID!:any;
+
   constructor(
     private specificationService:SpecificationService,
     private messageService: MessageService
@@ -66,6 +70,37 @@ export class SpecificationComponent implements OnInit {
       if (result.success) {
         this.getSpecification();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+    }, err => {
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    });
+  }
+  showsuggest(id:number){
+    this.suggesttext="";
+    this.displaysuggest=true;
+    this.specificationID=id;
+    this.specifications.forEach((value:any) => {
+      if(id==value.specificationID){
+        if(value.suggestValues!=null){
+          value.suggestValues.forEach((element:any) => {
+            if(this.suggesttext=="")
+            this.suggesttext=element;
+            else
+            this.suggesttext=this.suggesttext+"; "+element;
+          });
+        }
+      }
+    });
+  }
+  editSuggest(){
+    this.specificationService.addSpecificationSuggest(this.specificationID,this.suggesttext).subscribe((result) => {
+      if (result.success) {
+        this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+        this.getSpecification();
+        console.log(result);
+        this.displaysuggest=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }

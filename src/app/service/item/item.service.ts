@@ -17,7 +17,7 @@ export class ItemService {
       'Access-Control-Allow-Origin': '*'
     });
   }
-  getListItemSearch(search:string, min:number, max:number, rate:number, cateID:number, subCateID:number, brandID:number, brandModelID:number, sortBy:string, storeID:number, page:number ): Observable<any> {
+  getListItemSearch(search:string, min:number, max:number, rate:number, cateID:number, subCateID:number, brandID:number, brandModelID:number, sortBy:string, storeID:number, page:number ,itemStatusID:number): Observable<any> {
     var searchtxt="";
     if(search!=undefined){
       searchtxt=search;
@@ -58,7 +58,12 @@ export class ItemService {
     if(storeID!=undefined){
       storeIDtxt=storeID+"";
     }
-    return this.httpClient.get(DOMAIN + `Item/search_admin?search=${searchtxt}&min=${mintxt}&max=${maxtxt}&rate=${ratetxt}&cateID=${cateIDtxt}&subCateID=${subCateIDtxt}&brandID=${brandIDtxt}&brandModelID=${brandModelIDtxt}&sortBy=${sortBytxt}&storeID=${storeIDtxt}&page=${page}&isSupplier=${false}`, )
+    var StatusIDtxt="";
+    if(itemStatusID!=undefined){
+      StatusIDtxt=itemStatusID+"";
+    }
+    console.log();
+    return this.httpClient.get(DOMAIN + `Item/search_admin?search=${searchtxt}&min=${mintxt}&max=${maxtxt}&rate=${ratetxt}&cateID=${cateIDtxt}&subCateID=${subCateIDtxt}&brandID=${brandIDtxt}&brandModelID=${brandModelIDtxt}&sortBy=${sortBytxt}&storeID=${storeIDtxt}&page=${page}&isSupplier=${false}&itemStatusID=${StatusIDtxt}`, )
   }
   getItemDetail(id:number):Observable<any>{
     return this.httpClient.get(DOMAIN + `Item/item_detail?itemID=${id}`,{ headers: this.headers });
