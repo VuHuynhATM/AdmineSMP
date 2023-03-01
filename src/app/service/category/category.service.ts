@@ -20,10 +20,10 @@ export class CategoryService {
     }
   }
   getlistCategory(): Observable<any>{
-    return this.httpClient.get(DOMAIN + `Category`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Category?role=1`, { headers: this.headers });
   }
   getlistSubCategory(id:number): Observable<any>{
-    return this.httpClient.get(DOMAIN + `Category/sub_category?categoryID=${id}`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Category/sub_category?categoryID=${id}&role=1`, { headers: this.headers });
   }
   activeCategory(id:number): Observable<any>{
     return this.httpClient.put(DOMAIN + `Category/active_category?categoryID=${id}`, null, { headers: this.headers });

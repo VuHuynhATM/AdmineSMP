@@ -100,7 +100,7 @@
                     <div class="col text-center">
                         <div class="button">
                             <div *ngIf="subitem==undefined; else elsesubbutton">
-                                <span *ngIf="item.item_Status.item_StatusID==2; else blockitembutton">
+                                <span *ngIf="item.item_Status.item_StatusID==2||item.item_Status.item_StatusID==3; else blockitembutton">
                                     <button pButton pRipple label="Kích hoạt" (click)="activeItem(item.itemID)"
                                         icon="pi pi-check"></button>
                                 </span>
@@ -111,12 +111,12 @@
                                 </ng-template>
                             </div>
                             <ng-template #elsesubbutton>
-                                <span *ngIf="subitem.subItem_Status.item_StatusID==2; else blocksubitembutton">
+                                <span *ngIf="(subitem.subItem_Status.item_StatusID==2||subitem.subItem_Status.item_StatusID==3)&&item.item_Status.item_StatusID!=2; else blocksubitembutton">
                                     <button pButton pRipple label="Kích hoạt"
                                         (click)="activeSubItem(subitem.sub_ItemID)" icon="pi pi-check"></button>
                                 </span>
                                 <ng-template #blocksubitembutton>
-                                    <button pButton pRipple label="Khóa" icon="pi pi-times"
+                                    <button pButton *ngIf="item.item_Status.item_StatusID!=2" pRipple label="Khóa" icon="pi pi-times"
                                         (click)="blockSubItem(subitem.sub_ItemID)"
                                         class="p-button-raised p-button-warning"></button>
                                 </ng-template>

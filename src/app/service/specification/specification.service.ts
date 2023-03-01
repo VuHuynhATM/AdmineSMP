@@ -34,7 +34,7 @@ export class SpecificationService {
   }
 
   getlistSubCate_Specification(id:number): Observable<any>{
-    return this.httpClient.get(DOMAIN + `Specification/sub_category?sub_CategoryID=${id}`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Specification/sub_category?sub_CategoryID=${id}&role=1`, { headers: this.headers });
   }
   addSpecification(id:number, addspec:number[], removespec: number[]): Observable<any>{
     var body={

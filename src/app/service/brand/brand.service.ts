@@ -20,10 +20,10 @@ export class BrandService {
     }
   }
   getlistBrand(): Observable<any>{
-    return this.httpClient.get(DOMAIN + `Brand`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Brand?role=1`, { headers: this.headers });
   }
   getlistMotor(id:number): Observable<any>{
-    return this.httpClient.get(DOMAIN + `Brand/brand_model?brandID=${id}`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Brand/brand_model?brandID=${id}&role=1`, { headers: this.headers });
   }
   activeBrand(id:number): Observable<any>{
     return this.httpClient.put(DOMAIN + `Brand/active_brand?brandID=${id}`, null, { headers: this.headers });

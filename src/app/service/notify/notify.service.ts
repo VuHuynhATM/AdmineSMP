@@ -20,6 +20,13 @@ export class NotifyService {
     }
   }
   getNotifications(userID:number, page:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Notification?userID=${userID}&page=${page}`, { headers: this.headers })
   }
 }
