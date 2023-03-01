@@ -83,6 +83,7 @@ export class ItemdetailComponent implements OnInit {
     this.itemService.activeItem(id).subscribe((result) => {
       if (result.success) {
         this.item.item_Status = result.data;
+        this.viewdetail(this.itemID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
