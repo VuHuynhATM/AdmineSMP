@@ -8,3 +8,6 @@
     margin-top: 2%;
     text-align: center;
 }
+:host ::ng-deep .p-inputtext{
+    font-size: 0.75rem !important;
+}

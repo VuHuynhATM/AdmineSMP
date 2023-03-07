@@ -28,19 +28,19 @@
                         </div>
                         <div class="col card">
                             <div class="field">
-                                <label for="username" class="block">Họ và tên</label>
+                                <label for="username" class="block text-xs">Họ và tên</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
                                     pInputText [(ngModel)]="user.userName"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Số điện thoại</label>
+                                <label for="username" class="block text-xs">Số điện thoại</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
                                     pInputText [(ngModel)]="user.phone"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Địa chỉ</label>
+                                <label for="username" class="block text-xs">Địa chỉ</label>
                                 <div (click)="op.toggle($event)">
                                     <input id="username" type="username" aria-describedby="username1-help"
                                         [disabled]="true" pInputText placeholder="Xem danh sách địa chỉ"
@@ -51,7 +51,7 @@
                                         <p-table [value]="notilist" selectionMode="single" [paginator]="true"
                                             [rows]="5">
                                             <ng-template pTemplate="header">
-                                                <tr>
+                                                <tr class=" text-xs">
                                                     <th pSortableColumn="name">Họ tên<p-sortIcon
                                                             field="name"></p-sortIcon></th>
                                                     <th pSortableColumn="name">Số điện thoại<p-sortIcon
@@ -81,31 +81,31 @@
                                 </p-overlayPanel>
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Email</label>
+                                <label for="username" class="block text-xs">Email</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
                                     pInputText [(ngModel)]="user.email"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Giới tính</label>
+                                <label for="username" class="block text-xs">Giới tính</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
                                     pInputText [(ngModel)]="user.gender"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Ngày sinh</label>
+                                <label for="username" class="block text-xs">Ngày sinh</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
                                     pInputText [(ngModel)]="user.dateOfBirth"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Người dùng</label>
+                                <label for="username" class="block text-xs">Người dùng</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
                                     pInputText [(ngModel)]="user.role.roleName"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Trạng Thái</label>
+                                <label for="username" class="block text-xs">Trạng Thái</label>
                                 <div class="button">
                                     <div *ngIf="user.isActive; else elseBlocktext">
                                         <input id="username" type="username" aria-describedby="username1-help"

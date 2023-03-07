@@ -6,8 +6,8 @@
     <div class="col">
         <p-toast></p-toast>
         <div class="card">
-            <div class="text-4xl" style="margin-bottom: 10px;">Các thông số kĩ thuật</div>
-            <button pButton pRipple label="Thêm thông số" class="p-button-text" (click)="displayAddSpec=true"></button>
+            <div class="text-xl" style="margin-bottom: 10px;">Các thông số kĩ thuật</div>
+            <button pButton pRipple label="Thêm thông số" class="p-button-text  text-sm" (click)="displayAddSpec=true"></button>
             <p-dialog header="Thêm hãng xe" [(visible)]="displayAddSpec" [modal]="true" [style]="{width: '50vw'}"
                 [baseZIndex]="10000" [draggable]="false" [resizable]="false">
                 <input id="username" type="username" aria-describedby="username1-help" pInputText
@@ -20,8 +20,8 @@
             </p-dialog>
             <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;" *ngFor="let spec of specifications">
                 <div class="col-8">
-                    <div class="flex text-2xl">{{spec.specificationName}}</div>
-                    <div class="flex" *ngIf="spec.isActive; else cateblock">Hoạt động</div>
+                    <div class="flex text-base">{{spec.specificationName}}</div>
+                    <div class="flex text-base" *ngIf="spec.isActive; else cateblock">Hoạt động</div>
                     <ng-template #cateblock>
                         khóa
                     </ng-template>
@@ -29,15 +29,15 @@
                 <div class="col-2 text-center">
                     <div *ngIf="spec.isActive; else catebtnblock">
                         <button *ngIf="spec.specificationID!=2" pButton pRipple label="Khóa" (click)="blockSpecification(spec.specificationID)" icon="pi pi-times"
-                            class="p-button-raised p-button-warning"></button>
+                            class="p-button-raised p-button-warning text-xs"></button>
                     </div>
                     <ng-template #catebtnblock>
                         <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
-                            (click)="activeSpecification(spec.specificationID)"></button>
+                            (click)="activeSpecification(spec.specificationID)" class="text-xs"></button>
                     </ng-template>
                 </div>
                 <div class="col-2 text-center">
-                    <button pButton pRipple label="Gợi ý"
+                    <button pButton pRipple label="Gợi ý" class="text-xs"
                             (click)="showsuggest(spec.specificationID)"></button>
                 </div>
                 <p-dialog header="Chỉnh sửa gợi ý" [(visible)]="displaysuggest" [modal]="true"

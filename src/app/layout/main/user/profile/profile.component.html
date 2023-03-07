@@ -22,7 +22,7 @@
                                         [showCancelButton]="false" chooseLabel="Chọn hình ảnh" uploadLabel="Lưu">
                                     </p-fileUpload>
                                     <ng-template pTemplate="footer">
-                                        <p-button icon="pi pi-times" (click)="displayEditAvarta=false"
+                                        <p-button icon="pi pi-times" (click)="displayEditAvarta=false" styleClass="text-xs"
                                             label="Hủy"></p-button>
                                     </ng-template>
                                 </p-dialog>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col card">
                             <div class="field" (click)="showEditNameDialog()">
-                                <label for="username" class="block">Họ và tên</label>
+                                <label for="username" class="block text-xs">Họ và tên</label>
                                 <input id="username" type="username" [disabled]="true" aria-describedby="username1-help"
                                     pInputText [(ngModel)]="user.userName"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
@@ -47,24 +47,24 @@
                                 </ng-template>
                             </p-dialog>
                             <div class="field">
-                                <label for="username" class="block">Số điện thoại</label>
+                                <label for="username" class="block text-xs">Số điện thoại</label>
                                 <input id="username" type="username" [disabled]="true" aria-describedby="username1-help"
                                     pInputText [(ngModel)]="user.phone"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Email</label>
+                                <label for="username" class="block text-xs">Email</label>
                                 <input id="username" type="username" [disabled]="true" aria-describedby="username1-help"
                                     pInputText [(ngModel)]="user.email"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">
-                                <label for="username" class="block">Giới tính</label>
+                                <label for="username" class="block text-xs">Giới tính</label>
                                 <p-dropdown id="username" [options]="gender" [disabled]="true"
                                     [(ngModel)]="selectgender" optionLabel="label"></p-dropdown>
                             </div>
                             <div class="field" (click)="showEditDoBDialog()">
-                                <label for="username" class="block">Ngày sinh</label>
+                                <label for="username" class="block text-xs">Ngày sinh</label>
                                 <p-calendar [(ngModel)]="time" [disabled]="true" [showTime]="true" [showSeconds]="true"
                                     inputId="time"></p-calendar>
                             </div>

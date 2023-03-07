@@ -148,8 +148,8 @@ export class InfopageComponent implements OnInit {
         var listlabel: string[] = [];
         var liststore: Number[] = [];
         var listorder: Number[] = [];
+        console.log(result);
         result.data.forEach((value: any) => {
-          console.log(value);
           listlabel.push(value.time);
           liststore.push(value.amountstore);
           listorder.push(value.amountOrder);

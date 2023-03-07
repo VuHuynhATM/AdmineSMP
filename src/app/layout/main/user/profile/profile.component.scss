@@ -4,3 +4,6 @@
     margin-top: 5%;
     padding: 20px 20px 20px 20px;
 }
+:host ::ng-deep .p-inputtext{
+    font-size: 0.75rem !important;
+}
