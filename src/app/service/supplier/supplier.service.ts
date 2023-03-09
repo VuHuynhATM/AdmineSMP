@@ -11,13 +11,13 @@ export class SupplierService {
   headers: any;
 
   constructor(private httpClient: HttpClient) { 
-    //if(localStorage.getItem("USER")!=undefined){
+    if(localStorage.getItem("USER")!=undefined){
       this.headers = new HttpHeaders({
         'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
         'accept': '*/*',
         'Access-Control-Allow-Origin': '*'
       });
-    //}
+    }
   }
   getListStoreSearch(value: string, page: number, statusID: number): Observable<any> {
     var search: string = "";

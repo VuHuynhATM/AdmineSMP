@@ -11,11 +11,13 @@ export class SpecificationService {
   headers: any;
 
   constructor(private httpClient: HttpClient) {
-    this.headers = new HttpHeaders({
-      'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
-      'accept': '*/*',
-      'Access-Control-Allow-Origin': '*'
-    });
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
   }
   getlistSpecification(): Observable<any>{
     return this.httpClient.get(DOMAIN + `Specification`, { headers: this.headers });

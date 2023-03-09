@@ -11,11 +11,13 @@ export class OrderService {
   headers: any;
 
   constructor(private httpClient: HttpClient) {
-    this.headers = new HttpHeaders({
-      'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
-      'accept': '*/*',
-      'Access-Control-Allow-Origin': '*'
-    });
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
   }
 
   getlistOrder(userID:number,storeID:number, dateFrom:Date, dateTo:Date, shipOrderStatus:number, page:number, userName:string, orderID:number): Observable<any>{
