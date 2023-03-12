@@ -20,8 +20,19 @@
                                 </div>
                                 <ng-template #elseBlockbutton>
                                     <div *ngIf="check">
-                                        <button pButton pRipple label="Khóa" (click)="blockUser(user.userID)"
+                                        <button pButton pRipple label="Khóa" (click)="showBlock=true"
                                             icon="pi pi-times" class="p-button-raised p-button-warning"></button>
+                                        <p-dialog header="Khóa người dùng" [(visible)]="showBlock" [modal]="true"
+                                            [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                                            <input id="username" type="username" aria-describedby="username1-help" pInputText
+                                                [(ngModel)]="statusText"
+                                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                            <ng-template pTemplate="footer">
+                                                <p-button icon="pi pi-check" (click)="blockUser(user.userID)" label="Khóa"
+                                                    class="p-button-text"></p-button>
+                                                <p-button icon="pi pi-times" (click)="showBlock=false" label="Hủy"></p-button>
+                                            </ng-template>
+                                        </p-dialog>
                                     </div>
                                 </ng-template>
                             </div>
@@ -102,6 +113,12 @@
                                 <label for="username" class="block text-xs">Người dùng</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
                                     pInputText [(ngModel)]="user.role.roleName"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
+                            <div class="field">
+                                <label for="username" class="block text-xs">Ghi chú</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.statusText"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                             </div>
                             <div class="field">

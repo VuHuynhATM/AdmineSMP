@@ -60,6 +60,18 @@
                         {{discount}}
                     </span>
                 </div>
+                <div class="flex text-xl" style="margin-top: 25px;margin-bottom: 25px;">
+                    Bảo hành: &nbsp;
+                    <span *ngIf="firstPrice!=undefined" style="margin-right: 30px;">
+                          {{warrantiesTime}} Tháng
+                    </span> 
+                </div>
+                <div class="flex text-xl" style="margin-top: 25px;margin-bottom: 25px;">
+                    Chính sách đổi, trả: &nbsp;
+                    <span *ngIf="firstPrice!=undefined" style="margin-right: 30px;">
+                          {{warrantiesTime}} ngày
+                    </span> 
+                </div>
                 <div class="flex grid" *ngFor="let subItem of item.listSubItem">
                     <div class="flex" style="margin: 5px;">
                         <span *ngIf="subitem==undefined; else subundefined">
@@ -89,6 +101,15 @@
                         {{subitem.subItem_Status.statusName}}
                     </ng-template>
                 </div>
+                <div class="flex text-xl" style="margin-top: 25px;">
+                    Ghi chú:
+                    <span *ngIf="subitem==undefined; else statusTextdisplay" style="margin-left: 10px;">
+                        {{item.statusText}}
+                    </span>
+                    <ng-template #statusTextdisplay>
+                        {{subitem.statusText}}
+                    </ng-template>
+                </div>
                 <div class="flex align-items-center text-xl" style="margin-top: 20px;">
                     <div routerLink="/searchsupplier" (click)="viewstoredetail(item.store.storeID)"
                         class="cursor-pointer border-round-2xl border-1 border-blue-500 p-2 surface-overlay font-bold flex align-items-center justify-content-center">
@@ -106,8 +127,19 @@
                                 </span>
                                 <ng-template #blockitembutton>
                                     <button pButton pRipple label="Khóa" icon="pi pi-times"
-                                        (click)="blockItem(item.itemID)"
+                                        (click)="showBlock=true"
                                         class="p-button-raised p-button-warning"></button>
+                                        <p-dialog header="Ghi chú" [(visible)]="showBlock" [modal]="true"
+                                            [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                                            <input id="username" type="username" aria-describedby="username1-help" pInputText
+                                                [(ngModel)]="statusText"
+                                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                            <ng-template pTemplate="footer">
+                                                <p-button icon="pi pi-check" (click)="blockItem(item.itemID)" label="Khóa"
+                                                    class="p-button-text"></p-button>
+                                                <p-button icon="pi pi-times" (click)="showBlock=false" label="Hủy"></p-button>
+                                            </ng-template>
+                                        </p-dialog>
                                 </ng-template>
                             </div>
                             <ng-template #elsesubbutton>
@@ -117,8 +149,19 @@
                                 </span>
                                 <ng-template #blocksubitembutton>
                                     <button pButton *ngIf="item.item_Status.item_StatusID!=2" pRipple label="Khóa" icon="pi pi-times"
-                                        (click)="blockSubItem(subitem.sub_ItemID)"
+                                        (click)="showBlockSub=true"
                                         class="p-button-raised p-button-warning"></button>
+                                        <p-dialog header="Ghi chú" [(visible)]="showBlockSub" [modal]="true"
+                                            [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                                            <input id="username" type="username" aria-describedby="username1-help" pInputText
+                                                [(ngModel)]="statusTextSub"
+                                                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                            <ng-template pTemplate="footer">
+                                                <p-button icon="pi pi-check" (click)="blockSubItem(subitem.sub_ItemID)" label="Khóa"
+                                                    class="p-button-text"></p-button>
+                                                <p-button icon="pi pi-times" (click)="showBlockSub=false" label="Hủy"></p-button>
+                                            </ng-template>
+                                        </p-dialog>
                                 </ng-template>
                             </ng-template>
                         </div>

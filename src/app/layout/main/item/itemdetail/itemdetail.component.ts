@@ -18,6 +18,12 @@ export class ItemdetailComponent implements OnInit {
   subitem!: any;
   page: any = 1;
   totalpage: any = 2;
+  warrantiesTime!:any;
+  statusText!:string;
+  showBlock!:any;
+  statusTextSub!:string;
+  showBlockSub!:any;
+
 
   constructor(private messageService: MessageService,
     private router: Router,
@@ -45,7 +51,8 @@ export class ItemdetailComponent implements OnInit {
         } else {
           this.secondPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice * (1 - this.item.discount)) + 'VND';
         }
-        console.log(this.item);
+        this.warrantiesTime=this.item.warrantiesTime;
+
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
@@ -57,12 +64,14 @@ export class ItemdetailComponent implements OnInit {
     this.item.listSubItem.forEach((sub: any) => {
       if (sub.sub_ItemID == id) {
         this.subitem = sub;
+        console.log(this.subitem);
         if (this.item.discount != 0) {
           this.firstPrice = new Intl.NumberFormat('en-DE').format(sub.price) + 'VND';
         } else {
           this.firstPrice = undefined;
         }
         this.secondPrice = new Intl.NumberFormat('en-DE').format(sub.price * (1 - this.item.discount)) + 'VND';
+        this.warrantiesTime=sub.warrantiesTime;
       }
     });
   }
@@ -78,11 +87,11 @@ export class ItemdetailComponent implements OnInit {
     } else {
       this.secondPrice = new Intl.NumberFormat('en-DE').format(this.item.minPrice * (1 - this.item.discount)) + 'VND';
     }
+    this.warrantiesTime=this.item.warrantiesTime;
   }
   activeItem(id: number) {
     this.itemService.activeItem(id).subscribe((result) => {
       if (result.success) {
-        this.item.item_Status = result.data;
         this.viewdetail(this.itemID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
@@ -95,10 +104,19 @@ export class ItemdetailComponent implements OnInit {
   activeSubItem(id: number) {
     this.itemService.activeSubItem(id).subscribe((result) => {
       if (result.success) {
-        this.subitem.subItem_Status = result.data;
+        this.viewdetail(this.itemID);
+        console.log(this.item);
         this.item.listSubItem.forEach((sub: any) => {
           if (sub.sub_ItemID == id) {
-            sub = this.subitem;
+            this.subitem = sub;
+            console.log(this.subitem);
+            if (this.item.discount != 0) {
+              this.firstPrice = new Intl.NumberFormat('en-DE').format(sub.price) + 'VND';
+            } else {
+              this.firstPrice = undefined;
+            }
+            this.secondPrice = new Intl.NumberFormat('en-DE').format(sub.price * (1 - this.item.discount)) + 'VND';
+            this.warrantiesTime=sub.warrantiesTime;
           }
         });
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -110,10 +128,10 @@ export class ItemdetailComponent implements OnInit {
     });
   }
   blockItem(id: number) {
-    this.itemService.blockItem(id).subscribe((result) => {
+    this.itemService.blockItem(id, this.statusText).subscribe((result) => {
       if (result.success) {
-        console.log(result);
-        this.item.item_Status = result.data;
+        this.viewdetail(this.itemID);
+        this.showBlock=false;
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
@@ -123,14 +141,24 @@ export class ItemdetailComponent implements OnInit {
     });
   }
   blockSubItem(id: number) {
-    this.itemService.blockSubItem(id).subscribe((result) => {
+    this.itemService.blockSubItem(id, this.statusTextSub).subscribe((result) => {
       if (result.success) {
-        this.subitem.subItem_Status = result.data;
+        this.viewdetail(this.itemID);
+        console.log(this.item);
         this.item.listSubItem.forEach((sub: any) => {
           if (sub.sub_ItemID == id) {
-            sub = this.subitem;
+            this.subitem = sub;
+            console.log(this.subitem);
+            if (this.item.discount != 0) {
+              this.firstPrice = new Intl.NumberFormat('en-DE').format(sub.price) + 'VND';
+            } else {
+              this.firstPrice = undefined;
+            }
+            this.secondPrice = new Intl.NumberFormat('en-DE').format(sub.price * (1 - this.item.discount)) + 'VND';
+            this.warrantiesTime=sub.warrantiesTime;
           }
         });
+        this.showBlockSub=false;
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });

@@ -39,6 +39,9 @@
                                 Đơn hàng: {{order.orderID}}
                             </div>
                             <div class="p-2">
+                                Hình thức thanh toán: {{order.paymentMethod}}
+                            </div>
+                            <div class="p-2">
                                 Ngày đặt: {{order.create_Date}}
                             </div>
                             <div class="p-2">
@@ -53,12 +56,12 @@
                             <div class="p-2 cursor-pointer" (click)="op.show($event, getliststatus(order.orderID))">
                                 Trạng thái:
                                 <span *ngIf="order.orderStatus.item_StatusID==3;else nomarlstatus"
-                                    class=" border-round-2xl border-1 border-red-500 p-1 surface-overlay justify-content-center">
+                                    class=" border-round-2xl border-1 border-red-500 p-1 pl-2 pr-2 surface-overlay justify-content-center">
                                     {{order.orderShip.status}}
                                 </span>
                                 <ng-template #nomarlstatus>
                                     <span
-                                        class=" border-round-2xl border-1 border-blue-500 p-1 surface-overlay justify-content-center">{{order.orderShip.status}}</span>
+                                        class=" border-round-2xl border-1 border-blue-500 p-1 pl-2 pr-2 surface-overlay justify-content-center">{{order.orderShip.status}}</span>
                                 </ng-template>
                             </div>
 
@@ -71,7 +74,9 @@
                                 <div>SĐT: {{order.pick_Tel}}</div>
                                 <div>Địa chỉ: {{order.pick_Address}}, {{order.pick_Ward}}, {{order.pick_Province}},
                                     {{order.pick_District}} </div>
+                                <br/>
                             </div>
+                            <br/>
                             <div>
                                 <div class="cursor-pointer" (click)="viewuserdetail(order.userID)">Điểm nhận hàng/ Người
                                     mua</div>
@@ -90,18 +95,24 @@
                                     {{item.sub_ItemName}}
                                 </div>
                                 <div class="grid">
-                                    <div class="col-6">
+                                    <div class="col-7">
                                         <div>
                                             Số lượng: {{item.amount}}
                                         </div>
                                         <div>
-                                            Tiền hàng: {{item.pricePurchase*(1-item.discountPurchase)}} VND
+                                            <Span>Tiền hàng: {{item.pricePurchase*(1-item.discountPurchase)}} VND</Span>
+                                        </div>
+                                        <div>
+                                            Bảo hành: {{item.warrantiesTime}} tháng
+                                        </div>
+                                        <div>
+                                            Đổi trả: {{item.returnAndExchange}} ngày
                                         </div>
                                     </div>
-                                    <div class="col-6"
+                                    <div class="col-5"
                                         *ngIf="order.orderShip.shipStatusID=='5'||order.orderShip.shipStatusID=='45'||order.orderShip.shipStatusID=='6'">
-                                        <button pButton pRipple label="Đánh giá" icon="pi pi-times" (click)="viewFeedbackDetail(item.orderDetailID)"
-                                            class="p-button-text p-button-warning"></button>
+                                        <button pButton pRipple label="Đánh giá" (click)="viewFeedbackDetail(item.orderDetailID)"
+                                            class="p-button-text p-button-warning "></button>
                                     </div>
                                 </div>
 
@@ -109,8 +120,8 @@
                         </td>
                         <td>
                             <div *ngIf="order.orderShip.shipStatusID=='-2'||order.orderShip.shipStatusID=='1'">
-                                <button pButton pRipple label="Hủy" icon="pi pi-times" class="text-sm"  (click)="displayCancelOrder=true"
-                                    class="p-button-text p-button-warning"></button>
+                                <button pButton pRipple label="Hủy" icon="pi pi-times"  (click)="displayCancelOrder=true"
+                                    class="p-button-text p-button-warning text-sx"></button>
                                 <p-dialog header="Hủy đơn hàng" [(visible)]="displayCancelOrder" [modal]="true"
                                     [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
                                     [resizable]="false">
@@ -118,15 +129,15 @@
                                         [(ngModel)]="reason" placeholder="Nguyên nhân"
                                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                                     <ng-template pTemplate="footer">
-                                        <p-button icon="pi pi-check" class="text-sm"  (click)="cancelOrder(order.orderID)"
-                                            label="Xác nhận" class="p-button-text"></p-button>
-                                        <p-button icon="pi pi-times" class="text-sm" (click)="displayCancelOrder=false"
+                                        <p-button icon="pi pi-check"  (click)="cancelOrder(order.orderID)"
+                                            label="Xác nhận" class="p-button-tex text-sxt"></p-button>
+                                        <p-button icon="pi pi-times" class="text-sx" (click)="displayCancelOrder=false"
                                             label="Hủy"></p-button>
                                     </ng-template>
                                 </p-dialog>
                             </div>
                             <div>
-                                <button pButton pRipple label="Nhãn in" icon="pi pi-times" class="text-sm"
+                                <button pButton pRipple label="Nhãn in" icon="pi pi-times" class="text-sx"
                                     (click)="getTiket(order.orderID)" class="p-button-text"></button>
                             </div>
 

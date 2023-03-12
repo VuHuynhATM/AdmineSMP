@@ -13,6 +13,8 @@ export class UserdetailComponent implements OnInit {
   check: boolean = true;
   notilist!: any;
   userID!: any;
+  statusText!:string;
+  showBlock!:any;
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -26,9 +28,10 @@ export class UserdetailComponent implements OnInit {
     this.getUserDetail(this.userID);
   }
   activeUser(userID: number) {
-    this.userService.updateStatusUser(userID, true).subscribe((result) => {
+    this.userService.updateStatusUser(userID, true, this.statusText).subscribe((result) => {
       if (result.success) {
         this.user.isActive = true;
+        this.getUserDetail(this.userID);
         localStorage.setItem("USER_DETAIL", JSON.stringify(this.user));
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
@@ -37,9 +40,10 @@ export class UserdetailComponent implements OnInit {
     })
   }
   blockUser(userID: number) {
-    this.userService.updateStatusUser(userID, false).subscribe((result) => {
+    this.userService.updateStatusUser(userID, false, this.statusText).subscribe((result) => {
       if (result.success) {
         this.user.isActive = false;
+        this.getUserDetail(this.userID);
         localStorage.setItem("USER_DETAIL", JSON.stringify(this.user));
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {

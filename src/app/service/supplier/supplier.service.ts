@@ -36,7 +36,7 @@ export class SupplierService {
   activeStore(storeID:number): Observable<any>{
     return this.httpClient.put(DOMAIN + `Store/active_store?storeID=${storeID}`,null, { headers: this.headers });
   }
-  blockStore(storeID:number): Observable<any>{
-    return this.httpClient.put(DOMAIN + `Store/block_store?storeID=${storeID}`,null, { headers: this.headers });
+  blockStore(storeID:number, statusText:string): Observable<any>{
+    return this.httpClient.put(DOMAIN + `Store/block_store?storeID=${storeID}&statusText=${statusText}`,null, { headers: this.headers });
   }
 }

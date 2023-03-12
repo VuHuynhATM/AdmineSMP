@@ -5,146 +5,176 @@
     </div>
     <div class="col">
         <p-toast></p-toast>
-            <div class="info" *ngIf="supplier!=undefined">
-                <div style="margin-right: 15px;">
-                    <div class="leftinfo bg-blue-50 border-round">
-                        <div class="card">
-                            <div class="card-container overflow-hidden">
-                                <div class="flex grid" style="margin-top: 5px;width: 100%;">
-                                    <div class="col-3">
-                                        <div style="margin-left: 15px;">
-                                            <p-card [header]="supplier.storeName" [style]="{width: '100%'}" styleClass="p-card-shadow">
-                                                <ng-template pTemplate="header">
-                                                    <img alt="Card" [src]="supplier.image.path">
-                                                </ng-template>
-                                                    <p-rating [ngModel]="supplier.totalRating" [readonly]="true" [stars]="5" [cancel]="false" name="danhgia"></p-rating>
-                                            </p-card>
+        <div class="info" *ngIf="supplier!=undefined">
+            <div style="margin-right: 15px;">
+                <div class="leftinfo bg-blue-50 border-round">
+                    <div class="card">
+                        <div class="card-container overflow-hidden">
+                            <div class="flex grid" style="margin-top: 5px;width: 100%;">
+                                <div class="col-3">
+                                    <div style="margin-left: 15px;">
+                                        <p-card [header]="supplier.storeName" [style]="{width: '100%'}"
+                                            styleClass="p-card-shadow">
+                                            <ng-template pTemplate="header">
+                                                <img alt="Card" [src]="supplier.image.path">
+                                            </ng-template>
+                                            <p-rating [ngModel]="supplier.totalRating" [readonly]="true" [stars]="5"
+                                                [cancel]="false" name="danhgia"></p-rating>
+                                        </p-card>
+                                    </div>
+                                </div>
+                                <div class="col-9 card">
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                        transition-colors transition-duration-100 hover:bg-cyan-100">
+                                        <div class="col-3">
+                                            Mã nhà cung cấp
+                                        </div>
+                                        <div class="col-9">
+                                            {{supplier.storeID}}
                                         </div>
                                     </div>
-                                    <div class="col-9 card">
-                                        <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
                                         transition-colors transition-duration-100 hover:bg-cyan-100">
-                                            <div class="col-3">
-                                                Mã nhà cung cấp
-                                            </div>
-                                            <div class="col-9">
-                                                {{supplier.storeID}}
-                                            </div>
+                                        <div class="col-3">
+                                            Email
+                                        </div>
+                                        <div class="col-9">
+                                            {{supplier.email}}
+                                        </div>
+                                    </div>
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                        transition-colors transition-duration-100 hover:bg-cyan-100">
+                                        <div class="col-3">
+                                            Số điện thoại
                                         </div>
                                         <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
-                                        transition-colors transition-duration-100 hover:bg-cyan-100">
-                                            <div class="col-3">
-                                                Email
-                                            </div>
-                                            <div class="col-9">
-                                                {{supplier.email}}
-                                            </div>
-                                        </div>
-                                        <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
-                                        transition-colors transition-duration-100 hover:bg-cyan-100">
-                                            <div class="col-3">
-                                                Số điện thoại
-                                            </div>
-                                            <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
                                             transition-colors transition-duration-100 hover:bg-cyan-100">
                                             {{supplier.phone}}
-                                            </div>
                                         </div>
-                                        <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                    </div>
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
                                         transition-colors transition-duration-100 hover:bg-cyan-100">
-                                            <div class="col-3">
-                                                Ngày tạo
-                                            </div>
-                                            <div class="col-9">
-                                                {{supplier.create_date}}
-                                            </div>
+                                        <div class="col-3">
+                                            Ngày tạo
                                         </div>
-                                        <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                        <div class="col-9">
+                                            {{supplier.create_date}}
+                                        </div>
+                                    </div>
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
                                         transition-colors transition-duration-100 hover:bg-cyan-100">
-                                            <div class="col-3">
-                                                Ngày kích hoạt
-                                            </div>
-                                            <div class="col-9">
-                                                {{supplier.actice_Date}}
-                                            </div>
+                                        <div class="col-3">
+                                            Ngày kích hoạt
                                         </div>
-                                        <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                        <div class="col-9">
+                                            {{supplier.actice_Date}}
+                                        </div>
+                                    </div>
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
                                         transition-colors transition-duration-100 hover:bg-cyan-100">
-                                            <div class="col-3">
-                                                Mã kích hoạt
-                                            </div>
-                                            <div class="col-9">
-                                                {{supplier.momoTransactionID}}
-                                            </div>
+                                        <div class="col-3">
+                                            Mã kích hoạt
                                         </div>
-                                        <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                        <div class="col-9">
+                                            {{supplier.momoTransactionID}}
+                                        </div>
+                                    </div>
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
                                         transition-colors transition-duration-100 hover:bg-cyan-100">
-                                            <div class="col-3">
-                                                Trạng thái
-                                            </div>
-                                            <div class="col-9">
-                                                {{supplier.store_Status.statusName}}
+                                        <div class="col-3">
+                                            Trạng thái
+                                        </div>
+                                        <div class="col-9">
+                                            {{supplier.store_Status.statusName}}
+                                        </div>
+                                    </div>
+                                    <div class="grid flex border-bottom-1 border-black-500 surface-overlay m-2 flex
+                                        transition-colors transition-duration-100 hover:bg-cyan-100">
+                                        <div class="col-3">
+                                            Ghi chú
+                                        </div>
+                                        <div class="col-9">
+                                            {{supplier.statusText}}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button pButton pRipple label="Dòng tiền" class="p-button-text"
+                                            (click)="viewtransaction()"></button>
+                                    </div>
+                                    <div class="button">
+                                        <div *ngIf="supplier.store_Status.item_StatusID==2; else elseBlockbutton">
+                                            <div *ngIf="check">
+                                                <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
+                                                    (click)="activeStore(supplier.storeID)"></button>
                                             </div>
                                         </div>
-                                        <div>
-                                            <button pButton pRipple label="Dòng tiền" class="p-button-text"  (click)="viewtransaction()"></button>
-                                        </div>
-                                        <div class="button">
-                                            <div *ngIf="supplier.store_Status.item_StatusID==2; else elseBlockbutton">
-                                                <div *ngIf="check">
-                                                    <button pButton pRipple label="Kích hoạt" 
-                                                        icon="pi pi-check" (click)="activeStore(supplier.storeID)"></button>
-                                                </div>
+                                        <ng-template #elseBlockbutton>
+                                            <div *ngIf="check">
+                                                <button pButton pRipple label="Khóa" (click)="showBlock=true"
+                                                    icon="pi pi-times"
+                                                    class="p-button-raised p-button-warning"></button>
+                                                <p-dialog header="Ghi chú" [(visible)]="showBlock"
+                                                    [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+                                                    [draggable]="false" [resizable]="false">
+                                                    <input id="username" type="username"
+                                                        aria-describedby="username1-help" pInputText
+                                                        [(ngModel)]="statusText"
+                                                        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                                                    <ng-template pTemplate="footer">
+                                                        <p-button icon="pi pi-check"
+                                                            (click)="blockStore(supplier.storeID)" label="Khóa"
+                                                            class="p-button-text"></p-button>
+                                                        <p-button icon="pi pi-times" (click)="showBlock=false"
+                                                            label="Hủy"></p-button>
+                                                    </ng-template>
+                                                </p-dialog>
                                             </div>
-                                            <ng-template #elseBlockbutton>
-                                                <div *ngIf="check">
-                                                    <button pButton pRipple label="Khóa" (click)="blockStore(supplier.storeID)"
-                                                        icon="pi pi-times" class="p-button-raised p-button-warning"></button>
-                                                </div>
-                                            </ng-template>
-                                        </div>
+                                        </ng-template>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="grid">
-                        <div class="col-4 cursor-pointer" [routerLink]="['/supplierwithdrawal']" [queryParams]="{storeID: supplier.storeID}">
-                            <p-card header="Tài khoản">
-                                <div class="grid">
-                                    <div class="col" style="text-align: center;">
-                                        {{price}} VND
-                                    </div>
+            </div>
+            <div class="col">
+                <div class="grid">
+                    <div class="col-4 cursor-pointer" [routerLink]="['/supplierwithdrawal']"
+                        [queryParams]="{storeID: supplier.storeID}">
+                        <p-card header="Tài khoản">
+                            <div class="grid">
+                                <div class="col" style="text-align: center;">
+                                    {{price}} VND
                                 </div>
-                            </p-card>
-                        </div>
-                        <div class="col-4 cursor-pointer" (click)="viewitem()">
-                            <p-card header="Phụ tùng">
-                                <div class="grid">
-                                    <div class="col" style="text-align: center;">
-                                        {{supplier.totalActiveItem}}
-                                    </div>
-                                </div>
-                            </p-card>
-                        </div>
-                        <div class="col-4 cursor-pointer" [routerLink]="['/order']" [queryParams]="{storeID: supplier.storeID}">
-                            <p-card header="Đơn hàng">
-                                <div class="grid">
-                                    <div class="col" style="text-align: center;">
-                                        {{supplier.totalOrder}}
-                                    </div>
-                                </div>
-                            </p-card>
-                        </div>
+                            </div>
+                        </p-card>
                     </div>
-                    <!-- <div>
+                    <div class="col-4 cursor-pointer" (click)="viewitem()">
+                        <p-card header="Phụ tùng">
+                            <div class="grid">
+                                <div class="col" style="text-align: center;">
+                                    {{supplier.totalActiveItem}}
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                    <div class="col-4 cursor-pointer" [routerLink]="['/order']"
+                        [queryParams]="{storeID: supplier.storeID}">
+                        <p-card header="Đơn hàng">
+                            <div class="grid">
+                                <div class="col" style="text-align: center;">
+                                    {{supplier.totalOrder}}
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+                <!-- <div>
                         <div class="card" style="font-size: 20px;">
                                 Biểu đồ
                         </div>
                     </div> -->
-                </div>
             </div>
+        </div>
     </div>
 </div>

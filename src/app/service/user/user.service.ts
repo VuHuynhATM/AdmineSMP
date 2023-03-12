@@ -37,8 +37,9 @@ export class UserService {
   getUserDetail(userID: number): Observable<any> {
     return this.httpClient.get(DOMAIN + `user/detail?userID=${userID}`, { headers: this.headers });
   }
-  updateStatusUser(userID: number, isActive: boolean): Observable<any> {
-    return this.httpClient.put(DOMAIN + `user/Update_user_status?userID=${userID}&isActive=${isActive}`, null, { headers: this.headers });
+  updateStatusUser(userID: number, isActive: boolean, statusText:string): Observable<any> {
+
+    return this.httpClient.put(DOMAIN + `user/Update_user_status?userID=${userID}&isActive=${isActive}&statusText=${statusText}`, null, { headers: this.headers });
   }
   editUserName(name: string, id: number): Observable<any> {
     const body =

@@ -66,8 +66,10 @@ export class SearchorderComponent implements OnInit {
       { label: 'đã tiếp nhận', value: '2' },
       { label: 'đang lấy hàng', value: '3' },
       { label: 'đang giao hàng', value: '4' },
-      { label: 'Giao hhàng thành công', value: '5' },
-      { label: 'Trả hàng', value: '6' }
+      { label: 'Giao hàng thành công', value: '5' },
+      { label: 'Giao hàng thất bại', value: '6' },
+      { label: 'Đơn hàng bị thất lạc', value: '8' },
+      { label: 'Đã đối soát', value: '7' }
     ]
     this.getlistorder();
   }

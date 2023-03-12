@@ -16,6 +16,8 @@ export class SuppdetailComponent implements OnInit {
   address!: any;
   storeID!: any;
   price!: any;
+  statusText!:string;
+  showBlock!:any;
 
   constructor(
     private messageService: MessageService,
@@ -49,7 +51,7 @@ export class SuppdetailComponent implements OnInit {
   }
   blockStore(storeID: number) {
     console.log(storeID);
-    this.storeService.blockStore(storeID).subscribe((result) => {
+    this.storeService.blockStore(storeID, this.statusText).subscribe((result) => {
       if (result.success) {
         this.viewdetail(storeID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
