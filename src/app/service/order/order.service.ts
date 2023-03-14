@@ -52,7 +52,7 @@ export class OrderService {
     return this.httpClient.get(DOMAIN + `Order/get_order_status?userID=${userIDtxt}&storeID=${storeIDtxt}&dateFrom=${dateFromtxt}&dateTo=${dateTotxt}&shipOrderStatus=${shipOrderStatustxt}&userName=${userNametxt}&page=${page}&orderID=${orderIDtxt}`,{ headers: this.headers });
   }
   getTicket(orderID:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Ship/get_ticket?orderID=${orderID}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Ship/get_ticket?orderID=${orderID}`, { headers: this.headers });
   }
   cancelorder(orderID:number,reson:string):Observable<any>{
     return this.httpClient.put(DOMAIN + `Payment/cancel_order?orderID=${orderID}&reason=${reson}`, null,{ headers: this.headers });

@@ -21,7 +21,7 @@ export class SearchorderComponent implements OnInit {
 
   listorder!: any;
 
-  orderID!:any;
+  orderID!: any;
   userID!: any;
   userName!: any;
   storeID!: any;
@@ -94,7 +94,7 @@ export class SearchorderComponent implements OnInit {
   }
 
   getlistorder() {
-    this.orderService.getlistOrder(this.userID, this.storeID, this.dateFrom, this.dateTo, this.shipStatus, this.page, this.userName,this.orderID).subscribe((result) => {
+    this.orderService.getlistOrder(this.userID, this.storeID, this.dateFrom, this.dateTo, this.shipStatus, this.page, this.userName, this.orderID).subscribe((result) => {
       if (result.success) {
         this.listorder = result.data;
         console.log(this.listorder);
@@ -109,12 +109,27 @@ export class SearchorderComponent implements OnInit {
 
   getTiket(orderID: number) {
     this.orderService.getTicket(orderID).subscribe((result) => {
-      if (!result.success) {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      console.log(result);
+      if (result != null) {
+        if (!result.success) {
+          this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+        } else {
+          // const byteArray = new Uint8Array(atob(result).split('').map(char => char.charCodeAt(0)));
+          // var file = new Blob([result.data], { type: 'application/pdf' });
+          // var fileURL = URL.createObjectURL(file);
+          let byteChar = atob(result.data);
+          let byteArray = new Array(byteChar.length);
+          for (let i = 0; i < byteChar.length; i++) {
+            byteArray[i] = byteChar.charCodeAt(i);
+          }
+          let uIntArray = new Uint8Array(byteArray);
+          let blob = new Blob([uIntArray], { type: 'application/pdf' });
+          var fileURL = URL.createObjectURL(blob);
+          window.open(fileURL);
+        }
       }
     }, err => {
-      window.open(DOMAIN + `Ship/get_ticket?orderID=${orderID}`);
-      //this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
     });
   }
   viewuserdetail(id: any) {
@@ -159,7 +174,7 @@ export class SearchorderComponent implements OnInit {
     }
   }
   getliststatus(orderID: number) {
-    this.shiplist=undefined;
+    this.shiplist = undefined;
     this.orderService.getShipstatus(orderID).subscribe((result) => {
       if (result.success) {
         this.shiplist = result.data;
@@ -182,7 +197,7 @@ export class SearchorderComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
     });
   }
-  viewFeedbackDetail(detailID:number) {
+  viewFeedbackDetail(detailID: number) {
     this.orderService.getFeedbackDetail(detailID).subscribe((result) => {
       if (result.success) {
         localStorage.setItem("FEEDBACK_DETAIL", JSON.stringify(result.data))
