@@ -9,18 +9,18 @@ import { MenuItem } from 'primeng/api';
 export class SidebarComponent implements OnInit {
 
   items!: MenuItem[];
-  user!:any;
+  user!: any;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.user=localStorage.getItem("USER");
-    if(this.user!=undefined){
+    this.user = localStorage.getItem("USER");
+    if (this.user != undefined) {
       this.items = [
         {
           label: 'Quản lý hệ thống',
           icon: 'pi pi-fw pi-id-card',
-          routerLink:'/systeminfo'
+          routerLink: '/systeminfo'
         },
         {
           label: 'Quản lý người dùng',
@@ -34,24 +34,24 @@ export class SidebarComponent implements OnInit {
         },
         {
           label: 'Quản lý phụ tùng',
-          items:[
+          items: [
             {
-              label:'Thông tin phụ tùng',
+              label: 'Thông tin phụ tùng',
               icon: 'pi pi-fw pi-cog',
               routerLink: '/searchitem/0'
             },
             {
-              label:'Quản lí loại phụ tùng',
+              label: 'Quản lí loại phụ tùng',
               icon: 'pi pi-fw pi-tag',
               routerLink: '/category'
             },
             {
-              label:'Quản lí thông số phụ tùng',
+              label: 'Quản lí thông số phụ tùng',
               icon: 'pi pi-fw pi-book',
               routerLink: '/specification'
             },
             {
-              label:'Quản lí phương tiện/hãng',
+              label: 'Quản lí phương tiện/hãng',
               icon: 'pi pi-fw pi-sitemap',
               routerLink: '/brand'
             },
@@ -60,17 +60,38 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Quản lý đơn hàng',
           icon: 'pi pi-fw pi-calendar',
-          routerLink:'/order'
+          routerLink: '/order'
         },
         {
           label: 'Quản lý yêu cầu rút tiền',
           icon: 'pi pi-fw pi-wallet',
-          routerLink:'/supplierwithdrawal'
+          routerLink: '/supplierwithdrawal'
         },
         {
-          label: 'Quản lý báo cáo',
-          icon: 'pi pi-fw pi-wallet',
-          routerLink:'/report'
+          label: 'Quản lý khiếu nại',
+          icon: 'pi pi-fw pi-exclamation-circle',
+          routerLink: '/report'
+        },
+        {
+          label: 'Quản lý đối soát',
+          icon: 'pi pi-fw pi-slack',
+          items: [
+            {
+              label: 'Đối soát gian hàng',
+              icon: 'pi pi-fw pi-eject',
+              routerLink: '/storeexchange'
+            },
+            {
+              label: 'Đối soát người mua',
+              icon: 'pi pi-fw pi-user-plus',
+              routerLink: '/userexchange'
+            }
+          ]
+        },
+        {
+          label: 'Quản lý đổi, hoàn',
+          icon: 'pi pi-fw pi-replay',
+          routerLink: '/service'
         },
       ]
     }

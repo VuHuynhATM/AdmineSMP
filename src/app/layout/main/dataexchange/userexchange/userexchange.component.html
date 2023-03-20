@@ -1,0 +1,101 @@
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <input type="text" class="mr-2" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
+                    <input type="text" class="mr-2" pInputText placeholder="Mã đổi, hoàn" [(ngModel)]="serviceID" />
+                    <input type="text" class="mr-2" pInputText placeholder="Mã người mua" [(ngModel)]="userID" />
+                    <p-dropdown [options]="serviceStatuses" class="mr-2" [(ngModel)]="serviceStatus"></p-dropdown>
+                    <p-calendar [(ngModel)]="dateFrom" class="mr-2" placeholder="từ ngày" [maxDate]="dateTo" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                    <p-calendar [(ngModel)]="dateTo" class="mr-2" placeholder="đến ngày" [minDate]="dateFrom" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                </div>
+
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search" (click)="searchexchange()"></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div>
+            <p-table [value]="listexchange">
+                <ng-template pTemplate="header">
+                    <tr class="text-xs">
+                        <th>Mã đối soát</th>
+                        <th>Nội dung</th>
+                        <th>Ngày tạo</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Mã đổi, hoàn</th>
+                        <th>Ảnh đối soát</th>
+                        <th>Thành tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-exchange>
+                    <tr class="cursor-pointer text-xs">
+                        <td>
+                            {{exchange.exchangeStoreID}}
+                        </td>
+                        <td>
+                            {{exchange.exchangeStoreName}}
+                        </td>
+                        <td>
+                            {{exchange.create_date}}
+                        </td>
+                        <td>
+                            <span *ngIf="exchange.orderID!=null">{{exchange.orderID}}</span>
+                        </td>
+                        <td>
+                            <span *ngIf="exchange.afterBuyServiceID!=null">{{exchange.afterBuyServiceID}}</span>
+                        </td>
+                        <td>
+                            <p-avatar *ngIf="exchange.image!=null" [image]="exchange.image.path" styleClass="mr-2" size="xlarge"
+                                shape="circle"></p-avatar>
+                        </td>
+                        <td>
+                            {{exchange.exchangePrice}} VND
+                        </td>
+                        <td>
+                            {{exchange.exchangeStatus.statusName}}
+                        </td>
+                        <td>
+                            <button
+                            *ngIf="exchange.exchangeStatus.item_StatusID==3"
+                            pButton pRipple label="Hoàn thành"
+                            (click)="showFinish(exchange.exchangeStoreID)"
+                            class="p-button-warning p-button-text m-2"></button>
+                            <p-dialog header="Hoàn thành Đối soát" [(visible)]="displayfinish"
+                                    [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
+                                    [resizable]="false">
+                                    <p-fileUpload [customUpload]="true" (uploadHandler)="successexchange($event)"
+                                        [multiple]="false" accept="image/*" [maxFileSize]="1000000"
+                                        [showCancelButton]="false" chooseLabel="Chọn hình ảnh" uploadLabel="Lưu">
+                                    </p-fileUpload>
+                                    <ng-template pTemplate="footer">
+                                        <p-button icon="pi pi-times" (click)="displayfinish=false"
+                                            label="Hủy"></p-button>
+                                    </ng-template>
+                                </p-dialog>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -63,6 +63,9 @@ import { TransactionComponent } from './layout/main/supplier/transaction/transac
 import { SystransactionComponent } from './layout/main/system/systransaction/systransaction.component';
 import { SyswithdrawalComponent } from './layout/main/system/syswithdrawal/syswithdrawal.component';
 import { ReportComponent } from './layout/main/report/report.component';
+import { StoreexchangeComponent } from './layout/main/dataexchange/storeexchange/storeexchange.component';
+import { UserexchangeComponent } from './layout/main/dataexchange/userexchange/userexchange.component';
+import { BuyserviceComponent } from './layout/main/afterbuy/buyservice/buyservice.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +93,10 @@ import { ReportComponent } from './layout/main/report/report.component';
     TransactionComponent,
     SystransactionComponent,
     SyswithdrawalComponent,
-    ReportComponent
+    ReportComponent,
+    StoreexchangeComponent,
+    UserexchangeComponent,
+    BuyserviceComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <p-dropdown [options]="reportTypes" class="text-xs" [(ngModel)]="reportType"></p-dropdown>
+                    <p-dropdown [options]="reportTypes" class="text-xs" style="margin-right: 5px;" [(ngModel)]="reportType"></p-dropdown>
                     <input type="text" pInputText *ngIf="reportType!=1" class="text-xs" placeholder="Mã gian hàng" [(ngModel)]="storeID" />
                 </div>
             

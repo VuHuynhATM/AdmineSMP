@@ -81,6 +81,6 @@ export class ItemService {
     return this.httpClient.put(DOMAIN + `Item/block_subItem?subItemID=${id}&statusText=${statusText}`, null,{ headers: this.headers });
   }
   getlistFeedback(itemID:number,page:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Item/item_feedback?itemID=${itemID}&page=${page}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Item/item_feedback?itemID=${itemID}&page=${page}&role=1`,{ headers: this.headers });
   }
 }

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BuyserviceComponent } from './layout/main/afterbuy/buyservice/buyservice.component';
+import { StoreexchangeComponent } from './layout/main/dataexchange/storeexchange/storeexchange.component';
+import { UserexchangeComponent } from './layout/main/dataexchange/userexchange/userexchange.component';
 import { HomeComponent } from './layout/main/home/home.component';
 import { BrandComponent } from './layout/main/item/brand/brand.component';
 import { CategoryComponent } from './layout/main/item/category/category.component';
@@ -110,6 +113,18 @@ const routes: Routes = [
   {
     path: 'report',
     component: ReportComponent
+  },
+  {
+    path: 'storeexchange',
+    component: StoreexchangeComponent
+  },
+  {
+    path: 'userexchange',
+    component: UserexchangeComponent
+  },
+  {
+    path: 'service',
+    component: BuyserviceComponent
   }
 ];
 
