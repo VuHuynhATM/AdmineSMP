@@ -22,7 +22,10 @@
                 </div>
             </p-toolbar>
         </div>
-        <div class="text-sm">
+        <ng-template #falseload>
+            <p-skeleton width="100%" height="100%"></p-skeleton>
+        </ng-template>
+        <div class="text-sm" *ngIf="listorder!=undefined;else falseload">
             <p-table [value]="listorder">
                 <ng-template pTemplate="header">
                     <tr class="text-sm">
