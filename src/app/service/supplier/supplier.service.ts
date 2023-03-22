@@ -13,7 +13,7 @@ export class SupplierService {
   constructor(private httpClient: HttpClient) { 
     if(localStorage.getItem("USER")!=undefined){
       this.headers = new HttpHeaders({
-        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER")||"").token,
         'accept': '*/*',
         'Access-Control-Allow-Origin': '*'
       });

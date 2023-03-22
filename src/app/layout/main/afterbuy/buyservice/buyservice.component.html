@@ -1,1 +1,143 @@
-<p>buyservice works!</p>
+<app-header></app-header>
+<div class="flex grid">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col">
+        <p-toast></p-toast>
+        <div>
+            <p-toolbar>
+                <div class="p-toolbar-group-start">
+                    <input type="text" class="mr-2" pInputText placeholder="Mã đơn hàng" [(ngModel)]="serviceID" />
+                    <input type="text" class="mr-2" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
+                    <p-dropdown [options]="serviceStatuses" class="mr-2" [(ngModel)]="serviceStatus"></p-dropdown>
+                    <p-dropdown [options]="serviceTypes" class="mr-2" [(ngModel)]="serviceType"></p-dropdown>
+                    <p-calendar [(ngModel)]="dateFrom" class="mr-2" placeholder="từ ngày" [maxDate]="dateTo" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                    <p-calendar [(ngModel)]="dateTo" class="mr-2" placeholder="đến ngày" [minDate]="dateFrom" [showSeconds]="true"
+                        inputId="time"></p-calendar>
+                </div>
+
+                <div class="p-toolbar-group-end">
+                    <p-button icon="pi pi-search" (click)="searchservice()"></p-button>
+                </div>
+            </p-toolbar>
+        </div>
+        <div class="text-sm">
+            <p-table [value]="listorder">
+                <ng-template pTemplate="header">
+                    <tr class="text-sm">
+                        <th style="width: 450px;">Thông tin dịch vụ</th>
+                        <th>Khách hàng</th>
+                        <th>Hàng hóa</th>
+                        <th style="width: 200px;">Thao tác</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-service>
+                    <tr class="text-xs">
+                        <td>
+                            <div class="p-2">
+                                Mã dịch vụ: {{service.afterBuyServiceID}}
+                            </div>
+                            <div class="p-2">
+                                Ngày tạo: {{service.create_Date}}
+                            </div>
+                            <div class="p-2">
+                                Mã vận đơn: <span *ngIf="service.orderShip!=undefined">{{service.orderShip.labelID}}</span>
+                            </div>
+                            <div class="p-2">
+                                Tiền hàng: {{service.priceItem}} VND
+                            </div>
+                            <div class="p-2">
+                                trạng thái: {{service.servicestatus.statusName}} 
+                            </div><div class="p-2">
+                               Loại dịch vụ: {{service.serviceType.statusName}} 
+                            </div>
+                            <div class="p-2 cursor-pointer" (click)="op.show($event, getliststatus(service.orderID))">
+                                Theo dõi:
+                                <span *ngIf="service.orderShip!=undefined"
+                                    class=" border-round-2xl border-1 border-red-500 p-1 pl-2 pr-2 surface-overlay justify-content-center">
+                                    {{service.orderShip.status}}
+                                </span>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div style="border-bottom: 1px solid gray;">
+                                <div class="cursor-pointer" (click)="viewstoredetail(service.storeView.storeID)">Nhà cung cấp:</div>
+                                <div>Họ tên: {{service.store_Name}}</div>
+                                <div>SĐT: {{service.store_Tel}}</div>
+                                <div>Địa chỉ: {{service.store_Address}}, {{service.store_Tel}}, {{service.store_Province}},
+                                    {{service.store_District}} </div>
+                                <br/>
+                            </div>
+                            <br/>
+                            <div>
+                                <div class="cursor-pointer" (click)="viewuserdetail(service.userID)">Người
+                                    mua</div>
+                                <div>Họ tên: {{service.user_Name}}</div>
+                                <div>SĐT: {{service.user_Tel}}</div>
+                                <div>Địa chỉ: {{service.user_Address}}, {{service.user_Ward}}, {{service.user_District}}, {{service.user_Province}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let item of service.details" style="padding-bottom: 5px;">
+                                <div class="flex align-items-center cursor-pointer"
+                                    (click)="viewitemdetail(item.itemID)">
+                                    <p-avatar [image]="item.sub_ItemImage" styleClass="mr-2" size="large"
+                                        shape="circle"></p-avatar>
+                                    {{item.sub_ItemName}}
+                                </div>
+                                <div class="grid">
+                                    <div class="col-7">
+                                        <div>
+                                            Mã chi tiết: {{item.orderDetailID}}
+                                        </div>
+                                        <div>
+                                            Số lượng: {{item.amount}}
+                                        </div>
+                                        <div>
+                                            <Span>Tiền hàng: {{item.pricePurchase*(1-item.discountPurchase)}} VND</Span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <button pButton pRipple label="Xác nhận" onclick="acceptservice(service.afterBuyServiceID)"
+                                    class="p-button-text text-sx"></button>
+                                    <button pButton pRipple label="Hủy" onclick="cancelservice(service.afterBuyServiceID)"
+                                    class="p-button-text p-button-warning text-sx"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <div style="text-align: center;">
+                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                    styleClass="p-button-text"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
+<p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+    <ng-template pTemplate>
+        <p-table [value]="shiplist.shipStatusModels">
+            <ng-template pTemplate="body" let-rowData let-product>
+                <tr class="text-sm"  [pSelectableRow]="rowData">
+                    <td>{{product.status}}</td>
+                    <td>{{product.create_Date}}</td>
+                    <td>{{product.reason}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+</p-overlayPanel>
