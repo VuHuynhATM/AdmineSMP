@@ -19,6 +19,9 @@ export class BuyserviceComponent implements OnInit {
   idorderparam!: any;
   idserviceparam!: any;
 
+  showdiglog!:any;
+  link!:any;
+
   listorder!: any;
 
   serviceID!:any;
@@ -184,5 +187,10 @@ export class BuyserviceComponent implements OnInit {
     }, err => {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
     });
+  }
+  showvideo(linki:any){
+    this.showdiglog=true;
+    this.link=linki;
+    console.log(this.link);
   }
 }

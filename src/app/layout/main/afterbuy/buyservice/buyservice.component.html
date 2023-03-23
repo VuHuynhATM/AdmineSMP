@@ -12,10 +12,10 @@
                     <input type="text" class="mr-2" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
                     <p-dropdown [options]="serviceStatuses" class="mr-2" [(ngModel)]="serviceStatus"></p-dropdown>
                     <p-dropdown [options]="serviceTypes" class="mr-2" [(ngModel)]="serviceType"></p-dropdown>
-                    <p-calendar [(ngModel)]="dateFrom" class="mr-2" placeholder="từ ngày" [maxDate]="dateTo" [showSeconds]="true"
-                        inputId="time"></p-calendar>
-                    <p-calendar [(ngModel)]="dateTo" class="mr-2" placeholder="đến ngày" [minDate]="dateFrom" [showSeconds]="true"
-                        inputId="time"></p-calendar>
+                    <p-calendar [(ngModel)]="dateFrom" class="mr-2" placeholder="từ ngày" [maxDate]="dateTo"
+                        [showSeconds]="true" inputId="time"></p-calendar>
+                    <p-calendar [(ngModel)]="dateTo" class="mr-2" placeholder="đến ngày" [minDate]="dateFrom"
+                        [showSeconds]="true" inputId="time"></p-calendar>
                 </div>
 
                 <div class="p-toolbar-group-end">
@@ -43,17 +43,19 @@
                                 Ngày tạo: {{service.create_Date}}
                             </div>
                             <div class="p-2">
-                                Mã vận đơn: <span *ngIf="service.orderShip!=undefined">{{service.orderShip.labelID}}</span>
+                                Mã vận đơn: <span
+                                    *ngIf="service.orderShip!=undefined">{{service.orderShip.labelID}}</span>
                             </div>
                             <div class="p-2">
-                                trạng thái: {{service.servicestatus.statusName}} 
-                            </div><div class="p-2">
-                               Loại dịch vụ: {{service.serviceType.statusName}} 
+                                trạng thái: {{service.servicestatus.statusName}}
+                            </div>
+                            <div class="p-2">
+                                Loại dịch vụ: {{service.serviceType.statusName}}
                             </div>
                             <div class="p-2 cursor-pointer">
                                 Theo dõi:
                                 <span *ngIf="service.orderShip!=undefined"
-                                (click)="op.show($event, getliststatus(service.orderID))"
+                                    (click)="op.show($event, getliststatus(service.orderID))"
                                     class=" border-round-2xl border-1 border-red-500 p-1 pl-2 pr-2 surface-overlay justify-content-center">
                                     {{service.orderShip.status}}
                                 </span>
@@ -62,22 +64,43 @@
                         </td>
                         <td>
                             <div style="border-bottom: 1px solid gray;">
-                                <div class="cursor-pointer" (click)="viewstoredetail(service.storeView.storeID)">Nhà cung cấp:</div>
+                                <div class="cursor-pointer" (click)="viewstoredetail(service.storeView.storeID)">Nhà
+                                    cung cấp:</div>
                                 <div>Họ tên: {{service.store_Name}}</div>
                                 <div>SĐT: {{service.store_Tel}}</div>
-                                <div>Địa chỉ: {{service.store_Address}}, {{service.store_Tel}}, {{service.store_Province}},
+                                <div>Địa chỉ: {{service.store_Address}}, {{service.store_Tel}},
+                                    {{service.store_Province}},
                                     {{service.store_District}} </div>
-                                <br/>
+                                <div *ngIf="service.packingLink!=null">
+                                    <button pButton pRipple label="Xem video đóng hàng"
+                                        (click)="showvideo(service.packingLink)" class="p-button-text text-sx"></button>
+                                </div>
+                                <br />
                             </div>
-                            <br/>
+                            <br />
                             <div>
                                 <div class="cursor-pointer" (click)="viewuserdetail(service.userID)">Người
                                     mua</div>
                                 <div>Họ tên: {{service.user_Name}}</div>
                                 <div>SĐT: {{service.user_Tel}}</div>
-                                <div>Địa chỉ: {{service.user_Address}}, {{service.user_Ward}}, {{service.user_District}}, {{service.user_Province}}
+                                <div>Địa chỉ: {{service.user_Address}}, {{service.user_Ward}},
+                                    {{service.user_District}}, {{service.user_Province}}
+                                </div>
+                                <div *ngIf="service.packingLinkCus!=null">
+                                    <button pButton pRipple label="Xem video kiểm tra hàng"
+                                    (click)="showvideo(service.packingLinkCus)" class="p-button-text text-sx"></button>
                                 </div>
                             </div>
+                            <p-dialog header="Khóa người dùng" [(visible)]="showdiglog" [modal]="true"
+                                [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                                <video muted autoplay *ngIf="link" id="video1" width="350px" height="195px"
+                                    class="img" controls>
+                                    <source src="{{link}}" type='video/mp4' />
+                                </video>
+                                <ng-template pTemplate="footer">
+                                    <p-button icon="pi pi-times" (click)="showdiglog=false;link=undefined" label="Đống"></p-button>
+                                </ng-template>
+                            </p-dialog>
                         </td>
                         <td>
                             <div *ngFor="let item of service.details" style="padding-bottom: 5px;">
@@ -104,10 +127,11 @@
                             </div>
                         </td>
                         <td>
-                            <div>
-                                <button pButton pRipple label="Xác nhận" onclick="acceptservice(service.afterBuyServiceID)"
+                            <div *ngIf="service.servicestatus.item_StatusID==6">
+                                <button pButton pRipple label="Xác nhận"
+                                    onclick="acceptservice(service.afterBuyServiceID)"
                                     class="p-button-text text-sx"></button>
-                                    <button pButton pRipple label="Hủy" onclick="cancelservice(service.afterBuyServiceID)"
+                                <button pButton pRipple label="Hủy" onclick="cancelservice(service.afterBuyServiceID)"
                                     class="p-button-text p-button-warning text-sx"></button>
                             </div>
                         </td>
@@ -130,7 +154,7 @@
     <ng-template pTemplate>
         <p-table [value]="shiplist.shipStatusModels">
             <ng-template pTemplate="body" let-rowData let-product>
-                <tr class="text-sm"  [pSelectableRow]="rowData">
+                <tr class="text-sm" [pSelectableRow]="rowData">
                     <td>{{product.status}}</td>
                     <td>{{product.create_Date}}</td>
                     <td>{{product.reason}}</td>
