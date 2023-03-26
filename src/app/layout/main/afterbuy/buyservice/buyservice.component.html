@@ -55,7 +55,7 @@
                             <div class="p-2 cursor-pointer">
                                 Theo dõi:
                                 <span *ngIf="service.orderShip!=undefined"
-                                    (click)="op.show($event, getliststatus(service.orderID))"
+                                    (click)="op.show($event, getliststatus(service.afterBuyServiceID))"
                                     class=" border-round-2xl border-1 border-red-500 p-1 pl-2 pr-2 surface-overlay justify-content-center">
                                     {{service.orderShip.status}}
                                 </span>
