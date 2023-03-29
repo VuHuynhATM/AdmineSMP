@@ -5,7 +5,10 @@
     </div>
     <div class="col">
         <p-toast></p-toast>
-        <div class="info bg-blue-50 border-round" *ngIf="user!=undefined">
+        <ng-template #falseload>
+            <p-skeleton width="100%" height="100%"></p-skeleton>
+        </ng-template>
+        <div class="info bg-blue-50 border-round" *ngIf="user!=undefined; else falseload ">
             <div class="card">
                 <div class="card-container overflow-hidden">
                     <div class="flex grid">

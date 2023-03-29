@@ -75,7 +75,10 @@
                             (onClick)="searchItem()"></p-button>
                     </ng-template>
                 </p-sidebar>
-                <p-dataView #dv [value]="listitem">
+                <ng-template #falseload>
+                    <p-skeleton width="100%" height="100%"></p-skeleton>
+                </ng-template>
+                <p-dataView #dv [value]="listitem"  *ngIf="listitem!=undefined; else falseload">
                     <ng-template let-product pTemplate="listItem">
                         <div class="col-12 md:col-4 cursor-pointer " (click)="viewdetail(product.itemID)">
                             <div class="product-grid-item card" [ngClass]="{'surface-400' : product.storeStatusID==2}">

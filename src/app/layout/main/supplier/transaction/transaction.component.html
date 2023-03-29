@@ -19,7 +19,10 @@
                 </div>
             </p-toolbar>
         </div>
-        <div>
+        <ng-template #falseload>
+            <p-skeleton width="100%" height="100%"></p-skeleton>
+        </ng-template>
+        <div *ngIf="listtransaction!=undefined; else falseload">
             <p-table [value]="listtransaction">
                 <ng-template pTemplate="header">
                     <tr class="text-xs">

@@ -23,7 +23,10 @@
                 </div>
             </p-toolbar>
         </div>
-        <div class="text-sm">
+        <ng-template #falseload>
+            <p-skeleton width="100%" height="100%"></p-skeleton>
+        </ng-template>
+        <div class="text-sm"  *ngIf="listorder;else falseload">
             <p-table [value]="listorder">
                 <ng-template pTemplate="header">
                     <tr class="text-sm">
@@ -56,7 +59,7 @@
                                 Theo dõi:
                                 <span *ngIf="service.orderShip!=undefined"
                                     (click)="op.show($event, getliststatus(service.afterBuyServiceID))"
-                                    class=" border-round-2xl border-1 border-red-500 p-1 pl-2 pr-2 surface-overlay justify-content-center">
+                                    class=" border-round-2xl border-1 p-1 pl-2 pr-2 surface-overlay justify-content-center">
                                     {{service.orderShip.status}}
                                 </span>
                             </div>

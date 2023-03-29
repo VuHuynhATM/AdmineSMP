@@ -5,7 +5,10 @@
     </div>
     <div class="col">
         <p-toast></p-toast>
-        <div class="card grid h-full">
+        <ng-template #falseload>
+            <p-skeleton width="100%" height="100%"></p-skeleton>
+        </ng-template>
+        <div class="card grid h-full" *ngIf="brands!=undefined;else falseload">
             <div class="col-5 border-right-1 border-black-500">
                 <div class="text-xl" style="margin-bottom: 10px;">Các hãng xe</div>
                 <button pButton pRipple label="Thêm hãng xe" class="p-button-text text-sm" (click)="displayAddBrand=true" ></button>
