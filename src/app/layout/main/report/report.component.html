@@ -44,10 +44,10 @@
                         <td>
                             {{report.reportID}}
                         </td>
-                        <td>
-                            <span *ngIf="reportTypeCurren==2">{{report.storeID}}</span>
-                            <span *ngIf="reportTypeCurren==3">{{report.itemID}}</span>
-                            <span *ngIf="reportTypeCurren==1">{{report.storeID}}</span>
+                        <td class="cursor-pointer">
+                            <span *ngIf="reportTypeCurren==2" (click)="viewdetailSupplier(report.storeID)">{{report.storeID}}</span>
+                            <span *ngIf="reportTypeCurren==3" (click)="viewdetailItem(report.itemID)">{{report.itemID}}</span>
+                            <span *ngIf="reportTypeCurren==1" (click)="viewFeedbackDetail(report.orderDetaiID)">{{report.orderDetaiID}}</span>
                         </td>
                         <td>
                             <span *ngIf="reportTypeCurren==2">{{report.storeName}}</span>

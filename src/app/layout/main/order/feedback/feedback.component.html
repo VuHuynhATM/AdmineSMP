@@ -5,30 +5,33 @@
     </div>
     <div class="col">
         <p-toast></p-toast>
-        <div class="card grid">
-            <div class="col-6 cursor-pointer">
+        <div class="card grid text-sm">
+            <div class="col-5">
                 <div>
                     <p-image [src]="feedback.subItemImage" alt="Image" width="100%" [preview]="true"></p-image>
                 </div>
-                <div class="cursor-pointer p-2 text-3xl" (click)="viewItemdetail(feedback.itemID)">
-                    {{feedback.sub_itemName}}
+                <div class="cursor-pointer p-2 text-sm cursor-pointer" (click)="viewItemdetail(feedback.itemID)">
+                    Mã sản phẩm: {{feedback.itemID}}
+                </div>
+                <div class="cursor-pointer p-2 text-sm">
+                    Tên Sản phẩm: {{feedback.sub_itemName}}
                 </div>
             </div>
-            <div class="col-6">
-                <div class="flex align-items-center text-2xl cursor-pointer" (click)="viewuserdetail(feedback.userID)">
+            <div class="col-7">
+                <div class="flex align-items-center text-sm cursor-pointer" (click)="viewuserdetail(feedback.userID)">
                     <p-avatar [image]="feedback.useravatar" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
                     {{feedback.userName}}
                 </div>
-                <div class="p-2 text-2xl">
+                <div class="p-2 text-sm">
                     <p-rating [ngModel]="feedback.rate" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
                 </div>
-                <div class="p-2 text-2xl">
+                <div class="p-2 text-sm">
                     {{feedback.create_Date}}
                 </div>
-                <div class="p-2 text-2xl">
+                <div class="p-2 text-sm">
                     Đánh giá: {{feedback.comment}}
                 </div>
-                <div class="p-2 text-1xl">
+                <div class="p-2 text-sm">
                     <p-galleria [value]="feedback.imagesFB" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
                         [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"
                         [showIndicatorsOnItem]="true">
@@ -42,7 +45,7 @@
                         </ng-template>
                     </p-galleria>
                 </div>
-                <div class="p-2 text-2xl">
+                <div class="p-2 text-sm ">
                     Trạng thái: {{feedback.feedback_Status.statusName}}
                 </div>
             </div>

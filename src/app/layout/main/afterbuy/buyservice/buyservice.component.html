@@ -98,10 +98,10 @@
                                 [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
                                 <video muted autoplay *ngIf="link" id="video1" width="350px" height="195px"
                                     class="img" controls>
-                                    <source src="{{link}}" type='video/mp4' />
+                                    <source src="{{link}}" type='video/mp4'/>
                                 </video>
                                 <ng-template pTemplate="footer">
-                                    <p-button icon="pi pi-times" (click)="showdiglog=false;link=undefined" label="Đống"></p-button>
+                                    <p-button icon="pi pi-times" (click)="showdiglog=false" label="Đóng"></p-button>
                                 </ng-template>
                             </p-dialog>
                         </td>
