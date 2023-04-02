@@ -29,11 +29,13 @@ export class FeedbackComponent implements OnInit {
     if (this.feedback == undefined) {
       this.viewFeedbackDetail(this.orderDetailID);
     }
+    console.log(this.feedback);
   }
   viewFeedbackDetail(detailID:number) {
     this.orderService.getFeedbackDetail(detailID).subscribe((result) => {
       if (result.success) {
         this.feedback=result.data;
+        
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
@@ -60,6 +62,30 @@ export class FeedbackComponent implements OnInit {
         this.router.navigate(['/userdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+    }, err => {
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    });
+  }
+  blockFeedback(id: number) {
+    this.orderService.blockFeedback(id).subscribe((result) => {
+      if (result.success) {
+        this.viewFeedbackDetail(this.orderDetailID);
+        this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+    }, err => {
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    });
+  }
+  activeFeedback(id: number) {
+    this.orderService.activeFeedback(id).subscribe((result) => {
+      if (result.success) {
+        this.viewFeedbackDetail(this.orderDetailID);
+        this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
     }, err => {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });

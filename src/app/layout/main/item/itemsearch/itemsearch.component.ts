@@ -57,6 +57,7 @@ export class ItemsearchComponent implements OnInit {
       { label: 'Chờ kích hoạt', value: '3' },
       { label: 'Ẩn', value: '4' }
     ];
+    this.status='3';
     if(this.idparam!=0){
       this.storeID=this.idparam;
     }

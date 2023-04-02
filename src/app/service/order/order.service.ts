@@ -63,4 +63,10 @@ export class OrderService {
   getFeedbackDetail(detailID:number):Observable<any>{
     return this.httpClient.get(DOMAIN + `Order/get_feedback_detail?orderDetailID=${detailID}`,{ headers: this.headers });
   }
+  blockFeedback(detailID:number):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Order/block_feedback?orderDetailID=${detailID}`,null,{ headers: this.headers });
+  }
+  activeFeedback(detailID:number):Observable<any>{
+    return this.httpClient.put(DOMAIN + `Order/active_feedback?orderDetailID=${detailID}`,null,{ headers: this.headers });
+  }
 }

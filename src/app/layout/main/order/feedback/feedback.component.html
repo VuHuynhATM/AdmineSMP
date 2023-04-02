@@ -8,12 +8,12 @@
         <div class="card grid text-sm">
             <div class="col-5">
                 <div>
-                    <p-image [src]="feedback.subItemImage" alt="Image" width="100%" [preview]="true"></p-image>
+                    <p-image [src]="feedback.subItemImage" alt="Image" width="90%" [preview]="true"></p-image>
                 </div>
-                <div class="cursor-pointer p-2 text-sm cursor-pointer" (click)="viewItemdetail(feedback.itemID)">
+                <div class="cursor-pointer p-2 text-sm" (click)="viewItemdetail(feedback.itemID)">
                     Mã sản phẩm: {{feedback.itemID}}
                 </div>
-                <div class="cursor-pointer p-2 text-sm">
+                <div class="p-2 text-sm">
                     Tên Sản phẩm: {{feedback.sub_itemName}}
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     Đánh giá: {{feedback.comment}}
                 </div>
                 <div class="p-2 text-sm">
-                    <p-galleria [value]="feedback.imagesFB" [containerStyle]="{'max-width': '640px'}" [numVisible]="5"
+                    <p-galleria [value]="feedback.imagesFB" [containerStyle]="{'max-width': '540px'}" [numVisible]="5"
                         [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true"
                         [showIndicatorsOnItem]="true">
                         <ng-template pTemplate="item" let-imge>
@@ -47,6 +47,18 @@
                 </div>
                 <div class="p-2 text-sm ">
                     Trạng thái: {{feedback.feedback_Status.statusName}}
+                </div>
+                <div class="flex align-items-end" style="height: 100px;">
+                    <div class="col text-center">
+                        <div *ngIf="feedback.feedback_Status.item_StatusID==2">
+                            <button pButton pRipple label="Kích hoạt" (click)="activeFeedback(feedback.orderDetaiID)" class="text-xs"
+                                            icon="pi pi-check"></button>
+                        </div>
+                        <div *ngIf="feedback.feedback_Status.item_StatusID==1">
+                            <button pButton pRipple label="khóa" (click)="blockFeedback(feedback.orderDetaiID)" class="p-button-raised p-button-warning text-xs"
+                            icon="pi pi-times"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
