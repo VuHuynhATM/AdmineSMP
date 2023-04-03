@@ -25,7 +25,7 @@
                                     <div *ngIf="check">
                                         <button pButton pRipple label="Khóa" (click)="showBlock=true"
                                             icon="pi pi-times" class="p-button-raised p-button-warning"></button>
-                                        <p-dialog header="Khóa người dùng" [(visible)]="showBlock" [modal]="true"
+                                        <p-dialog header="Ghi chú" [(visible)]="showBlock" [modal]="true"
                                             [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
                                             <input id="username" type="username" aria-describedby="username1-help" pInputText
                                                 [(ngModel)]="statusText"

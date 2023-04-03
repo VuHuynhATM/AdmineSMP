@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ItemService } from 'src/app/service/item/item.service';
+import { OrderService } from 'src/app/service/order/order.service';
 import { SupplierService } from 'src/app/service/supplier/supplier.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class ItemdetailComponent implements OnInit {
   constructor(private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
+    private orderService: OrderService,
     private itemService: ItemService,
     private storeService: SupplierService) {
     this.itemID = this.route.snapshot.paramMap.get('id')!;
@@ -185,6 +187,19 @@ export class ItemdetailComponent implements OnInit {
       if (result.success) {
         this.totalpage = result.totalPage;
         this.item.listFeedBack = result.data;
+        console.log(this.item.listFeedBack);
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+    }, err => {
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    });
+  }
+  viewFeedbackDetail(detailID: number) {
+    this.orderService.getFeedbackDetail(detailID).subscribe((result) => {
+      if (result.success) {
+        localStorage.setItem("FEEDBACK_DETAIL", JSON.stringify(result.data))
+        this.router.navigate(['/feedbackdetail/' + detailID]);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }

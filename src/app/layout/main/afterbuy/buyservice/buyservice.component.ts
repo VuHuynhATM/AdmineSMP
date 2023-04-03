@@ -190,6 +190,7 @@ export class BuyserviceComponent implements OnInit {
   }
   showvideo(linki:any){
     this.showdiglog=true;
+    this.link=undefined;
     this.link=linki;
     console.log(this.link);
   }

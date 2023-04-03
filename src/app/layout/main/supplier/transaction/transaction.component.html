@@ -8,10 +8,10 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <input type="number" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
-                    <p-calendar [(ngModel)]="from" placeholder="từ ngày" [maxDate]="to" [showSeconds]="true"
+                    <input type="number" class="mr-2" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
+                    <p-calendar [(ngModel)]="from" class="mr-2" placeholder="từ ngày" [maxDate]="to" [showSeconds]="true"
                         inputId="time"></p-calendar>
-                    <p-calendar [(ngModel)]="to" placeholder="đến ngày" [minDate]="from" [showSeconds]="true"
+                    <p-calendar [(ngModel)]="to" class="mr-2" placeholder="đến ngày" [minDate]="from" [showSeconds]="true"
                         inputId="time"></p-calendar>
                 </div>
                 <div class="p-toolbar-group-end">

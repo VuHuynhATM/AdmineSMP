@@ -214,9 +214,9 @@
                         <p-rating [ngModel]="item.rate" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
                     </span>
                 </div>
-                <div class="grid">
-                    <div class="col grid text-xl" *ngFor="let feedback of item.listFeedBack">
-                        <div class="col-1">
+                <div>
+                    <div class="grid text-xl" *ngFor="let feedback of item.listFeedBack">
+                        <div class="col-1 cursor-pointer"  (click)="viewFeedbackDetail(feedback.orderDetaiID)">
                             <p-avatar [image]="feedback.userAvatar" styleClass="mr-2" size="xlarge"
                                 shape="circle"></p-avatar>
                         </div>

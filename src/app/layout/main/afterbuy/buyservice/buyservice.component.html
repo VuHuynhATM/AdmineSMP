@@ -42,6 +42,9 @@
                             <div class="p-2">
                                 Mã dịch vụ: {{service.afterBuyServiceID}}
                             </div>
+                            <div class="p-2 cursor-pointer" [routerLink]="['/order']" [queryParams]="{orderID: service.orderID}">
+                                Mã đơn hàng: {{service.orderID}}
+                            </div>
                             <div class="p-2">
                                 Ngày tạo: {{service.create_Date}}
                             </div>
@@ -101,7 +104,7 @@
                                     <source src="{{link}}" type='video/mp4'/>
                                 </video>
                                 <ng-template pTemplate="footer">
-                                    <p-button icon="pi pi-times" (click)="showdiglog=false" label="Đóng"></p-button>
+                                    <p-button icon="pi pi-times" (click)="link=undefined;showdiglog=false" label="Đóng"></p-button>
                                 </ng-template>
                             </p-dialog>
                         </td>
