@@ -1,8 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
 @Injectable({
@@ -33,11 +32,11 @@ export class AfterbuyService {
     }
     var dateFromtxt='';
     if(dateFrom!=undefined){
-      dateFromtxt= (moment(dateFrom.toISOString())).format('MM-DD-YYYY')+'';
+      dateFromtxt= dateFrom.toISOString()+'';
     }
     var dateTotxt='';
     if(dateTo!=undefined){
-      dateTotxt= (moment(dateTo.toISOString())).format('MM-DD-YYYY')+'';
+      dateTotxt= dateTo.toISOString()+'';
     }
     var servicestatusIDtxt='';
     if(servicestatusID!=undefined){
@@ -55,6 +54,7 @@ export class AfterbuyService {
     if(serviceType!=undefined){
       serviceTypetxt=serviceType+'';
     }
+    console.log(dateFromtxt);
     return this.httpClient.get(DOMAIN + `AfterBuyService?userID=${userIDtxt}&storeID=${storeIDtxt}&dateFrom=${dateFromtxt}&dateTo=${dateTotxt}&servicestatusID=${servicestatusIDtxt}&page=${page}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&serviceType=${serviceTypetxt}`,{ headers: this.headers });
   }
   getShipstatus(serviceID:number):Observable<any>{

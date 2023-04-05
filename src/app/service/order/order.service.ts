@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
-import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +31,11 @@ export class OrderService {
     }
     var dateFromtxt='';
     if(dateFrom!=undefined){
-      dateFromtxt= (moment(dateFrom.toISOString())).format('MM-DD-YYYY')+'';
+      dateFromtxt= dateFrom.toISOString()+'';
     }
     var dateTotxt='';
     if(dateTo!=undefined){
-      dateTotxt= (moment(dateTo.toISOString())).format('MM-DD-YYYY')+'';
+      dateTotxt= dateTo.toISOString()+'';
     }
     var shipOrderStatustxt='';
     if(shipOrderStatus!=undefined){

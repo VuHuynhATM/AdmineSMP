@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
@@ -64,11 +63,11 @@ export class DataexchangeService {
     }
     var dateFromtxt='';
     if(dateFrom!=undefined){
-      dateFromtxt=(moment(dateFrom.toISOString())).format('MM-DD-YYYY')+'';
+      dateFromtxt=dateFrom.toISOString()+'';
     }
     var dateTotxt='';
     if(dateTo!=undefined){
-      dateTotxt=(moment(dateTo.toISOString())).format('MM-DD-YYYY')+'';
+      dateTotxt=dateTo.toISOString()+'';
     }
     var exchangeStatustxt='';
     if(exchangeStatus!=undefined){
