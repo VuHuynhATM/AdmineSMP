@@ -54,8 +54,7 @@ export class AfterbuyService {
     if(serviceType!=undefined){
       serviceTypetxt=serviceType+'';
     }
-    console.log(dateFromtxt);
-    return this.httpClient.get(DOMAIN + `AfterBuyService?userID=${userIDtxt}&storeID=${storeIDtxt}&dateFrom=${dateFromtxt}&dateTo=${dateTotxt}&servicestatusID=${servicestatusIDtxt}&page=${page}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&serviceType=${serviceTypetxt}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `AfterBuyService?userID=${userIDtxt}&storeID=${storeIDtxt}&from=${dateFromtxt}&to=${dateTotxt}&servicestatusID=${servicestatusIDtxt}&page=${page}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&serviceType=${serviceTypetxt}`,{ headers: this.headers });
   }
   getShipstatus(serviceID:number):Observable<any>{
     return this.httpClient.get(DOMAIN + `Ship/ship_status?serviceID=${serviceID}`,{ headers: this.headers });
