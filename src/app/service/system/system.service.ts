@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -48,11 +49,11 @@ export class SystemService {
     }
     var fromtxt="";
     if(from!=undefined){
-      fromtxt=from+'';
+      fromtxt=(moment(from.toISOString())).format('MM-DD-YYYY')+'';
     }
     var totxt="";
     if(to!=undefined){
-      totxt=to+'';
+      totxt=(moment(to.toISOString())).format('MM-DD-YYYY')+'';
     }
     return this.httpClient.get(DOMAIN + `Asset/get_store_withdrawal?storeID=${storeIDtxt}&page=${page}&statusID=${statusIDtxt}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
   }
@@ -90,33 +91,33 @@ export class SystemService {
   getSystemReveneu(page:number, from: Date, to: Date):Observable<any>{
     var fromtxt="";
     if(from!=undefined){
-      fromtxt=from+'';
+      fromtxt=(moment(from.toISOString())).format('MM-DD-YYYY')+'';
     }
     var totxt="";
     if(to!=undefined){
-      totxt=to+'';
+      totxt=(moment(to.toISOString())).format('MM-DD-YYYY')+'';
     }
     return this.httpClient.get(DOMAIN + `Asset/get_system_reveneu?page=${page}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
   }
   getSystemStoreReveneu(page:number, from: Date, to: Date):Observable<any>{
     var fromtxt="";
     if(from!=undefined){
-      fromtxt=from+'';
+      fromtxt=(moment(from.toISOString())).format('MM-DD-YYYY')+'';
     }
     var totxt="";
     if(to!=undefined){
-      totxt=to+'';
+      totxt=(moment(to.toISOString())).format('MM-DD-YYYY')+'';
     }
     return this.httpClient.get(DOMAIN + `Asset/system_store_reveneu?page=${page}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
   }
   getSystemWithdrawal(page:number, from: Date, to: Date):Observable<any>{
     var fromtxt="";
     if(from!=undefined){
-      fromtxt=from+'';
+      fromtxt=(moment(from.toISOString())).format('MM-DD-YYYY')+'';
     }
     var totxt="";
     if(to!=undefined){
-      totxt=to+'';
+      totxt=(moment(to.toISOString())).format('MM-DD-YYYY')+'';
     }
     return this.httpClient.get(DOMAIN + `Asset/get_system_withdrawal?page=${page}&from=${fromtxt}&to=${totxt}`, { headers: this.headers })
   }

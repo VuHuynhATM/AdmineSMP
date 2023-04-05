@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
@@ -31,11 +33,11 @@ export class AfterbuyService {
     }
     var dateFromtxt='';
     if(dateFrom!=undefined){
-      dateFromtxt=dateFrom.toISOString()+'';
+      dateFromtxt= (moment(dateFrom.toISOString())).format('MM-DD-YYYY')+'';
     }
     var dateTotxt='';
     if(dateTo!=undefined){
-      dateTotxt=dateTo.toISOString()+'';
+      dateTotxt= (moment(dateTo.toISOString())).format('MM-DD-YYYY')+'';
     }
     var servicestatusIDtxt='';
     if(servicestatusID!=undefined){
