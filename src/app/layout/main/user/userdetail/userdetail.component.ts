@@ -14,7 +14,7 @@ export class UserdetailComponent implements OnInit {
   notilist!: any;
   userID!: any;
   statusText!:string;
-  showBlock!:any;
+  showBlock:any=false;
   constructor(
     private messageService: MessageService,
     private router: Router,
@@ -46,6 +46,7 @@ export class UserdetailComponent implements OnInit {
         this.getUserDetail(this.userID);
         localStorage.setItem("USER_DETAIL", JSON.stringify(this.user));
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+        this.showBlock=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }

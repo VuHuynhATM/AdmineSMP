@@ -54,6 +54,7 @@ export class SuppdetailComponent implements OnInit {
     this.storeService.blockStore(storeID, this.statusText).subscribe((result) => {
       if (result.success) {
         this.viewdetail(storeID);
+        this.showBlock=false;
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
