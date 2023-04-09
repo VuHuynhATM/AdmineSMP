@@ -142,7 +142,7 @@
                                                     [(ngModel)]="statusText"
                                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                                                 <ng-template pTemplate="footer">
-                                                    <p-button icon="pi pi-check" (click)="blockItem(item.itemID)" label="Khóa"
+                                                    <p-button icon="pi pi-check" (click)="blockItem(item.itemID)" label="Khóa" [loading]="checkbtn"
                                                         class="p-button-text"></p-button>
                                                     <p-button icon="pi pi-times" (click)="showBlock=false" label="Hủy"></p-button>
                                                 </ng-template>
@@ -152,7 +152,7 @@
                                 <ng-template #elsesubbutton>
                                     <span *ngIf="(subitem.subItem_Status.item_StatusID==2||subitem.subItem_Status.item_StatusID==3)&&item.item_Status.item_StatusID!=2; else blocksubitembutton">
                                         <button pButton pRipple label="Kích hoạt"
-                                            (click)="activeSubItem(subitem.sub_ItemID)" icon="pi pi-check"></button>
+                                            (click)="activeSubItem(subitem.sub_ItemID)" icon="pi pi-check" [loading]="checkbtn"></button>
                                     </span>
                                     <ng-template #blocksubitembutton>
                                         <button pButton *ngIf="item.item_Status.item_StatusID!=2" pRipple label="Khóa" icon="pi pi-times"
@@ -164,7 +164,7 @@
                                                     [(ngModel)]="statusTextSub"
                                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                                                 <ng-template pTemplate="footer">
-                                                    <p-button icon="pi pi-check" (click)="blockSubItem(subitem.sub_ItemID)" label="Khóa"
+                                                    <p-button icon="pi pi-check" (click)="blockSubItem(subitem.sub_ItemID)" label="Khóa" [loading]="checkbtn"
                                                         class="p-button-text"></p-button>
                                                     <p-button icon="pi pi-times" (click)="showBlockSub=false" label="Hủy"></p-button>
                                                 </ng-template>
@@ -244,7 +244,7 @@
                     </div>
                 </div>
                 <div class="text-center" *ngIf="page<totalpage">
-                    <button pButton pRipple label="Xem thêm" (click)="getlisFeedback()"></button>
+                    <button pButton pRipple label="Xem thêm" (click)="getlisFeedback()" [loading]="checkbtn"></button>
                 </div>
             </div>
         </div>

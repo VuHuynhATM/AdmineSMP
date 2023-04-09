@@ -45,10 +45,10 @@
                                                     suffix="%"></p-inputNumber>
                                                 <ng-template pTemplate="footer">
                                                     <p-button icon="pi pi-check"
-                                                        (click)="editCommission_PrecentDialog()" label="Lưu"
+                                                        (click)="editCommission_PrecentDialog()" label="Lưu" [loading]="checkbtn"
                                                         class="p-button-text"></p-button>
                                                     <p-button icon="pi pi-times"
-                                                        (click)="displayCommission_Precent=false"
+                                                        (click)="displayCommission_Precent=false" [loading]="checkbtn"
                                                         label="Hủy"></p-button>
                                                 </ng-template>
                                             </p-dialog>
@@ -72,7 +72,7 @@
                                                     mode="currency" currency="VND">
                                                 </p-inputNumber>
                                                 <ng-template pTemplate="footer">
-                                                    <p-button icon="pi pi-check" (click)="editAmount_Dialog()"
+                                                    <p-button icon="pi pi-check" (click)="editAmount_Dialog()" [loading]="checkbtn"
                                                         label="Lưu" class="p-button-text"></p-button>
                                                     <p-button icon="pi pi-times" (click)="displayAmount=false"
                                                         label="Hủy"></p-button>
@@ -96,7 +96,7 @@
                                             <p-inputNumber [(ngModel)]="Refund_Precent" inputId="percent"
                                                 suffix="%"></p-inputNumber>
                                             <ng-template pTemplate="footer">
-                                                <p-button icon="pi pi-check" (click)="editRefund_PrecentDialog()"
+                                                <p-button icon="pi pi-check" (click)="editRefund_PrecentDialog()" [loading]="checkbtn"
                                                     label="Lưu" class="p-button-text"></p-button>
                                                 <p-button icon="pi pi-times" (click)="displayRefund_Precent=false"
                                                     label="Hủy"></p-button>

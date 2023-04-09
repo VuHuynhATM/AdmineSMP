@@ -14,7 +14,7 @@
                     [(ngModel)]="specificationName" placeholder="Nhập thông số"
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                 <ng-template pTemplate="footer">
-                    <p-button icon="pi pi-check" (click)="addSpecification()" label="Lưu" class="p-button-text"></p-button>
+                    <p-button icon="pi pi-check" (click)="addSpecification()" label="Lưu" class="p-button-text" [loading]="checkbtn"></p-button>
                     <p-button icon="pi pi-times" (click)="displayAddSpec=false" label="Hủy"></p-button>
                 </ng-template>
             </p-dialog>
@@ -28,16 +28,16 @@
                 </div>
                 <div class="col-2 text-center">
                     <div *ngIf="spec.isActive; else catebtnblock">
-                        <button *ngIf="spec.specificationID!=2" pButton pRipple label="Khóa" (click)="blockSpecification(spec.specificationID)" icon="pi pi-times"
+                        <button *ngIf="spec.specificationID!=2" pButton pRipple label="Khóa" [loading]="checkbtn" (click)="blockSpecification(spec.specificationID)" icon="pi pi-times"
                             class="p-button-raised p-button-warning text-xs"></button>
                     </div>
                     <ng-template #catebtnblock>
-                        <button pButton pRipple label="Kích hoạt" icon="pi pi-check"
+                        <button pButton pRipple label="Kích hoạt" icon="pi pi-check" [loading]="checkbtn"
                             (click)="activeSpecification(spec.specificationID)" class="text-xs"></button>
                     </ng-template>
                 </div>
                 <div class="col-2 text-center">
-                    <button pButton pRipple label="Gợi ý" class="text-xs"
+                    <button pButton pRipple label="Gợi ý" class="text-xs" [loading]="checkbtn"
                             (click)="showsuggest(spec.specificationID)"></button>
                 </div>
                 <p-dialog header="Chỉnh sửa gợi ý" [(visible)]="displaysuggest" [modal]="true"
@@ -46,7 +46,7 @@
                     <textarea rows="5" cols="90" focus pInputTextarea [autoResize]="true"  [(ngModel)]="suggesttext"
                     ></textarea>
                     <ng-template pTemplate="footer">
-                        <p-button icon="pi pi-check" (click)="editSuggest()" label="Lưu"
+                        <p-button icon="pi pi-check" (click)="editSuggest()" label="Lưu" [loading]="checkbtn"
                                         class="p-button-text"></p-button>
                         <p-button icon="pi pi-times" (click)="displaysuggest=false"
                             label="Hủy"></p-button>

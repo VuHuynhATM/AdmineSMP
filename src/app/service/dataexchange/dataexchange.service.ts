@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
 @Injectable({
@@ -46,13 +46,21 @@ export class DataexchangeService {
     if(orderID!=undefined){
       orderIDtxt=orderID+'';
     }
-    return this.httpClient.get(DOMAIN + `DataExchange?storeID=${storeIDtxt}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&from=${dateFromtxt}&to=${dateTotxt}&exchangeStatusID=${exchangeStatustxt}&page=${page}`, { headers: this.headers })
+    return this.httpClient.get(DOMAIN + `DataExchange?storeID=${storeIDtxt}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&from=${dateFromtxt}&to=${dateTotxt}&exchangeStatusID=${exchangeStatustxt}&page=${page}`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   finishStoreExchange(id: any, file: File):Observable<any>{
     var body =new FormData();
     body.append('ExchangeStoreID',id.toString());
     body.append('File',file);
-    return this.httpClient.put(DOMAIN + `DataExchange`,body, { headers: this.headers })
+    return this.httpClient.put(DOMAIN + `DataExchange`,body, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 
   getUserExchange(userID:number,orderID:number,serviceID:number,dateFrom:Date, dateTo:Date, exchangeStatus:number, page:number):Observable<any>{
@@ -81,12 +89,20 @@ export class DataexchangeService {
     if(orderID!=undefined){
       orderIDtxt=orderID+'';
     }
-    return this.httpClient.get(DOMAIN + `DataExchange/user?userID=${userIDtxt}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&from=${dateFromtxt}&to=${dateTotxt}&exchangeStatusID=${exchangeStatustxt}&page=${page}`, { headers: this.headers })
+    return this.httpClient.get(DOMAIN + `DataExchange/user?userID=${userIDtxt}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&from=${dateFromtxt}&to=${dateTotxt}&exchangeStatusID=${exchangeStatustxt}&page=${page}`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   finishUserExchange(id: any, file: File):Observable<any>{
     var body =new FormData();
     body.append('ExchangeUserID',id.toString());
     body.append('File',file);
-    return this.httpClient.put(DOMAIN + `DataExchange/user`,body, { headers: this.headers })
+    return this.httpClient.put(DOMAIN + `DataExchange/user`,body, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 }

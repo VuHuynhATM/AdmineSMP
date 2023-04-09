@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable, catchError, from, throwError } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
 @Injectable({
@@ -54,19 +54,35 @@ export class AfterbuyService {
     if(serviceType!=undefined){
       serviceTypetxt=serviceType+'';
     }
-    return this.httpClient.get(DOMAIN + `AfterBuyService?userID=${userIDtxt}&storeID=${storeIDtxt}&from=${dateFromtxt}&to=${dateTotxt}&servicestatusID=${servicestatusIDtxt}&page=${page}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&serviceType=${serviceTypetxt}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `AfterBuyService?userID=${userIDtxt}&storeID=${storeIDtxt}&from=${dateFromtxt}&to=${dateTotxt}&servicestatusID=${servicestatusIDtxt}&page=${page}&orderID=${orderIDtxt}&serviceID=${serviceIDtxt}&serviceType=${serviceTypetxt}`,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   getShipstatus(serviceID:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Ship/ship_status?serviceID=${serviceID}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Ship/ship_status?serviceID=${serviceID}`,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   acceptervice(id:number):Observable<any>{
-    return this.httpClient.put(DOMAIN + `AfterBuyService/accepct?serviceID=${id}`,null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `AfterBuyService/accepct?serviceID=${id}`,null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   canceltervice(id:number):Observable<any>{
     var body={
       serviceID: id,
       reason: "Quản trị viên hủy"
     }
-    return this.httpClient.put(DOMAIN + `AfterBuyService/cancel`,body,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `AfterBuyService/cancel`,body,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 }

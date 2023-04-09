@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -18,6 +19,7 @@ export class SearchComponent implements OnInit {
   roleID: any = "";
   totalPage!: number;
   roleIDs!: any;
+  checkbtn:boolean=false;
 
   constructor(private userService: UserService,
     private messageService: MessageService,
@@ -53,36 +55,43 @@ export class SearchComponent implements OnInit {
   }
 
   searchuser() {
+    this.checkbtn=true;
     this.page = 1;
     console.log(this.roleID);
-    this.userService.getListCustomerSearch(this.search, this.page, this.roleID, this.isactive).subscribe((result) => {
+    this.userService.getListCustomerSearch(this.search, this.page, this.roleID, this.isactive).toPromise().then((result) => {
       this.listUser = result.data;
       this.totalPage = result.totalPage;
-
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   getlistuser() {
+    this.checkbtn=true;
     console.log(this.roleID);
-    this.userService.getListCustomerSearch(this.search, this.page, this.roleID, this.isactive).subscribe((result) => {
+    this.userService.getListCustomerSearch(this.search, this.page, this.roleID, this.isactive).toPromise().then((result) => {
       this.listUser = result.data;
       this.totalPage = result.totalPage;
-
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewdetail(id: any) {
-    this.userService.getUserDetail(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.userService.getUserDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("USER_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/userdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

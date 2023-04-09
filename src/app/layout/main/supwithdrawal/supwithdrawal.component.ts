@@ -1,5 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SystemService } from 'src/app/service/system/system.service';
 
@@ -24,10 +25,12 @@ export class SupwithdrawalComponent implements OnInit {
   from!: any;
   to!: any;
   idstoreparam!: any;
+  checkbtn: boolean = false;
 
   constructor(private systemService: SystemService,
     private messageService: MessageService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
     this.idstoreparam = this.route.snapshot.queryParamMap.get('storeID')!;
   }
 
@@ -61,16 +64,20 @@ export class SupwithdrawalComponent implements OnInit {
     }
   }
   getlistsupplierWithdrawal() {
-    this.systemService.getStoreWithdrawal(this.storeID, this.page, this.status, this.from, this.to).subscribe((result) => {
+    this.checkbtn = true;
+    this.systemService.getStoreWithdrawal(this.storeID, this.page, this.status, this.from, this.to).toPromise().then((result) => {
       this.listWithdrawal = result.data;
       this.totalPage = result.totalPage;
       console.log(result);
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn = false;
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
   }
   acceptwithdrawal(id: number) {
-    this.systemService.aceptwithdrawal(id).subscribe((result) => {
+    this.checkbtn = true;
+    this.systemService.aceptwithdrawal(id).toPromise().then((result) => {
       if (result.success) {
         this.getlistsupplierWithdrawal();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -78,20 +85,26 @@ export class SupwithdrawalComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn = false;
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
   }
   showCancel(id: number) {
+    this.checkbtn = true;
     this.withdrawalID = id;
     this.displaycancel = true;
+    this.checkbtn = false;
   }
   cancelwithdarawl() {
+    this.checkbtn = true;
     if (this.reason == undefined) {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: "Nhập lý do" });
+      this.checkbtn = false;
       return;
     }
-    this.systemService.cancelwithdarawl(this.withdrawalID, this.reason).subscribe((result) => {
+    this.systemService.cancelwithdarawl(this.withdrawalID, this.reason).toPromise().then((result) => {
       if (result.success) {
         this.getlistsupplierWithdrawal();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -99,19 +112,24 @@ export class SupwithdrawalComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn = false;
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
   }
   showSuccess(id: number) {
+    this.checkbtn = true;
     this.withdrawalID = id;
     this.displaysuccess = true;
+    this.checkbtn = false;
   }
   successwithdrawal(event: any) {
+    this.checkbtn=true;
     for (let file of event.files) {
       this.uploadedFile = file;
     }
-    this.systemService.successwithdrawal(this.withdrawalID, this.uploadedFile).subscribe((result) => {
+    this.systemService.successwithdrawal(this.withdrawalID, this.uploadedFile).toPromise().then((result) => {
       if (result.success) {
         this.getlistsupplierWithdrawal();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -119,8 +137,10 @@ export class SupwithdrawalComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
   }
 }

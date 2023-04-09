@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -34,6 +35,7 @@ export class ItemsearchComponent implements OnInit {
   totalPage!: number;
   listitem!:any;
   idparam!:any
+  checkbtn:boolean=false;
   constructor(private categoryService: CategoryService,
     private messageService: MessageService,
     private brandService: BrandService,
@@ -71,12 +73,15 @@ export class ItemsearchComponent implements OnInit {
     this.visibleSidebar=false;
   }
   getlistitem() {
-    this.itemService.getListItemSearch(this.search,this.min,this.max,this.rating,this.category,this.subcategory,this.brand,this.motor,this.sort,this.storeID,this.page,this.status).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.getListItemSearch(this.search,this.min,this.max,this.rating,this.category,this.subcategory,this.brand,this.motor,this.sort,this.storeID,this.page,this.status).toPromise().then((result) => {
       this.listitem = result.data;
       this.totalPage = result.totalPage;
       console.log(this.listitem);
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   next() {
@@ -106,7 +111,7 @@ export class ItemsearchComponent implements OnInit {
     var listcate:any[]=[
       { label: 'Loại phụ tùng', value: '' },
     ];
-    this.categoryService.getlistCategory().subscribe((result) => {
+    this.categoryService.getlistCategory().toPromise().then((result) => {
       if (result.success) {
         result.data.forEach((cate: any) => {
           if (cate.isActive) {
@@ -121,8 +126,9 @@ export class ItemsearchComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   getsubcategory(){
@@ -132,7 +138,7 @@ export class ItemsearchComponent implements OnInit {
     }];
     console.log(this.category);
     if(this.category!=undefined&&this.category!=''){
-      this.categoryService.getlistSubCategory(this.category).subscribe((result) => {
+      this.categoryService.getlistSubCategory(this.category).toPromise().then((result) => {
         if (result.success) {
           result.data.forEach((cate: any) => {
             if (cate.isActive) {
@@ -147,8 +153,9 @@ export class ItemsearchComponent implements OnInit {
         } else {
           this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
         }
-      }, err => {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      }, (err:HttpErrorResponse) => {
+        if(err.status==401)
+        this.router.navigate(['/logout']);
       });
     }
   }
@@ -157,7 +164,7 @@ export class ItemsearchComponent implements OnInit {
     var listbrand:any[]=[
       { label: 'Hảng xe', value: '' },
     ];
-    this.brandService.getlistBrand().subscribe((result) => {
+    this.brandService.getlistBrand().toPromise().then((result) => {
       if (result.success) {
         result.data.forEach((brand: any) => {
           if (brand.isActive) {
@@ -172,8 +179,9 @@ export class ItemsearchComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   getmoto(){
@@ -181,7 +189,7 @@ export class ItemsearchComponent implements OnInit {
       label: 'Loại xe', value: ''
     }];
     if(this.brand!=undefined&&this.brand!=''){
-      this.brandService.getlistMotor(this.brand).subscribe((result) => {
+      this.brandService.getlistMotor(this.brand).toPromise().then((result) => {
         if (result.success) {
           result.data.forEach((moto: any) => {
             if (moto.isActive) {
@@ -196,21 +204,23 @@ export class ItemsearchComponent implements OnInit {
         } else {
           this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
         }
-      }, err => {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      }, (err:HttpErrorResponse) => {
+        if(err.status==401)
+        this.router.navigate(['/logout']);
       });
     }
   }
   viewdetail(id:number){
-    this.itemService.getItemDetail(id).subscribe((result) => {
+    this.itemService.getItemDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("ITEM_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/itemdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

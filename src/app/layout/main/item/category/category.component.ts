@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { ItemService } from 'src/app/service/item/item.service';
@@ -23,52 +25,61 @@ export class CategoryComponent implements OnInit {
   displaySpecification!: any;
   firstIsSpec!: any[];
   subCateID!:any;
+  checkbtn:boolean=false;
 
   constructor(private messageService: MessageService,
     private categoryService: CategoryService,
-    private specificationService: SpecificationService) { }
+    private specificationService: SpecificationService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.getcategory();
   }
   getcategory() {
-    this.categoryService.getlistCategory().subscribe((result) => {
+    this.categoryService.getlistCategory().toPromise().then((result) => {
       if (result.success) {
         this.categories = result.data;
         console.log(this.categories);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   blockCategory(id: number) {
-    this.categoryService.blockCategory(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.categoryService.blockCategory(id).toPromise().then((result) => {
       if (result.success) {
         this.getcategory();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   activeCategory(id: number) {
-    this.categoryService.activeCategory(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.categoryService.activeCategory(id).toPromise().then((result) => {
       if (result.success) {
         this.getcategory();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   getsubcategory(id: number) {
-    this.categoryService.getlistSubCategory(id).subscribe((result) => {
+    this.categoryService.getlistSubCategory(id).toPromise().then((result) => {
       if (result.success) {
         this.subcategories = result.data;
         this.categoryID = id;
@@ -76,39 +87,47 @@ export class CategoryComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   blocksubCategory(id: number) {
-    this.categoryService.blockSubCategory(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.categoryService.blockSubCategory(id).toPromise().then((result) => {
       if (result.success) {
         this.getsubcategory(this.categoryID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   activesubCategory(id: number) {
-    this.categoryService.activeSubCategory(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.categoryService.activeSubCategory(id).toPromise().then((result) => {
       if (result.success) {
         this.getsubcategory(this.categoryID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   addCategory() {
+    this.checkbtn=true;
     if (this.categoryName == undefined) {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: "Nhập tên loại phụ tùng" });
     } else {
-      this.categoryService.createCategory(this.categoryName).subscribe((result) => {
+      this.categoryService.createCategory(this.categoryName).toPromise().then((result) => {
         if (result.success) {
           this.getcategory();
           this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -116,16 +135,19 @@ export class CategoryComponent implements OnInit {
         } else {
           this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
         }
-      }, err => {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    this.checkbtn=false;
+  }, (err:HttpErrorResponse) => {
+        if(err.status==401)
+        this.router.navigate(['/logout']);
       });
     }
   }
   addSubCategory() {
+    this.checkbtn=true;
     if (this.subcategoryName == undefined) {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: "Nhập tên phân loại phụ tùng" });
     } else {
-      this.categoryService.createSubCategory(this.subcategoryName, this.categoryID).subscribe((result) => {
+      this.categoryService.createSubCategory(this.subcategoryName, this.categoryID).toPromise().then((result) => {
         if (result.success) {
           this.getsubcategory(this.categoryID);
           this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -133,15 +155,16 @@ export class CategoryComponent implements OnInit {
         } else {
           this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
         }
-      }, err => {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+this.checkbtn=false;
+}, (err:HttpErrorResponse) => {
+        if(err.status==401)
+        this.router.navigate(['/logout']);
       });
     }
-
   }
   getSpecification(id: number) {
     this.subCateID=id;
-    this.specificationService.getlistSubCate_Specification(id).subscribe((result) => {
+    this.specificationService.getlistSubCate_Specification(id).toPromise().then((result) => {
       if (result.success) {
         this.isSpec = result.data.ispecs;
         this.firstIsSpec = result.data.ispecs;
@@ -151,11 +174,13 @@ export class CategoryComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   addSpecification() {
+    this.checkbtn=true;
     var addspec: any[] = [];
     var removespec: any[] = [];
     this.isSpec.forEach((value: any) => {
@@ -170,15 +195,17 @@ export class CategoryComponent implements OnInit {
         removespec.push(value.specificationID);
       }
     });
-    this.specificationService.addSpecification(this.subCateID,addspec,removespec).subscribe((result) => {
+    this.specificationService.addSpecification(this.subCateID,addspec,removespec).toPromise().then((result) => {
       if (result.success) {
         this.getSpecification(this.subCateID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

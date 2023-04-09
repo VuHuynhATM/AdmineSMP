@@ -71,7 +71,7 @@
                         </div>
                     </ng-template>
                     <ng-template pTemplate="footer">
-                        <p-button label="Tìm kiếm" icon="pi pi-search" iconPos="right"
+                        <p-button label="Tìm kiếm" icon="pi pi-search" iconPos="right" [loading]="checkbtn"
                             (onClick)="searchItem()"></p-button>
                     </ng-template>
                 </p-sidebar>
@@ -109,10 +109,10 @@
                     </ng-template>
                     <ng-template pTemplate="footer">
                         <div style="text-align: center;">
-                            <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                            <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()" [loading]="checkbtn"
                                 styleClass="p-button-text"></p-button>
-                            <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
-                            <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                            <p-button type="button" label="{{page}}" styleClass="p-button-text" [loading]="checkbtn"></p-button>
+                            <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [loading]="checkbtn"
                                 styleClass="p-button-text"></p-button>
                         </div>
                     </ng-template>

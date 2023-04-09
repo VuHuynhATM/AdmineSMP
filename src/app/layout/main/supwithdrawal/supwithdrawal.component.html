@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="p-toolbar-group-end">
-                    <p-button icon="pi pi-search" (click)="searchwithdrawal()"></p-button>
+                    <p-button icon="pi pi-search" (click)="searchwithdrawal()" [loading]="checkbtn"></p-button>
                 </div>
             </p-toolbar>
         </div>
@@ -73,7 +73,7 @@
                                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                                     <ng-template pTemplate="footer">
                                         <p-button icon="pi pi-check" label="Lưu" class="p-button-text"
-                                            (onClick)="cancelwithdarawl()"></p-button>
+                                            (onClick)="cancelwithdarawl()" [loading]="checkbtn"></p-button>
                                         <p-button icon="pi pi-times" (click)="displaycancel=false"
                                             label="Hủy"></p-button>
                                     </ng-template>
@@ -83,13 +83,13 @@
                             <div>
                                 <button *ngIf="withdrawl.withdrawal_Status.item_StatusID==1" pButton pRipple
                                     label="Tiếp nhận" icon="pi pi-check" class="p-button-text m-2"
-                                    (click)="acceptwithdrawal(withdrawl.store_WithdrawalID)"></button>
+                                    (click)="acceptwithdrawal(withdrawl.store_WithdrawalID)" [loading]="checkbtn"></button>
                             </div>
 
                             <div>
                                 <button *ngIf="withdrawl.withdrawal_Status.item_StatusID==2" pButton pRipple
                                     label="Hoàn thành" icon="pi pi-check" class="p-button-text m-2"
-                                    (click)="showSuccess(withdrawl.store_WithdrawalID)"></button>
+                                    (click)="showSuccess(withdrawl.store_WithdrawalID)" [loading]="checkbtn"></button>
                                 <p-dialog header="Hoàn thành thao tác rút tiền" [(visible)]="displaysuccess"
                                     [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
                                     [resizable]="false">
@@ -110,10 +110,10 @@
         </div>
         <div>
             <div style="text-align: center;">
-                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
-                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                <p-button type="button" label="{{page}}" styleClass="p-button-text" [loading]="checkbtn"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
             </div>
         </div>

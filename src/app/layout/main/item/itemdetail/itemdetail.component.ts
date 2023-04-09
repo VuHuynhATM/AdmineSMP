@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -24,7 +25,7 @@ export class ItemdetailComponent implements OnInit {
   showBlock!:any;
   statusTextSub!:string;
   showBlockSub!:any;
-
+checkbtn:boolean=false;
 
   constructor(private messageService: MessageService,
     private router: Router,
@@ -40,7 +41,8 @@ export class ItemdetailComponent implements OnInit {
     
   }
   viewdetail(id: number) {
-    this.itemService.getItemDetail(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.getItemDetail(id).toPromise().then((result) => {
       if (result.success) {
         this.item = result.data;
         if (this.item.discount != 0) {
@@ -58,8 +60,10 @@ export class ItemdetailComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   onSubItem(id: number) {
@@ -92,19 +96,23 @@ export class ItemdetailComponent implements OnInit {
     this.warrantiesTime=this.item.warrantiesTime;
   }
   activeItem(id: number) {
-    this.itemService.activeItem(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.activeItem(id).toPromise().then((result) => {
       if (result.success) {
         this.viewdetail(this.itemID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   activeSubItem(id: number) {
-    this.itemService.activeSubItem(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.activeSubItem(id).toPromise().then((result) => {
       if (result.success) {
         this.viewdetail(this.itemID);
         console.log(this.item);
@@ -125,12 +133,15 @@ export class ItemdetailComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   blockItem(id: number) {
-    this.itemService.blockItem(id, this.statusText).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.blockItem(id, this.statusText).toPromise().then((result) => {
       if (result.success) {
         this.viewdetail(this.itemID);
         this.showBlock=false;
@@ -138,12 +149,15 @@ export class ItemdetailComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   blockSubItem(id: number) {
-    this.itemService.blockSubItem(id, this.statusTextSub).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.blockSubItem(id, this.statusTextSub).toPromise().then((result) => {
       if (result.success) {
         this.viewdetail(this.itemID);
         console.log(this.item);
@@ -165,25 +179,31 @@ export class ItemdetailComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewstoredetail(id: any) {
-    this.storeService.getStoreDetail(id).subscribe((result) => {
+    this.checkbtn=false;
+    this.storeService.getStoreDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("STORE_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/supplierdetail/' + id]);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   getlisFeedback() {
+    this.checkbtn=true;
     this.page = this.page++;
-    this.itemService.getlistFeedback(this.itemID, this.page).subscribe((result) => {
+    this.itemService.getlistFeedback(this.itemID, this.page).toPromise().then((result) => {
       if (result.success) {
         this.totalpage = result.totalPage;
         this.item.listFeedBack = result.data;
@@ -191,20 +211,25 @@ export class ItemdetailComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewFeedbackDetail(detailID: number) {
-    this.orderService.getFeedbackDetail(detailID).subscribe((result) => {
+    this.checkbtn=true;
+    this.orderService.getFeedbackDetail(detailID).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("FEEDBACK_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/feedbackdetail/' + detailID]);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

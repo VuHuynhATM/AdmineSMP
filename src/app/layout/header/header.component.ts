@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
   }
 
   viewdetail(id: any) {
-    this.storeService.getStoreDetail(id).subscribe((result) => {
+    this.storeService.getStoreDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("STORE_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/supplierdetail/'+id]);
@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
   
   getNotification(){
     var userJson=JSON.parse(this.user);
-    this.notifyService.getNotifications(userJson.userID, this.page).subscribe((result) => {
+    this.notifyService.getNotifications(userJson.userID, this.page).toPromise().then((result) => {
       if (result.success) {
         this.notilist = result.data;
         this.totalPage = result.totalPage;

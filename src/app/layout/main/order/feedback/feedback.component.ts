@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -14,6 +15,7 @@ export class FeedbackComponent implements OnInit {
 
   orderDetailID!:any;
   feedback!:any;
+  checkbtn:boolean=false;
 
   constructor(private messageService: MessageService,
     private route: ActivatedRoute,
@@ -32,63 +34,78 @@ export class FeedbackComponent implements OnInit {
     console.log(this.feedback);
   }
   viewFeedbackDetail(detailID:number) {
-    this.orderService.getFeedbackDetail(detailID).subscribe((result) => {
+    this.checkbtn=true;
+    this.orderService.getFeedbackDetail(detailID).toPromise().then((result) => {
       if (result.success) {
         this.feedback=result.data;
         
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewItemdetail(id:number){
-    this.itemService.getItemDetail(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.getItemDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("ITEM_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/itemdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewuserdetail(id: any) {
-    this.userService.getUserDetail(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.userService.getUserDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("USER_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/userdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   blockFeedback(id: number) {
-    this.orderService.blockFeedback(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.orderService.blockFeedback(id).toPromise().then((result) => {
       if (result.success) {
         this.viewFeedbackDetail(this.orderDetailID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   activeFeedback(id: number) {
-    this.orderService.activeFeedback(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.orderService.activeFeedback(id).toPromise().then((result) => {
       if (result.success) {
         this.viewFeedbackDetail(this.orderDetailID);
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

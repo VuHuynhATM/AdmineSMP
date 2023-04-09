@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {  Observable, throwError } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -63,24 +64,53 @@ export class ItemService {
       StatusIDtxt=itemStatusID+"";
     }
     console.log();
-    return this.httpClient.get(DOMAIN + `Item/search_admin?search=${searchtxt}&min=${mintxt}&max=${maxtxt}&rate=${ratetxt}&cateID=${cateIDtxt}&subCateID=${subCateIDtxt}&brandID=${brandIDtxt}&brandModelID=${brandModelIDtxt}&sortBy=${sortBytxt}&storeID=${storeIDtxt}&page=${page}&isSupplier=${false}&itemStatusID=${StatusIDtxt}`, )
+    return this.httpClient.get(DOMAIN + `Item/search_admin?search=${searchtxt}&min=${mintxt}&max=${maxtxt}&rate=${ratetxt}&cateID=${cateIDtxt}&subCateID=${subCateIDtxt}&brandID=${brandIDtxt}&brandModelID=${brandModelIDtxt}&sortBy=${sortBytxt}&storeID=${storeIDtxt}&page=${page}&isSupplier=${false}&itemStatusID=${StatusIDtxt}`, {headers: this.headers})
+    .pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   getItemDetail(id:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Item/item_detail?itemID=${id}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Item/item_detail?itemID=${id}`,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   activeItem(id:number):Observable<any>{
-    return this.httpClient.put(DOMAIN + `Item/active_item?itemID=${id}`, null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Item/active_item?itemID=${id}`, null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   activeSubItem(id:number):Observable<any>{
-    return this.httpClient.put(DOMAIN + `Item/active_subItem?subItemID=${id}`, null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Item/active_subItem?subItemID=${id}`, null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   blockItem(id:number, statusText:string):Observable<any>{
-    return this.httpClient.put(DOMAIN + `Item/block_item?itemID=${id}&statusText=${statusText}`, null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Item/block_item?itemID=${id}&statusText=${statusText}`, null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   blockSubItem(id:number, statusText:string):Observable<any>{
-    return this.httpClient.put(DOMAIN + `Item/block_subItem?subItemID=${id}&statusText=${statusText}`, null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Item/block_subItem?subItemID=${id}&statusText=${statusText}`, null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   getlistFeedback(itemID:number,page:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Item/item_feedback?itemID=${itemID}&page=${page}&role=1`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Item/item_feedback?itemID=${itemID}&page=${page}&role=1`,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 }

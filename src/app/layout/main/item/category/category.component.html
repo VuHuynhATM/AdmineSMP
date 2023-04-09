@@ -19,7 +19,7 @@
                         [(ngModel)]="categoryName" placeholder="Nhập loại phụ tùng"
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     <ng-template pTemplate="footer">
-                        <p-button icon="pi pi-check" (click)="addCategory()" label="Lưu"
+                        <p-button icon="pi pi-check" (click)="addCategory()" label="Lưu" [loading]="checkbtn"
                             class="p-button-text"></p-button>
                         <p-button icon="pi pi-times" (click)="displayAdCategory=false" label="Hủy"></p-button>
                     </ng-template>
@@ -35,11 +35,11 @@
                     </div>
                     <div class="col-4 text-center">
                         <div *ngIf="cate.isActive; else catebtnblock">
-                            <button pButton pRipple label="Khóa" (click)="blockCategory(cate.categoryID)" 
+                            <button pButton pRipple label="Khóa" (click)="blockCategory(cate.categoryID)" [loading]="checkbtn"
                                 icon="pi pi-times" class="p-button-raised p-button-warning text-xs"></button>
                         </div>
                         <ng-template #catebtnblock>
-                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check" class="text-xs"
+                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check" class="text-xs" [loading]="checkbtn"
                                 (click)="activeCategory(cate.categoryID)"></button>
                         </ng-template>
                     </div>
@@ -55,7 +55,7 @@
                         [(ngModel)]="subcategoryName" placeholder="Nhập phân loại phụ tùng"
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     <ng-template pTemplate="footer">
-                        <p-button icon="pi pi-check" (click)="addSubCategory()" label="Lưu"
+                        <p-button icon="pi pi-check" (click)="addSubCategory()" label="Lưu" [loading]="checkbtn"
                             class="p-button-text"></p-button>
                         <p-button icon="pi pi-times" (click)="displaysubAdCategory=false" label="Hủy"></p-button>
                     </ng-template>
@@ -76,12 +76,12 @@
                         </div>
                         <ng-template #catebtnblock>
                             <button pButton pRipple label="Kích hoạt" icon="pi pi-check" class=" text-xs"
-                                (click)="activesubCategory(cate.sub_CategoryID)"></button>
+                                (click)="activesubCategory(cate.sub_CategoryID)" [loading]="checkbtn"></button>
                         </ng-template>
                     </div>
                     <div class="col-3">
                         <button pButton pRipple label="Thông số" class=" text-xs"
-                            (click)="getSpecification(cate.sub_CategoryID)"></button>
+                            (click)="getSpecification(cate.sub_CategoryID)" [loading]="checkbtn"></button>
                         <p-dialog header="Thông số kĩ thuật" [(visible)]="displaySpecification" [modal]="true"
                             [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
                             <div style="text-align: center;">
@@ -94,7 +94,7 @@
                                 </p-listbox>
                             </div>
                             <ng-template pTemplate="footer">
-                                <p-button icon="pi pi-check" (click)="addSpecification()" label="Lưu"
+                                <p-button icon="pi pi-check" (click)="addSpecification()" label="Lưu" [loading]="checkbtn"
                                     class="p-button-text"></p-button>
                                 <p-button icon="pi pi-times" (click)="displaySpecification=false"
                                     label="Hủy"></p-button>

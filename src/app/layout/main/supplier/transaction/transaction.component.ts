@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -17,6 +18,7 @@ export class TransactionComponent implements OnInit {
   totalPage!: number;
   from!: any;
   to!: any;
+  checkbtn:boolean=false;
 
   constructor(private messageService: MessageService,
     private router: Router,
@@ -45,12 +47,15 @@ export class TransactionComponent implements OnInit {
     }
   }
   getlisttransaction(){
-    this.systemService.getStoreReveneu(this.storeID, this.page, this.orderID, this.from, this.to).subscribe((result) => {
+    this.checkbtn=true;
+    this.systemService.getStoreReveneu(this.storeID, this.page, this.orderID, this.from, this.to).toPromise().then((result) => {
       this.listtransaction = result.data;
       this.totalPage = result.totalPage;
       console.log(result);
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 

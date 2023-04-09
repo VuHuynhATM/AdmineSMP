@@ -14,7 +14,7 @@
                 </div>
             
                 <div class="p-toolbar-group-end">
-                    <p-button icon="pi pi-search"(click)="searchuser()" ></p-button>
+                    <p-button icon="pi pi-search"(click)="searchuser()" [loading]="checkbtn"></p-button>
                 </div>
             </p-toolbar>
         </div>
@@ -65,10 +65,10 @@
         </div>
         <div>
             <div style="text-align: center;">
-                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()"
+                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
-                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                <p-button type="button" label="{{page}}" styleClass="p-button-text" [loading]="checkbtn"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
             </div>
         </div>

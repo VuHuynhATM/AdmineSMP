@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
 @Injectable({
@@ -28,15 +28,31 @@ export class SupplierService {
     if (statusID != undefined) {
       statusIDs = statusID + '';
     }
-    return this.httpClient.get(DOMAIN + `Store?page=${page}&search=${search}&statusID=${statusIDs}`, { headers: this.headers })
+    return this.httpClient.get(DOMAIN + `Store?page=${page}&search=${search}&statusID=${statusIDs}`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   getStoreDetail(storeID: number): Observable<any> {
-    return this.httpClient.get(DOMAIN + `Store/store_detail?storeID=${storeID}`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Store/store_detail?storeID=${storeID}`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   activeStore(storeID:number): Observable<any>{
-    return this.httpClient.put(DOMAIN + `Store/active_store?storeID=${storeID}`,null, { headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Store/active_store?storeID=${storeID}`,null, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   blockStore(storeID:number, statusText:string): Observable<any>{
-    return this.httpClient.put(DOMAIN + `Store/block_store?storeID=${storeID}&statusText=${statusText}`,null, { headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Store/block_store?storeID=${storeID}&statusText=${statusText}`,null, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 }

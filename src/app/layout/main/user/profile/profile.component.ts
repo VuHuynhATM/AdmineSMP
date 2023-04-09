@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/service/user/user.service';
 
@@ -21,9 +23,11 @@ export class ProfileComponent implements OnInit {
   displayEditAvarta: boolean = false;
   displayEditDoB: boolean = false;
   uploadedFile: any;
+  checkbtn:boolean=false;
 
   constructor(private messageService: MessageService,
-    private userService: UserService) {
+    private userService: UserService,
+    private router: Router) {
 
   }
 
@@ -50,17 +54,20 @@ export class ProfileComponent implements OnInit {
     this.displayEditName = true;
   }
   editName(name: string) {
-    console.log(name);
-    this.userService.editUserName(name, this.user.userID).subscribe((result) => {
+    this.checkbtn=true;
+    this.userService.editUserName(name, this.user.userID).toPromise().then((result) => {
       if (result.success) {
         this.user.userName = name;
         localStorage.setItem("USER", JSON.stringify(this.user));
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+        this.checkbtn=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
     this.displayEditName = false;
   }
@@ -68,10 +75,11 @@ export class ProfileComponent implements OnInit {
     this.displayEditAvarta = true;
   }
   editAvatar(event: any) {
+    this.checkbtn=true;
     for (let file of event.files) {
       this.uploadedFile = file;
     }
-    this.userService.editAvarta(this.uploadedFile, this.user.userID).subscribe((result) => {
+    this.userService.editAvarta(this.uploadedFile, this.user.userID).toPromise().then((result) => {
       if (result.success) {
         this.user = result.data;
         localStorage.setItem("USER", JSON.stringify(this.user));
@@ -80,15 +88,18 @@ export class ProfileComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   showEditDoBDialog() {
     this.displayEditDoB = true;
   }
   editDoB(times:any){
-    this.userService.editDoB(times, this.user.userID).subscribe((result) => {
+    this.checkbtn=true;
+    this.userService.editDoB(times, this.user.userID).toPromise().then((result) => {
       if (result.success) {
         this.user = result.data;
         console.log(result);
@@ -98,8 +109,10 @@ export class ProfileComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -25,6 +26,7 @@ export class StoreexchangeComponent implements OnInit {
   totalPage!: any;
   uploadedFile!: any;
   displayfinish!:any;
+  checkbtn:boolean=false;
 
   constructor(private messageService: MessageService,
     private router: Router,
@@ -40,25 +42,32 @@ export class StoreexchangeComponent implements OnInit {
     this.getlistexchange();
   }
   searchexchange(){
+    this.checkbtn=true;
     this.page=1;
     this.getlistexchange();
+    this.checkbtn=false;
   }
   next() {
+    this.checkbtn=true;
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlistexchange();
     }
+    this.checkbtn=false;
   }
 
   prev() {
+    this.checkbtn=true;
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlistexchange();
     }
+    this.checkbtn=false;
   }
 
   getlistexchange() {
-    this.dataExchangeService.getStoreExchange(this.storeID, this.orderID, this.serviceID, this.dateFrom, this.dateTo, this.serviceStatus, this.page).subscribe((result) => {
+    this.checkbtn=true;
+    this.dataExchangeService.getStoreExchange(this.storeID, this.orderID, this.serviceID, this.dateFrom, this.dateTo, this.serviceStatus, this.page).toPromise().then((result) => {
       if (result.success) {
         this.listexchange = result.data;
         console.log(this.listexchange);
@@ -66,19 +75,22 @@ export class StoreexchangeComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
+    this.checkbtn=false;
   }
   showFinish(id:number){
     this.displayfinish=true;
     this.exchangeID=id;
   }
   successexchange(event: any) {
+    this.checkbtn=true;
     for (let file of event.files) {
       this.uploadedFile = file;
     }
-    this.dataExchangeService.finishStoreExchange(this.exchangeID, this.uploadedFile).subscribe((result) => {
+    this.dataExchangeService.finishStoreExchange(this.exchangeID, this.uploadedFile).toPromise().then((result) => {
       if (result.success) {
         this.getlistexchange();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -86,8 +98,10 @@ export class StoreexchangeComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
+    this.checkbtn=false;
   }
 }

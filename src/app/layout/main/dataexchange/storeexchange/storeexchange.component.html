@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="p-toolbar-group-end">
-                    <p-button icon="pi pi-search" (click)="searchexchange()"></p-button>
+                    <p-button icon="pi pi-search" (click)="searchexchange()" [loading]="checkbtn"></p-button>
                 </div>
             </p-toolbar>
         </div>
@@ -68,7 +68,7 @@
                         <td>
                             <button
                             *ngIf="exchange.exchangeStatus.item_StatusID==3"
-                            pButton pRipple label="Hoàn thành"
+                            pButton pRipple label="Hoàn thành" [loading]="checkbtn"
                             (click)="showFinish(exchange.exchangeStoreID)"
                             class="p-button-warning p-button-text m-2"></button>
                             <p-dialog header="Hoàn thành Đối soát" [(visible)]="displayfinish"
@@ -90,10 +90,10 @@
         </div>
         <div>
             <div style="text-align: center;">
-                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()"
+                <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
-                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                <p-button type="button" label="{{page}}" styleClass="p-button-text" [loading]="checkbtn"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
             </div>
         </div>

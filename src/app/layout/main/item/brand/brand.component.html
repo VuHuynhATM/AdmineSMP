@@ -18,7 +18,7 @@
                         [(ngModel)]="brandName" placeholder="Nhập hãng xe"
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     <ng-template pTemplate="footer">
-                        <p-button icon="pi pi-check" (click)="addBrand()" label="Lưu"
+                        <p-button icon="pi pi-check" (click)="addBrand()" label="Lưu" [loading]="checkbtn"
                             class="p-button-text"></p-button>
                         <p-button icon="pi pi-times" (click)="displayAddBrand=false" label="Hủy"></p-button>
                     </ng-template>
@@ -34,11 +34,11 @@
                     </div>
                     <div class="col-4 text-center">
                         <div *ngIf="brand.isActive; else catebtnblock">
-                            <button pButton pRipple label="Khóa" (click)="blockBrand(brand.brandID)"
+                            <button pButton pRipple label="Khóa" (click)="blockBrand(brand.brandID)" [loading]="checkbtn"
                                 icon="pi pi-times" class="p-button-raised p-button-warning text-xs"></button>
                         </div>
                         <ng-template #catebtnblock>
-                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check" class="text-xs"
+                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check" class="text-xs" [loading]="checkbtn"
                                 (click)="activeBrand(brand.brandID)"></button>
                         </ng-template>
                     </div>
@@ -54,7 +54,7 @@
                         [(ngModel)]="motorcycleName" placeholder="Nhập tên phương tiện"
                         class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                     <ng-template pTemplate="footer">
-                        <p-button icon="pi pi-check" (click)="addSubCategory()" label="Lưu"
+                        <p-button icon="pi pi-check" (click)="addSubCategory()" label="Lưu" [loading]="checkbtn"
                             class="p-button-text"></p-button>
                         <p-button icon="pi pi-times" (click)="displayAddMotorcyle=false" label="Hủy"></p-button>
                     </ng-template>
@@ -70,11 +70,11 @@
                     </div>
                     <div class="col-4 text-center">
                         <div *ngIf="motor.isActive; else catebtnblock">
-                            <button pButton pRipple label="Khóa" (click)="blockMotorcycle(motor.brand_ModelID)"
+                            <button pButton pRipple label="Khóa" (click)="blockMotorcycle(motor.brand_ModelID)" [loading]="checkbtn"
                                 icon="pi pi-times" class="p-button-raised p-button-warning text-xs"></button>
                         </div>
                         <ng-template #catebtnblock>
-                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check" class="text-xs"
+                            <button pButton pRipple label="Kích hoạt" icon="pi pi-check" class="text-xs" [loading]="checkbtn"
                                 (click)="activeMotorcycle(motor.brand_ModelID)"></button>
                         </ng-template>
                     </div>

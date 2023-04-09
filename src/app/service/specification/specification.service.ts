@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
 @Injectable({
@@ -20,23 +20,43 @@ export class SpecificationService {
     }
   }
   getlistSpecification(): Observable<any>{
-    return this.httpClient.get(DOMAIN + `Specification`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Specification`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   
   blockSpecification(id:number): Observable<any>{
-    return this.httpClient.put(DOMAIN + `Specification/remove_specification?specificationID=${id}`, null, { headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Specification/remove_specification?specificationID=${id}`, null, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 
   activeSpecification(id:number): Observable<any>{
-    return this.httpClient.put(DOMAIN + `Specification/active_specification?specificationID=${id}`, null, { headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Specification/active_specification?specificationID=${id}`, null, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   
   createSpecification(name:string): Observable<any>{
-    return this.httpClient.post(DOMAIN + `Specification?specification_Name=${name}`, null, { headers: this.headers });
+    return this.httpClient.post(DOMAIN + `Specification?specification_Name=${name}`, null, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 
   getlistSubCate_Specification(id:number): Observable<any>{
-    return this.httpClient.get(DOMAIN + `Specification/sub_category?sub_CategoryID=${id}&role=1`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Specification/sub_category?sub_CategoryID=${id}&role=1`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   addSpecification(id:number, addspec:number[], removespec: number[]): Observable<any>{
     var body={
@@ -44,7 +64,11 @@ export class SpecificationService {
       specificationIDsaAdd:addspec,
       specificationIDsRemove:removespec
     };
-    return this.httpClient.post(DOMAIN + `Specification/add_specification`, body, { headers: this.headers });
+    return this.httpClient.post(DOMAIN + `Specification/add_specification`, body, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   addSpecificationSuggest(id:number, suggeatvalues: string): Observable<any>{
     var body={
@@ -53,7 +77,11 @@ export class SpecificationService {
     };
     console.log(body)
 
-    return this.httpClient.post(DOMAIN + `Specification/add_specificationsuggset`, body, { headers: this.headers });
+    return this.httpClient.post(DOMAIN + `Specification/add_specificationsuggset`, body, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
 
   }
 }

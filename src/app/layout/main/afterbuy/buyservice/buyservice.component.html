@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="p-toolbar-group-end">
-                    <p-button icon="pi pi-search" (click)="searchservice()"></p-button>
+                    <p-button icon="pi pi-search" (click)="searchservice()" [loading]="checkbtn"></p-button>
                 </div>
             </p-toolbar>
         </div>
@@ -79,7 +79,7 @@
                                     {{service.store_District}} </div>
                                 <div *ngIf="service.packingLink!=null">
                                     <button pButton pRipple label="Xem video đóng hàng"
-                                        (click)="showvideo(service.packingLink)" class="p-button-text text-sx"></button>
+                                        (click)="showvideo(service.packingLink)" [loading]="checkbtn" class="p-button-text text-sx"></button>
                                 </div>
                                 <br />
                             </div>
@@ -94,7 +94,7 @@
                                 </div>
                                 <div *ngIf="service.packingLinkCus!=null">
                                     <button pButton pRipple label="Xem video kiểm tra hàng"
-                                    (click)="showvideo(service.packingLinkCus)" class="p-button-text text-sx"></button>
+                                    (click)="showvideo(service.packingLinkCus)" [loading]="checkbtn" class="p-button-text text-sx"></button>
                                 </div>
                             </div>
                             <p-dialog header="Khóa người dùng" [(visible)]="showdiglog" [modal]="true"
@@ -135,9 +135,9 @@
                         <td>
                             <div *ngIf="service.servicestatus.item_StatusID==6">
                                 <button pButton pRipple label="Xác nhận"
-                                    onclick="acceptservice(service.afterBuyServiceID)"
+                                    onclick="acceptservice(service.afterBuyServiceID)" [loading]="checkbtn"
                                     class="p-button-text text-sx"></button>
-                                <button pButton pRipple label="Hủy" onclick="cancelservice(service.afterBuyServiceID)"
+                                <button pButton pRipple label="Hủy" onclick="cancelservice(service.afterBuyServiceID)" [loading]="checkbtn"
                                     class="p-button-text p-button-warning text-sx"></button>
                             </div>
                         </td>
@@ -147,10 +147,10 @@
         </div>
         <div>
             <div style="text-align: center;">
-                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()"
+                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
-                <p-button type="button" label="{{page}}" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-chevron-right" (click)="next()"
+                <p-button type="button" label="{{page}}" styleClass="p-button-text" [loading]="checkbtn"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [loading]="checkbtn"
                     styleClass="p-button-text"></p-button>
             </div>
         </div>

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -22,6 +23,7 @@ export class ReportComponent implements OnInit {
   reportTypes!: any[];
   totalPage!: number;
   reportTypeCurren!:any;
+  checkbtn:boolean=false;
 
   constructor(private systemService: SystemService,
     private storeService: SupplierService,
@@ -60,48 +62,60 @@ export class ReportComponent implements OnInit {
   }
 
   getListreport(){
-    this.systemService.getReport(this.page,this.reportType,this.storeID,this.userID).subscribe((result) => {
+    this.checkbtn=true;
+    this.systemService.getReport(this.page,this.reportType,this.storeID,this.userID).toPromise().then((result) => {
       this.listReport = result.data;
       this.totalPage = result.totalPage;
       console.log(this.listReport);
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewdetailSupplier(id: any) {
-    this.storeService.getStoreDetail(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.storeService.getStoreDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("STORE_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/supplierdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewdetailItem(id:number){
-    this.itemService.getItemDetail(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.itemService.getItemDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("ITEM_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/itemdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewFeedbackDetail(detailID: number) {
-    this.orderService.getFeedbackDetail(detailID).subscribe((result) => {
+    this.checkbtn=true;
+    this.orderService.getFeedbackDetail(detailID).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("FEEDBACK_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/feedbackdetail/' + detailID]);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

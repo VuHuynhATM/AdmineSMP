@@ -51,12 +51,12 @@
                 <div class="flex align-items-end" style="height: 100px;">
                     <div class="col text-center">
                         <div *ngIf="feedback.feedback_Status.item_StatusID==2">
-                            <button pButton pRipple label="Kích hoạt" (click)="activeFeedback(feedback.orderDetaiID)" class="text-xs"
+                            <button pButton pRipple label="Kích hoạt" (click)="activeFeedback(feedback.orderDetaiID)" class="text-xs" [loading]="checkbtn"
                                             icon="pi pi-check"></button>
                         </div>
                         <div *ngIf="feedback.feedback_Status.item_StatusID==1">
                             <button pButton pRipple label="khóa" (click)="blockFeedback(feedback.orderDetaiID)" class="p-button-raised p-button-warning text-xs"
-                            icon="pi pi-times"></button>
+                            icon="pi pi-times" [loading]="checkbtn"></button>
                         </div>
                     </div>
                 </div>

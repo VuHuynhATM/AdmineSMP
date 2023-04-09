@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -18,7 +19,8 @@ export class SystransactionComponent implements OnInit {
   to!: any;
   options!: any;
   option: any = 1;
-  curentoption:any=1;
+  curentoption: any = 1;
+  checkbtn: boolean = false;
 
   constructor(private messageService: MessageService,
     private router: Router,
@@ -35,7 +37,7 @@ export class SystransactionComponent implements OnInit {
   }
   searchtransaction() {
     this.page = 1;
-    this.curentoption=this.option;
+    this.curentoption = this.option;
     this.getlisttransaction();
   }
   next() {
@@ -51,34 +53,42 @@ export class SystransactionComponent implements OnInit {
     }
   }
   getlisttransaction() {
-    if (this.option == 1){
-      this.systemService.getSystemReveneu(this.page, this.from, this.to).subscribe((result) => {
+    this.checkbtn = true;
+    if (this.option == 1) {
+      this.systemService.getSystemReveneu(this.page, this.from, this.to).toPromise().then((result) => {
         this.listtransaction = result.data;
         this.totalPage = result.totalPage;
         console.log(result);
-      }, err => {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+        this.checkbtn = false;
+      }, (err: HttpErrorResponse) => {
+        if (err.status == 401)
+          this.router.navigate(['/logout']);
       });
-    }else{
-      this.systemService.getSystemStoreReveneu(this.page, this.from, this.to).subscribe((result) => {
+    } else {
+      this.systemService.getSystemStoreReveneu(this.page, this.from, this.to).toPromise().then((result) => {
         this.listtransaction = result.data;
         this.totalPage = result.totalPage;
         console.log(result);
-      }, err => {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+        this.checkbtn = false;
+      }, (err: HttpErrorResponse) => {
+        if (err.status == 401)
+          this.router.navigate(['/logout']);
       });
-    } 
+    }
   }
   viewdetail(id: any) {
-    this.storeService.getStoreDetail(id).subscribe((result) => {
+    this.checkbtn = true;
+    this.storeService.getStoreDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("STORE_DETAIL", JSON.stringify(result.data))
-        this.router.navigate(['/supplierdetail/'+id]);
-      }else{
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+        this.router.navigate(['/supplierdetail/' + id]);
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn = false;
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
   }
 }

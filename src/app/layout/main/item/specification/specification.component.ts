@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SpecificationService } from 'src/app/service/specification/specification.service';
 
@@ -15,44 +17,53 @@ export class SpecificationComponent implements OnInit {
   displaysuggest!:any;
   suggesttext:any="";
   specificationID!:any;
+  checkbtn:boolean=false;
 
   constructor(
     private specificationService:SpecificationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
     this.getSpecification();
   }
   getSpecification() {
-    this.specificationService.getlistSpecification().subscribe((result) => {
+    this.checkbtn=true;
+    this.specificationService.getlistSpecification().toPromise().then((result) => {
       if (result.success) {
         this.specifications = result.data;
         console.log(this.specifications);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   blockSpecification(id: number) {
-    this.specificationService.blockSpecification(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.specificationService.blockSpecification(id).toPromise().then((result) => {
       if (result.success) {
         this.getSpecification();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   addSpecification() {
+    this.checkbtn=true;
     if (this.specificationName == undefined) {
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: "Nhập tên loại phụ tùng" });
     } else {
-      this.specificationService.createSpecification(this.specificationName).subscribe((result) => {
+      this.specificationService.createSpecification(this.specificationName).toPromise().then((result) => {
         if (result.success) {
           this.getSpecification();
           this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
@@ -60,21 +71,26 @@ export class SpecificationComponent implements OnInit {
         } else {
           this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
         }
-      }, err => {
-        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+    this.checkbtn=false;
+  }, (err:HttpErrorResponse) => {
+        if(err.status==401)
+        this.router.navigate(['/logout']);
       });
     }
   }
   activeSpecification(id: number) {
-    this.specificationService.activeSpecification(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.specificationService.activeSpecification(id).toPromise().then((result) => {
       if (result.success) {
         this.getSpecification();
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   showsuggest(id:number){
@@ -95,7 +111,8 @@ export class SpecificationComponent implements OnInit {
     });
   }
   editSuggest(){
-    this.specificationService.addSpecificationSuggest(this.specificationID,this.suggesttext).subscribe((result) => {
+    this.checkbtn=true;
+    this.specificationService.addSpecificationSuggest(this.specificationID,this.suggesttext).toPromise().then((result) => {
       if (result.success) {
         this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
         this.getSpecification();
@@ -104,8 +121,10 @@ export class SpecificationComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

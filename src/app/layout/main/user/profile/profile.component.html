@@ -12,7 +12,7 @@
                         <div class="col">
                             <p-image [src]="user.image.path" alt="Image" width="450" [preview]="true"></p-image>
                             <div style="text-align: center;">
-                                <button pButton pRipple label="Chỉnh sửa ảnh đại diện" class="p-button-text"
+                                <button pButton pRipple label="Chỉnh sửa ảnh đại diện" class="p-button-text" [loading]="checkbtn"
                                     (click)="showEditAvartaDialog()"></button>
                                 <p-dialog header="Chỉnh sửa ảnh đại diện" [(visible)]="displayEditAvarta" [modal]="true"
                                     [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
@@ -22,7 +22,7 @@
                                         [showCancelButton]="false" chooseLabel="Chọn hình ảnh" uploadLabel="Lưu">
                                     </p-fileUpload>
                                     <ng-template pTemplate="footer">
-                                        <p-button icon="pi pi-times" (click)="displayEditAvarta=false" styleClass="text-xs"
+                                        <p-button icon="pi pi-times" (click)="displayEditAvarta=false" styleClass="text-xs" [loading]="checkbtn"
                                             label="Hủy"></p-button>
                                     </ng-template>
                                 </p-dialog>
@@ -41,7 +41,7 @@
                                     [(ngModel)]="user.userName"
                                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                                 <ng-template pTemplate="footer">
-                                    <p-button icon="pi pi-check" (click)="editName(user.userName)" label="Lưu"
+                                    <p-button icon="pi pi-check" (click)="editName(user.userName)" label="Lưu" [loading]="checkbtn"
                                         class="p-button-text"></p-button>
                                     <p-button icon="pi pi-times" (click)="displayEditName=false" label="Hủy"></p-button>
                                 </ng-template>
@@ -73,7 +73,7 @@
                                 <p-calendar [(ngModel)]="time" [inline]="true" [style]="{'width':'47vw'}"
                                     [showWeek]="true" ></p-calendar>
                                 <ng-template pTemplate="footer">
-                                    <p-button icon="pi pi-check" (click)="editDoB(time)" label="Lưu"
+                                    <p-button icon="pi pi-check" (click)="editDoB(time)" label="Lưu" [loading]="checkbtn"
                                         class="p-button-text"></p-button>
                                     <p-button icon="pi pi-times" (click)="displayEditDoB=false" label="Hủy"></p-button>
                                 </ng-template>

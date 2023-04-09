@@ -17,7 +17,7 @@
                             <div class="button">
                                 <div *ngIf="!user.isActive; else elseBlockbutton">
                                     <div *ngIf="check">
-                                        <button pButton pRipple label="Kích hoạt" (click)="activeUser(user.userID)"
+                                        <button pButton pRipple label="Kích hoạt" (click)="activeUser(user.userID)" [loading]="checkbtn"
                                             icon="pi pi-check"></button>
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                                                 [(ngModel)]="statusText"
                                                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
                                             <ng-template pTemplate="footer">
-                                                <p-button icon="pi pi-check" (click)="blockUser(user.userID)" label="Khóa"
+                                                <p-button icon="pi pi-check" (click)="blockUser(user.userID)" label="Khóa" [loading]="checkbtn"
                                                     class="p-button-text"></p-button>
                                                 <p-button icon="pi pi-times" (click)="showBlock=false" label="Hủy"></p-button>
                                             </ng-template>

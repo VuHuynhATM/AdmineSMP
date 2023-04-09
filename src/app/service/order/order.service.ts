@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { DOMAIN } from 'src/app/utils/AppConfig';
 
 @Injectable({
@@ -49,24 +49,52 @@ export class OrderService {
     if(orderID!=undefined){
       orderIDtxt=orderID+'';
     }
-    return this.httpClient.get(DOMAIN + `Order/get_order_status?userID=${userIDtxt}&storeID=${storeIDtxt}&dateFrom=${dateFromtxt}&dateTo=${dateTotxt}&shipOrderStatus=${shipOrderStatustxt}&userName=${userNametxt}&page=${page}&orderID=${orderIDtxt}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Order/get_order_status?userID=${userIDtxt}&storeID=${storeIDtxt}&dateFrom=${dateFromtxt}&dateTo=${dateTotxt}&shipOrderStatus=${shipOrderStatustxt}&userName=${userNametxt}&page=${page}&orderID=${orderIDtxt}`,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   getTicket(orderID:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Ship/get_ticket?orderID=${orderID}`, { headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Ship/get_ticket?orderID=${orderID}`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   cancelorder(orderID:number,reson:string):Observable<any>{
-    return this.httpClient.put(DOMAIN + `Payment/cancel_order?orderID=${orderID}&reason=${reson}`, null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Payment/cancel_order?orderID=${orderID}&reason=${reson}`, null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   getShipstatus(orderID:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Ship/ship_status?orderID=${orderID}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Ship/ship_status?orderID=${orderID}`,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   getFeedbackDetail(detailID:number):Observable<any>{
-    return this.httpClient.get(DOMAIN + `Order/get_feedback_detail?orderDetailID=${detailID}`,{ headers: this.headers });
+    return this.httpClient.get(DOMAIN + `Order/get_feedback_detail?orderDetailID=${detailID}`,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   blockFeedback(detailID:number):Observable<any>{
-    return this.httpClient.put(DOMAIN + `Order/block_feedback?orderDetailID=${detailID}`,null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Order/block_feedback?orderDetailID=${detailID}`,null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
   activeFeedback(detailID:number):Observable<any>{
-    return this.httpClient.put(DOMAIN + `Order/active_feedback?orderDetailID=${detailID}`,null,{ headers: this.headers });
+    return this.httpClient.put(DOMAIN + `Order/active_feedback?orderDetailID=${detailID}`,null,{ headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 }

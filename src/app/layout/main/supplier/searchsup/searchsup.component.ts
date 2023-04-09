@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -16,6 +17,7 @@ export class SearchsupComponent implements OnInit {
   status: any = "";
   statuses!: any[];
   totalPage!: number;
+  checkbtn:boolean=false;
 
   constructor(private storeService: SupplierService,
     private messageService: MessageService,
@@ -47,26 +49,32 @@ export class SearchsupComponent implements OnInit {
     }
   }
   getlistsupplier() {
+    this.checkbtn=true;
     console.log(this.search+this.page+this.status);
-    this.storeService.getListStoreSearch(this.search, this.page, this.status).subscribe((result) => {
+    this.storeService.getListStoreSearch(this.search, this.page, this.status).toPromise().then((result) => {
       this.listSupplier = result.data;
       this.totalPage = result.totalPage;
       console.log(result);
 
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
   viewdetail(id: any) {
-    this.storeService.getStoreDetail(id).subscribe((result) => {
+    this.checkbtn=true;
+    this.storeService.getStoreDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("STORE_DETAIL", JSON.stringify(result.data))
         this.router.navigate(['/supplierdetail/'+id]);
       }else{
       this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, err => {
-      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: 'Lỗi server' });
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
           'Access-Control-Allow-Origin': '*'
         });
         console.log(this.firebasetoken);
-        this.httpclient.post(DOMAIN + 'user/adminsign_in', body, { headers: header }).subscribe((result: any) => {
+        this.httpclient.post(DOMAIN + 'user/adminsign_in', body, { headers: header }).toPromise().then((result: any) => {
           if (result.success) {
             localStorage.setItem("USER", JSON.stringify(result.data))
             this.router.navigate(['/home']);

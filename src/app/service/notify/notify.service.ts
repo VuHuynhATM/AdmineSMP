@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DOMAIN } from 'src/app/utils/AppConfig';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,10 @@ export class NotifyService {
         'Access-Control-Allow-Origin': '*'
       });
     }
-    return this.httpClient.get(DOMAIN + `Notification?userID=${userID}&page=${page}`, { headers: this.headers })
+    return this.httpClient.get(DOMAIN + `Notification?userID=${userID}&page=${page}`, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
   }
 }
