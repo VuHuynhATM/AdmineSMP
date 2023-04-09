@@ -218,8 +218,8 @@ checkbtn:boolean=false;
   }
   showvideo(linki:any){
     this.checkbtn=true;
-    this.showdiglog=true;
     this.link=undefined;
+    this.showdiglog=true;
     this.link=linki;
     console.log(this.link);
     this.checkbtn=false;
