@@ -28,6 +28,7 @@ export class SupplierService {
     if (statusID != undefined) {
       statusIDs = statusID + '';
     }
+    console.log(this.headers);
     return this.httpClient.get(DOMAIN + `Store?page=${page}&search=${search}&statusID=${statusIDs}`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);

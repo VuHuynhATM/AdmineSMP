@@ -32,6 +32,7 @@ export class UserService {
     if (isactive != undefined) {
       isactives = isactive + "";
     }
+    console.log(this.headers);
     return this.httpClient.get(DOMAIN + `user/get_users?page=${page}&search=${search}&roleID=${roleIDs}&isActive=${isactives}`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
