@@ -27,6 +27,11 @@ export class SupplierService {
     if (statusID != undefined) {
       statusIDs = statusID + '';
     }
+    this.headers = new HttpHeaders({
+      'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+      'accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
+    });
     console.log(this.headers);
     return this.httpClient.get(DOMAIN + `Store?page=${page}&search=${search}&statusID=${statusIDs}`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
