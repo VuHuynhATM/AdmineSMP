@@ -58,6 +58,7 @@ export class SearchsupComponent implements OnInit {
 
       this.checkbtn=false;
     }, (err:HttpErrorResponse) => {
+      console.log(err);
       if(err.status==401)
       this.router.navigate(['/logout']);
     });
