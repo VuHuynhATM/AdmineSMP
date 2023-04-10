@@ -7,8 +7,7 @@ import { DOMAIN } from 'src/app/utils/AppConfig';
   providedIn: 'root'
 })
 export class UserService {
-
-  headers: any;
+  headers:any;
 
   constructor(private httpClient: HttpClient) {
     if(localStorage.getItem("USER")!=undefined){
