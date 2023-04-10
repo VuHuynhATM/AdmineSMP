@@ -27,11 +27,13 @@ export class SupplierService {
     if (statusID != undefined) {
       statusIDs = statusID + '';
     }
-    // this.headers = new HttpHeaders({
-    //   'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
-    //   'accept': '*/*',
-    //   'Access-Control-Allow-Origin': '*'
-    // });
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     console.log(this.headers);
     return this.httpClient.get(DOMAIN + `Store?page=${page}&search=${search}&statusID=${statusIDs}`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
@@ -40,6 +42,13 @@ export class SupplierService {
     );
   }
   getStoreDetail(storeID: number): Observable<any> {
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Store/store_detail?storeID=${storeID}`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -47,6 +56,13 @@ export class SupplierService {
     );
   }
   activeStore(storeID:number): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Store/active_store?storeID=${storeID}`,null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -54,6 +70,13 @@ export class SupplierService {
     );
   }
   blockStore(storeID:number, statusText:string): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Store/block_store?storeID=${storeID}&statusText=${statusText}`,null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);

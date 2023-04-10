@@ -20,6 +20,13 @@ export class SpecificationService {
     }
   }
   getlistSpecification(): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Specification`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -28,6 +35,13 @@ export class SpecificationService {
   }
   
   blockSpecification(id:number): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Specification/remove_specification?specificationID=${id}`, null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -36,6 +50,13 @@ export class SpecificationService {
   }
 
   activeSpecification(id:number): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Specification/active_specification?specificationID=${id}`, null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -44,6 +65,13 @@ export class SpecificationService {
   }
   
   createSpecification(name:string): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.post(DOMAIN + `Specification?specification_Name=${name}`, null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -52,6 +80,13 @@ export class SpecificationService {
   }
 
   getlistSubCate_Specification(id:number): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Specification/sub_category?sub_CategoryID=${id}&role=1`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -59,6 +94,13 @@ export class SpecificationService {
     );
   }
   addSpecification(id:number, addspec:number[], removespec: number[]): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var body={
       sub_CategoryID:id,
       specificationIDsaAdd:addspec,
@@ -71,6 +113,13 @@ export class SpecificationService {
     );
   }
   addSpecificationSuggest(id:number, suggeatvalues: string): Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var body={
       specificationID:id,
       suggsetvalues:suggeatvalues

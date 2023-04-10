@@ -19,6 +19,13 @@ export class SystemService {
     }
   }
   getSystemInfo():Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Asset`, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -26,6 +33,13 @@ export class SystemService {
     );
   }
   getChart(year?:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var years: string = "";
     if (year != undefined) {
       years = year+"";
@@ -37,6 +51,13 @@ export class SystemService {
     );
   }
   editCommission_Precent(precent:any):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Asset/update_commission_precent?commission_Precent=${precent}`,null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -44,6 +65,13 @@ export class SystemService {
     );
   }
   editAmount_Precent(amount:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Asset/update_amount_active?amountActive=${amount}`,null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -51,6 +79,13 @@ export class SystemService {
     );
   }
   editRefund_Precent(precent:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Asset/update_refund_precent?refund_Precent=${precent}`,null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -58,6 +93,13 @@ export class SystemService {
     );
   }
   getStoreWithdrawal(storeID:number, page:number, statusID:number, from: Date, to: Date):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var storeIDtxt: string = "";
     if(storeID!=undefined){
       storeIDtxt=storeID+'';
@@ -81,6 +123,13 @@ export class SystemService {
     );
   }
   aceptwithdrawal(id:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Asset/accept_store_withdrawal?storeWithdrawalID=${id}`,null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -88,6 +137,13 @@ export class SystemService {
     );
   }
   cancelwithdarawl(id:number, reason:string):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Asset/cancel_store_withdrawal?storeWithdrawalID=${id}&reason=${reason}`,null, { headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -95,6 +151,13 @@ export class SystemService {
     );
   }
   successwithdrawal(id: any, file: File):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var body =new FormData();
     body.append('Store_WithdrawalID',id.toString());
     body.append('File',file);
@@ -105,6 +168,13 @@ export class SystemService {
     );
   }
   getStoreReveneu(storeID:number, page:number, orderID:number, from: Date, to: Date):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var storeIDtxt: string = "";
     if(storeID!=undefined){
       storeIDtxt=storeID+'';
@@ -128,6 +198,13 @@ export class SystemService {
     );
   }
   getSystemReveneu(page:number, from: Date, to: Date):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var fromtxt="";
     if(from!=undefined){
       fromtxt=from.toISOString()+'';
@@ -143,6 +220,13 @@ export class SystemService {
     );
   }
   getSystemStoreReveneu(page:number, from: Date, to: Date):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var fromtxt="";
     if(from!=undefined){
       fromtxt=from.toISOString()+'';
@@ -158,6 +242,13 @@ export class SystemService {
     );
   }
   getSystemWithdrawal(page:number, from: Date, to: Date):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var fromtxt="";
     if(from!=undefined){
       fromtxt=from.toISOString()+'';
@@ -173,6 +264,13 @@ export class SystemService {
     );
   }
   systemwithdrawal(amount: number,context:string, file: File):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var body =new FormData();
     body.append('Price',amount.toString());
     body.append('Context',context);
@@ -184,6 +282,13 @@ export class SystemService {
     );
   }
   getReport(page:number, reportType: number, storeID: number, userID:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var reportTypetxt="";
     if(reportType!=undefined){
       reportTypetxt=reportType+'';
