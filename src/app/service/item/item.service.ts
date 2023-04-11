@@ -19,6 +19,13 @@ export class ItemService {
     });
   }
   getListItemSearch(search:string, min:number, max:number, rate:number, cateID:number, subCateID:number, brandID:number, brandModelID:number, sortBy:string, storeID:number, page:number ,itemStatusID:number): Observable<any> {
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var searchtxt="";
     if(search!=undefined){
       searchtxt=search;
@@ -72,6 +79,13 @@ export class ItemService {
     );
   }
   getItemDetail(id:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Item/item_detail?itemID=${id}`,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -79,6 +93,13 @@ export class ItemService {
     );
   }
   activeItem(id:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Item/active_item?itemID=${id}`, null,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -86,6 +107,13 @@ export class ItemService {
     );
   }
   activeSubItem(id:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Item/active_subItem?subItemID=${id}`, null,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -93,6 +121,13 @@ export class ItemService {
     );
   }
   blockItem(id:number, statusText:string):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Item/block_item?itemID=${id}&statusText=${statusText}`, null,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -100,6 +135,13 @@ export class ItemService {
     );
   }
   blockSubItem(id:number, statusText:string):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `Item/block_subItem?subItemID=${id}&statusText=${statusText}`, null,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -107,6 +149,13 @@ export class ItemService {
     );
   }
   getlistFeedback(itemID:number,page:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Item/item_feedback?itemID=${itemID}&page=${page}&role=1`,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);

@@ -22,6 +22,14 @@ export class AfterbuyService {
   }
 
   getlistService(userID:number,storeID:number, dateFrom:Date, dateTo:Date, servicestatusID:number, page:number, orderID:number, serviceID:number, serviceType:number): Observable<any>{
+    
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var userIDtxt='';
     if(userID!=undefined){
       userIDtxt=userID+'';
@@ -61,6 +69,13 @@ export class AfterbuyService {
     );
   }
   getShipstatus(serviceID:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.get(DOMAIN + `Ship/ship_status?serviceID=${serviceID}`,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -68,6 +83,13 @@ export class AfterbuyService {
     );
   }
   acceptervice(id:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     return this.httpClient.put(DOMAIN + `AfterBuyService/accepct?serviceID=${id}`,null,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
@@ -75,6 +97,13 @@ export class AfterbuyService {
     );
   }
   canceltervice(id:number):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var body={
       serviceID: id,
       reason: "Quản trị viên hủy"

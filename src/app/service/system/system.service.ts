@@ -307,4 +307,19 @@ export class SystemService {
       })
     );
   }
+  editCo_Examination(Co_Examination:any):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
+    console.log(Co_Examination);
+    return this.httpClient.put(DOMAIN + `Asset/update_co_examination?Co_Examination=${Co_Examination}`,null, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
+  }
 }

@@ -21,7 +21,13 @@ export class DataexchangeService {
   }
 
   getStoreExchange(storeID:number,orderID:number,serviceID:number,dateFrom:Date, dateTo:Date, exchangeStatus:number, page:number):Observable<any>{
-
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var storeIDtxt='';
     if(storeID!=undefined){
       storeIDtxt=storeID+'';
@@ -53,6 +59,13 @@ export class DataexchangeService {
     );
   }
   finishStoreExchange(id: any, file: File):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var body =new FormData();
     body.append('ExchangeStoreID',id.toString());
     body.append('File',file);
@@ -65,6 +78,13 @@ export class DataexchangeService {
 
   getUserExchange(userID:number,orderID:number,serviceID:number,dateFrom:Date, dateTo:Date, exchangeStatus:number, page:number):Observable<any>{
 
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var userIDtxt='';
     if(userID!=undefined){
       userIDtxt=userID+'';
@@ -96,6 +116,13 @@ export class DataexchangeService {
     );
   }
   finishUserExchange(id: any, file: File):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
     var body =new FormData();
     body.append('ExchangeUserID',id.toString());
     body.append('File',file);

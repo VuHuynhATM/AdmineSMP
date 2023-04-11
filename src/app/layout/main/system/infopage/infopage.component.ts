@@ -63,6 +63,7 @@ export class InfopageComponent implements OnInit {
         this.systemInfo = result.data;
         this.systemInfo.commission_Precent = this.systemInfo.commission_Precent * 100;
         this.systemInfo.refund_Precent = this.systemInfo.refund_Precent * 100;
+        console.log(this.systemInfo);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
@@ -215,5 +216,23 @@ export class InfopageComponent implements OnInit {
   allChart() {
     this.year = undefined;
     this.getChart();
+  }
+
+  editCo_Examination() {
+    this.checkbtn=true;
+    this.systemService.editCo_Examination(this.systemInfo.co_Examination).toPromise().then((result) => {
+      if (result.success) {
+        this.getSystemInfo();
+        console.log(result.data);
+        this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
+    });
+    this.displayRefund_Precent = false;
   }
 }

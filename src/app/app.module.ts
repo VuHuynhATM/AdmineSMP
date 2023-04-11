@@ -34,6 +34,7 @@ import {ListboxModule} from 'primeng/listbox';
 import {PickListModule} from 'primeng/picklist';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { SkeletonModule } from 'primeng/skeleton';
+import {CheckboxModule} from 'primeng/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -135,6 +136,7 @@ import { BuyserviceComponent } from './layout/main/afterbuy/buyservice/buyservic
     PickListModule,
     InputTextareaModule,
     SkeletonModule,
+    CheckboxModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],

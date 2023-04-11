@@ -11,9 +11,9 @@
                     <div class="card">
                         <div class="card-container overflow-hidden">
                             <div class="flex grid p-5">
-                                <div class="col">
+                                <div class="col-12">
                                     <p-card header="Tài khoản" styleClass="p-card-shadow">
-                                        <div class="text-center">
+                                        <div class="text-center ">
                                             <p-inputNumber id="username" type="username"
                                                 aria-describedby="username1-help" [(ngModel)]="systemInfo.asset"
                                                 mode="currency" currency="VND" [disabled]="true">
@@ -28,7 +28,7 @@
                                         </ng-template>
                                     </p-card>
                                 </div>
-                                <div class="col card">
+                                <div class="col-12 card">
                                     <div class="field">
                                         <label for="username" class="block text-xs">Hoa hồng trên mỗi đơn hàng</label>
                                         <div class="grid">
@@ -39,7 +39,7 @@
                                             </div>
                                             <p-dialog header="Chỉnh sửa hoa hồng trên mỗi đơn hàng"
                                                 [(visible)]="displayCommission_Precent" [modal]="true"
-                                                [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false"
+                                                [style]="{width: '30vw'}" [baseZIndex]="10000" [draggable]="false"
                                                 [resizable]="false">
                                                 <p-inputNumber [(ngModel)]="Commission_Precent" inputId="percent"
                                                     suffix="%"></p-inputNumber>
@@ -65,7 +65,7 @@
                                                 </p-inputNumber>
                                             </div>
                                             <p-dialog header="Chỉnh sửa phí mở gian hàng" [(visible)]="displayAmount"
-                                                [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+                                                [modal]="true" [style]="{width: '30vw'}" [baseZIndex]="10000"
                                                 [draggable]="false" [resizable]="false">
                                                 <p-inputNumber id="username" type="username"
                                                     aria-describedby="username1-help" [(ngModel)]="Amount"
@@ -91,7 +91,7 @@
                                             </div>
                                         </div>
                                         <p-dialog header="Chỉnh sửa phần trăm hoàn tiền khi đơn hàng thất bại"
-                                            [(visible)]="displayRefund_Precent" [modal]="true" [style]="{width: '50vw'}"
+                                            [(visible)]="displayRefund_Precent" [modal]="true" [style]="{width: '30vw'}"
                                             [baseZIndex]="10000" [draggable]="false" [resizable]="false">
                                             <p-inputNumber [(ngModel)]="Refund_Precent" inputId="percent"
                                                 suffix="%"></p-inputNumber>
@@ -102,6 +102,13 @@
                                                     label="Hủy"></p-button>
                                             </ng-template>
                                         </p-dialog>
+                                    </div>
+                                    <div class="field">
+                                            <div class="field-checkbox m-2">
+                                                <p-checkbox [(ngModel)]="systemInfo.co_Examination" [binary]="true" (onChange)="editCo_Examination()"></p-checkbox>
+                                                <label *ngIf="systemInfo.co_Examination" class="text-xs">Cho phép đồng kiểm khi nhận hàng</label>
+                                                <label *ngIf="!systemInfo.co_Examination" class="text-xs">Không cho phép đồng kiểm khi nhận hàng</label>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
