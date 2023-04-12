@@ -179,15 +179,17 @@
             <div class="card">
                 <div class="col text-3xl" style="margin-bottom: 15px;">Thông số kỹ thuật</div>
                 <div class="grid" *ngIf="item!=undefined">
-                    <div class="col-6 grid text-xl" *ngFor="let spec of item.specification_Tag">
-                        <div class="col-4">
-                            {{spec.specificationName}}
+                    <div class="col-4 grid text-xl w-full" *ngFor="let spec of item.specification_Tag">
+                        <div class="col-4 text-xl">
+                            {{spec.specificationName}} <span *ngIf="spec.specificationID==2"> (gram)</span>
                         </div>
                         <div class="col-8" *ngIf="spec.specificationID==2; else specnonweight">
-                            {{spec.value}} mg
+                            <div class="overflow-hidden text-overflow-ellipsis text-xl" style="width:500px">
+                                <span class="">{{spec.value}}</span> 
+                            </div>
                         </div>
                         <ng-template #specnonweight>
-                            <div class="col-8">
+                            <div class="overflow-hidden text-overflow-ellipsis text-xl" style="width:500px">
                                 {{spec.value}}
                             </div>
                         </ng-template>
