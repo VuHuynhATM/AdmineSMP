@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { SupplierService } from 'src/app/service/supplier/supplier.service';
 import { UserService } from 'src/app/service/user/user.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class UserdetailComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private userService: UserService,
+    private storeService: SupplierService,
     private route: ActivatedRoute
   ) {
     this.userID = this.route.snapshot.paramMap.get('id')!;
@@ -73,12 +75,28 @@ export class UserdetailComponent implements OnInit {
           this.check = false;
         }
         this.notilist = this.user.addresses;
+        console.log(this.user);
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
     }, (err: HttpErrorResponse) => {
       if (err.status == 401)
         this.router.navigate(['/logout']);
+    });
+  }
+  viewdetail(id: any) {
+    this.checkbtn=true;
+    this.storeService.getStoreDetail(id).toPromise().then((result) => {
+      if (result.success) {
+        localStorage.setItem("STORE_DETAIL", JSON.stringify(result.data))
+        this.router.navigate(['/supplierdetail/'+id]);
+      }else{
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+      this.checkbtn=false;
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
     });
   }
 }

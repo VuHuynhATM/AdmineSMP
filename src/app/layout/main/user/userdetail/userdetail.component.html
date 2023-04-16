@@ -39,8 +39,28 @@
                                     </div>
                                 </ng-template>
                             </div>
+                            <div class="mt-4">
+                                <div *ngIf="user.role.roleID==3 && user.storeID!=-1">
+                                    <button pButton pRipple label="Xem thông tin gian hàng" class="text-sx" [loading]="checkbtn"
+                                    (click)="viewdetail(user.storeID)" class="p-button-text"></button>
+                                </div>
+                                <div *ngIf="user.role.roleID==3 && user.storeID==-1">
+                                    Nhà cung cấp chưa tạo gian hàng
+                                </div>
+                                <div *ngIf="user.role.roleID==2">
+                                    <button pButton pRipple label="Xem thông tin đơn hàng" class="text-sx" [loading]="checkbtn" [routerLink]="['/order']"
+                                    [queryParams]="{userID: user.userID}"
+                                     class="p-button-text"></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col card">
+                            <div class="field">
+                                <label for="username" class="block text-xs">Mã</label>
+                                <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"
+                                    pInputText [(ngModel)]="user.userID"
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+                            </div>
                             <div class="field">
                                 <label for="username" class="block text-xs">Họ và tên</label>
                                 <input id="username" type="username" aria-describedby="username1-help" [disabled]="true"

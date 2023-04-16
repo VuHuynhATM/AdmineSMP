@@ -8,6 +8,7 @@
         <div>
             <p-toolbar>
                 <div class="p-toolbar-group-start">
+                    <input type="text" class="mr-2" pInputText placeholder="Mã người mua" [(ngModel)]="userID" />
                     <input type="text" class="mr-2" pInputText placeholder="Tên người mua" [(ngModel)]="userName" />
                     <input type="text" class="mr-2" pInputText placeholder="Mã đơn hàng" [(ngModel)]="orderID" />
                     <p-dropdown [options]="shipStatuses" class="mr-2" [(ngModel)]="shipStatus"></p-dropdown>

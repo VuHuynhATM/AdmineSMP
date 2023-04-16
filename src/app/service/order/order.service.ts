@@ -56,6 +56,7 @@ export class OrderService {
     if(orderID!=undefined){
       orderIDtxt=orderID+'';
     }
+    console.log(userIDtxt);
     return this.httpClient.get(DOMAIN + `Order/get_order_status?userID=${userIDtxt}&storeID=${storeIDtxt}&dateFrom=${dateFromtxt}&dateTo=${dateTotxt}&shipOrderStatus=${shipOrderStatustxt}&userName=${userNametxt}&page=${page}&orderID=${orderIDtxt}`,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
