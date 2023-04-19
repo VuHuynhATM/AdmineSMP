@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-  signIn() {
+  signIn(){
     this.checklogin=true;
     const reg = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g);
     var check = reg.test(this.userName);
@@ -59,9 +59,9 @@ export class LoginComponent implements OnInit {
           'Access-Control-Allow-Origin': '*'
         });
         console.log(this.firebasetoken);
-        this.httpclient.post(DOMAIN + 'user/adminsign_in', body, { headers: header }).subscribe((result: any) => {
+        this.httpclient.post(DOMAIN + 'user/adminsign_in', body, { headers: header }).toPromise().then((result: any) => {
           if (result.success) {
-            localStorage.setItem("USER", JSON.stringify(result.data))
+            localStorage.setItem("USER", JSON.stringify(result.data));
             this.router.navigate(['/home']);
           } else {
             this.checklogin=false;

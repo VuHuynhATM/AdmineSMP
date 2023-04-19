@@ -31,6 +31,7 @@ export class SuppdetailComponent implements OnInit {
   }
   ngOnInit(): void {
     this.viewdetail(this.storeID);
+    console.log(this.supplier);
   }
 
   viewitem() {
