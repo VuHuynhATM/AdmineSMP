@@ -53,12 +53,22 @@ export class ReportComponent implements OnInit {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getListreport();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
   searchreport(){
     this.page=1;
     this.reportTypeCurren=this.reportType;
     this.getListreport();
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
   }
 
   getListreport(){

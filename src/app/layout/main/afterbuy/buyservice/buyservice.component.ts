@@ -90,6 +90,11 @@ checkbtn:boolean=false;
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlistservice();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
     this.checkbtn=false;
   }
@@ -99,6 +104,11 @@ checkbtn:boolean=false;
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlistservice();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
     this.checkbtn=false;
   }

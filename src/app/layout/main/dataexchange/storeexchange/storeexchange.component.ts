@@ -52,6 +52,11 @@ export class StoreexchangeComponent implements OnInit {
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlistexchange();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
     this.checkbtn=false;
   }
@@ -61,6 +66,11 @@ export class StoreexchangeComponent implements OnInit {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlistexchange();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
     this.checkbtn=false;
   }

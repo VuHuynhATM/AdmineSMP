@@ -81,6 +81,11 @@ export class SearchorderComponent implements OnInit {
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlistorder();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
 
@@ -88,6 +93,11 @@ export class SearchorderComponent implements OnInit {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlistorder();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
 
