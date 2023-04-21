@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         const body = {
           email: this.userName,
           password: this.password,
-          fcM_Firebase: "string"
+          fcM_Firebase: localStorage.getItem("FCM"),
         }
         const header = new HttpHeaders({
           'authorization': 'Bearer ' + this.firebasetoken,
