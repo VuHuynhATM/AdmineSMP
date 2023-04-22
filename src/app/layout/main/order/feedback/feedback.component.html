@@ -54,7 +54,7 @@
                             <button pButton pRipple label="Kích hoạt" (click)="activeFeedback(feedback.orderDetaiID)" class="text-xs" [loading]="checkbtn"
                                             icon="pi pi-check"></button>
                         </div>
-                        <div *ngIf="feedback.feedback_Status.item_StatusID==1">
+                        <div *ngIf="feedback.feedback_Status.item_StatusID==1||feedback.feedback_Status.item_StatusID==3">
                             <button pButton pRipple label="khóa" (click)="blockFeedback(feedback.orderDetaiID)" class="p-button-raised p-button-warning text-xs"
                             icon="pi pi-times" [loading]="checkbtn"></button>
                         </div>
