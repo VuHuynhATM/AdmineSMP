@@ -111,6 +111,10 @@ export class SearchorderComponent implements OnInit {
     this.orderService.getlistOrder(this.userID, this.storeID, this.dateFrom, this.dateTo, this.shipStatus, this.page, this.userName, this.orderID).toPromise().then((result) => {
       if (result.success) {
         this.listorder = result.data;
+        this.listorder.forEach((value:any) => {
+          value.priceItem=new Intl.NumberFormat('en-DE').format(value.priceItem) ;
+          value.feeShip=new Intl.NumberFormat('en-DE').format(value.feeShip) ;
+        });
         console.log(this.listorder);
         this.totalPage = result.totalPage;
       } else {

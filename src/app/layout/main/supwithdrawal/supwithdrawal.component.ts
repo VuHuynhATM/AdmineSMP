@@ -55,18 +55,31 @@ export class SupwithdrawalComponent implements OnInit {
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlistsupplierWithdrawal();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
   prev() {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlistsupplierWithdrawal();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
   getlistsupplierWithdrawal() {
     this.checkbtn = true;
     this.systemService.getStoreWithdrawal(this.storeID, this.page, this.status, this.from, this.to).toPromise().then((result) => {
       this.listWithdrawal = result.data;
+      this.listWithdrawal.forEach((value:any) => {
+        value.price=new Intl.NumberFormat('en-DE').format(value.price) ;
+      });
       this.totalPage = result.totalPage;
       console.log(result);
       this.checkbtn = false;

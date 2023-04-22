@@ -125,7 +125,6 @@ checkbtn:boolean=false;
     this.afterBuyService.getlistService(this.userID, this.storeID, this.dateFrom, this.dateTo, this.serviceStatus, this.page, this.orderID, this.serviceID,this.serviceType).toPromise().then((result) => {
       if (result.success) {
         this.listorder = result.data;
-        console.log(this.listorder);
         this.totalPage = result.totalPage;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });

@@ -76,6 +76,14 @@ export class ItemsearchComponent implements OnInit {
     this.checkbtn=true;
     this.itemService.getListItemSearch(this.search,this.min,this.max,this.rating,this.category,this.subcategory,this.brand,this.motor,this.sort,this.storeID,this.page,this.status).toPromise().then((result) => {
       this.listitem = result.data;
+      this.listitem.forEach((value:any) => {
+        if(value.discount>0){
+          value.price=new Intl.NumberFormat('en-DE').format(value.price*(1-value.discount)) + 'VND';
+        }else{
+          value.price=new Intl.NumberFormat('en-DE').format(value.price) + 'VND';
+        }
+        
+      });
       this.totalPage = result.totalPage;
       console.log(this.listitem);
       this.checkbtn=false;
@@ -114,13 +122,13 @@ export class ItemsearchComponent implements OnInit {
     this.categoryService.getlistCategory().toPromise().then((result) => {
       if (result.success) {
         result.data.forEach((cate: any) => {
-          if (cate.isActive) {
+          //if (cate.isActive) {
             var itemcate = {
               label: cate.name,
               value: cate.categoryID
             }
             listcate.push(itemcate);
-          }
+          //}
         });
         this.categories=listcate;
       } else {

@@ -83,7 +83,9 @@ export class UserexchangeComponent implements OnInit {
     this.dataExchangeService.getUserExchange(this.userID, this.orderID, this.serviceID, this.dateFrom, this.dateTo, this.serviceStatus, this.page).toPromise().then((result) => {
       if (result.success) {
         this.listexchange = result.data;
-        console.log(this.listexchange);
+        this.listexchange.forEach((value:any) => {
+          value.exchangePrice=new Intl.NumberFormat('en-DE').format(value.exchangePrice) ;
+        });
         this.totalPage = result.totalPage;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
