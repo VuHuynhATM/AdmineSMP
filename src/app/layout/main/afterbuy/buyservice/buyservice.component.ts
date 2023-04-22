@@ -20,12 +20,12 @@ export class BuyserviceComponent implements OnInit {
   idorderparam!: any;
   idserviceparam!: any;
 
-  showdiglog!:any;
-  link!:any;
+  showdiglog!: any;
+  link!: any;
 
   listorder!: any;
 
-  serviceID!:any;
+  serviceID!: any;
   orderID!: any;
   userID!: any;
   storeID!: any;
@@ -38,7 +38,7 @@ export class BuyserviceComponent implements OnInit {
   page: any = 1;
   totalPage!: any;
   shiplist!: any;
-checkbtn:boolean=false;
+  checkbtn: boolean = false;
   displayCancelOrder: boolean = false;
   reason!: any;
   constructor(
@@ -86,57 +86,57 @@ checkbtn:boolean=false;
   }
 
   next() {
-    this.checkbtn=true;
+    this.checkbtn = true;
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlistservice();
-      window.scroll({ 
-        top: 0, 
-        left: 0, 
-        behavior: 'smooth' 
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
       });
     }
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
 
   prev() {
-    this.checkbtn=true;
+    this.checkbtn = true;
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlistservice();
-      window.scroll({ 
-        top: 0, 
-        left: 0, 
-        behavior: 'smooth' 
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
       });
     }
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
 
   searchservice() {
-    this.checkbtn=true;
+    this.checkbtn = true;
     this.page = 1;
     this.getlistservice();
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
 
   getlistservice() {
-    this.checkbtn=true;
-    this.afterBuyService.getlistService(this.userID, this.storeID, this.dateFrom, this.dateTo, this.serviceStatus, this.page, this.orderID, this.serviceID,this.serviceType).toPromise().then((result) => {
+    this.checkbtn = true;
+    this.afterBuyService.getlistService(this.userID, this.storeID, this.dateFrom, this.dateTo, this.serviceStatus, this.page, this.orderID, this.serviceID, this.serviceType).toPromise().then((result) => {
       if (result.success) {
         this.listorder = result.data;
         this.totalPage = result.totalPage;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, (err:HttpErrorResponse) => {
-      if(err.status==401)
-      this.router.navigate(['/logout']);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
   getliststatus(id: number) {
-    this.checkbtn=true;
+    this.checkbtn = true;
     this.shiplist = undefined;
     this.afterBuyService.getShipstatus(id).toPromise().then((result) => {
       if (result.success) {
@@ -144,14 +144,14 @@ checkbtn:boolean=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, (err:HttpErrorResponse) => {
-      if(err.status==401)
-      this.router.navigate(['/logout']);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
   viewuserdetail(id: any) {
-    this.checkbtn=true;
+    this.checkbtn = true;
     this.userService.getUserDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("USER_DETAIL", JSON.stringify(result.data))
@@ -159,14 +159,14 @@ checkbtn:boolean=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, (err:HttpErrorResponse) => {
-      if(err.status==401)
-      this.router.navigate(['/logout']);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
   viewstoredetail(id: any) {
-    this.checkbtn=true;
+    this.checkbtn = true;
     this.storeService.getStoreDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("STORE_DETAIL", JSON.stringify(result.data))
@@ -174,14 +174,14 @@ checkbtn:boolean=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, (err:HttpErrorResponse) => {
-      if(err.status==401)
-      this.router.navigate(['/logout']);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
   viewitemdetail(id: number) {
-    this.checkbtn=true;
+    this.checkbtn = true;
     this.itemService.getItemDetail(id).toPromise().then((result) => {
       if (result.success) {
         localStorage.setItem("ITEM_DETAIL", JSON.stringify(result.data))
@@ -189,14 +189,14 @@ checkbtn:boolean=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, (err:HttpErrorResponse) => {
-      if(err.status==401)
-      this.router.navigate(['/logout']);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
   acceptservice(id: number) {
-    this.checkbtn=true;
+    this.checkbtn = true;
     this.afterBuyService.acceptervice(id).toPromise().then((result) => {
       if (result.success) {
         this.getlistservice();
@@ -204,14 +204,14 @@ checkbtn:boolean=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, (err:HttpErrorResponse) => {
-      if(err.status==401)
-      this.router.navigate(['/logout']);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
   cancelservice(id: number) {
-    this.checkbtn=true;
+    this.checkbtn = true;
     this.afterBuyService.canceltervice(id).toPromise().then((result) => {
       if (result.success) {
         this.getlistservice();
@@ -219,18 +219,21 @@ checkbtn:boolean=false;
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
-    }, (err:HttpErrorResponse) => {
-      if(err.status==401)
-      this.router.navigate(['/logout']);
+    }, (err: HttpErrorResponse) => {
+      if (err.status == 401)
+        this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    this.checkbtn = false;
   }
-  showvideo(linki:any){
-    this.checkbtn=true;
-    this.link=undefined;
-    this.showdiglog=true;
-    this.link=linki;
+  showvideo(linki: any) {
+    this.checkbtn = true;
+    this.link = undefined;
+    this.showdiglog = true;
+    this.link = linki;
     console.log(this.link);
-    this.checkbtn=false;
+    this.checkbtn = false;
+  }
+  NumberCurency(value: number): any {
+    return new Intl.NumberFormat('en-DE').format(value);
   }
 }

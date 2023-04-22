@@ -250,4 +250,7 @@ export class SearchorderComponent implements OnInit {
         this.router.navigate(['/logout']);
     });
   }
+  NumberCurency(value: number): any {
+    return new Intl.NumberFormat('en-DE').format(value);
+  }
 }
