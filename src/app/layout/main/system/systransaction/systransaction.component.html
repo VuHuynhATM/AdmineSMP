@@ -55,7 +55,7 @@
                             {{transaction.create_Date}}
                         </td>
                         <td>
-                            {{transaction.price}} VND
+                            {{NumberCurency(transaction.price)}} VND
                         </td>
                     </tr>
                     <tr class="text-xs" *ngIf="curentoption==2">
@@ -72,7 +72,7 @@
                             {{transaction.activeDate}}
                         </td>
                         <td>
-                            {{transaction.amount}} VND
+                            {{NumberCurency(transaction.amount)}} VND
                         </td>
                     </tr>
                 </ng-template>
