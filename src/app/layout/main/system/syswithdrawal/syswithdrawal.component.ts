@@ -78,6 +78,14 @@ export class SyswithdrawalComponent implements OnInit {
     });
   }
   successwithdrawal(event: any) {
+    if(this.Amount<=10000){
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: "Số tiền rút phải lớn hơn 10.000 VND" });
+      return;
+    }
+    if(this.context==undefined){
+      this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: "Nhập ghi chú" });
+      return;
+    }
     this.checkbtn=true;
     for (let file of event.files) {
       this.uploadedFile = file;
