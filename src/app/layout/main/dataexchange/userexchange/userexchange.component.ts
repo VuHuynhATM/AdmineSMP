@@ -119,4 +119,19 @@ export class UserexchangeComponent implements OnInit {
     });
     this.checkbtn=false;
   }
+  errorexchange(id:number) {
+    this.dataExchangeService.errorUserExchange(id).toPromise().then((result) => {
+      if (result.success) {
+        this.getlistexchange();
+        this.messageService.add({ severity: 'success', summary: 'Thông báo', detail: result.message });
+        this.displayfinish = false;
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
+      }
+    }, (err:HttpErrorResponse) => {
+      if(err.status==401)
+      this.router.navigate(['/logout']);
+    });
+    this.checkbtn=false;
+  }
 }

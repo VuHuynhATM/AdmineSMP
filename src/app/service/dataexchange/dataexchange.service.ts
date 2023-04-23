@@ -132,4 +132,19 @@ export class DataexchangeService {
       })
     );
   }
+
+  errorUserExchange(id: any):Observable<any>{
+    if(localStorage.getItem("USER")!=undefined){
+      this.headers = new HttpHeaders({
+        'authorization': 'Bearer ' + JSON.parse(localStorage.getItem("USER") || "").token,
+        'accept': '*/*',
+        'Access-Control-Allow-Origin': '*'
+      });
+    }
+    return this.httpClient.put(DOMAIN + `DataExchange/eror_usercard?DataExchangeID=${id}`,null, { headers: this.headers }).pipe(
+      catchError((err:HttpErrorResponse) => {
+        return throwError(err);
+      })
+    );
+  }
 }
