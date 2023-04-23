@@ -90,11 +90,12 @@ export class UserexchangeComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
+      this.checkbtn=false;
     }, (err:HttpErrorResponse) => {
       if(err.status==401)
       this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+   
   }
   showFinish(id:number){
     this.displayfinish=true;
@@ -113,13 +114,15 @@ export class UserexchangeComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
+      this.checkbtn=false;
     }, (err:HttpErrorResponse) => {
       if(err.status==401)
       this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    
   }
   errorexchange(id:number) {
+    this.checkbtn=true;
     this.dataExchangeService.errorUserExchange(id).toPromise().then((result) => {
       if (result.success) {
         this.getlistexchange();
@@ -128,10 +131,11 @@ export class UserexchangeComponent implements OnInit {
       } else {
         this.messageService.add({ severity: 'warn', summary: 'Thông báo', detail: result.message });
       }
+      this.checkbtn=false;
     }, (err:HttpErrorResponse) => {
       if(err.status==401)
       this.router.navigate(['/logout']);
     });
-    this.checkbtn=false;
+    
   }
 }
