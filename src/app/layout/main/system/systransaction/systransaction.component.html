@@ -66,7 +66,7 @@
                             {{transaction.storeName}}
                         </td>
                         <td>
-                            {{transaction.momoTransaction}}
+                            <span *ngIf="transaction.momoTransaction==0">{{transaction.momoTransaction}}</span>
                         </td>
                         <td>
                             {{transaction.activeDate}}
