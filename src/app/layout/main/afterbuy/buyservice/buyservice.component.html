@@ -125,7 +125,7 @@
                                             Số lượng: {{item.amount}}
                                         </div>
                                         <div>
-                                            <Span>Tiền hàng: {{item.pricePurchase*(1-item.discountPurchase)}} VND</Span>
+                                            <Span>Tiền hàng: {{NumberCurency(item.pricePurchase*(1-item.discountPurchase)).toLocaleString('en')}} VND</Span>
                                         </div>
                                     </div>
                                 </div>

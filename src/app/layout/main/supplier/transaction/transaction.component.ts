@@ -38,18 +38,31 @@ export class TransactionComponent implements OnInit {
     if (this.page < this.totalPage) {
       this.page = this.page + 1;
       this.getlisttransaction();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
   prev() {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.getlisttransaction();
+      window.scroll({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
     }
   }
   getlisttransaction(){
     this.checkbtn=true;
     this.systemService.getStoreReveneu(this.storeID, this.page, this.orderID, this.from, this.to).toPromise().then((result) => {
       this.listtransaction = result.data;
+      this.listtransaction.forEach((value:any) => {
+        value.price=new Intl.NumberFormat('en-DE').format(value.price) ;
+      });
       this.totalPage = result.totalPage;
       console.log(result);
       this.checkbtn=false;
