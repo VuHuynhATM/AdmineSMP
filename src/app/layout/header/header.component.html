@@ -15,7 +15,7 @@
                                 <p-table [value]="notilist" selectionMode="single">
                                     <ng-template pTemplate="body" let-rowData let-notify>
                                         <tr [pSelectableRow]="rowData"  (click)="viewdetail(notify.storeID)">
-                                            <td class="text-xs">Gian hàng {{notify.storeID}} {{notify.title}}</td>
+                                            <td class="text-xs"><span *ngIf="notify.storeID>0">Gian hàng {{notify.storeID}}</span> {{notify.title}}</td>
                                             <td class="text-xs">{{notify.create_Date}}</td>
                                         </tr>
                                     </ng-template>
