@@ -49,7 +49,10 @@
                             {{transaction.orderStore_TransactionModel.orderID}}
                         </td>
                         <td>
-                            {{transaction.orderStore_TransactionModel.paymentTransaction}}
+                            <span *ngIf="transaction.orderStore_TransactionModel.paymentTransaction!=0;else codtran">{{transaction.orderStore_TransactionModel.paymentTransaction}}</span>
+                            <ng-template #codtran>
+                                COD
+                            </ng-template>
                         </td>
                         <td>
                             {{transaction.create_Date}}

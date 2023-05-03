@@ -108,7 +108,7 @@ export class AfterbuyService {
       serviceID: id,
       reason: "Quản trị viên hủy"
     }
-    return this.httpClient.put(DOMAIN + `AfterBuyService/cancel`,body,{ headers: this.headers }).pipe(
+    return this.httpClient.put(DOMAIN + `AfterBuyService/admin_cancel`,body,{ headers: this.headers }).pipe(
       catchError((err:HttpErrorResponse) => {
         return throwError(err);
       })
