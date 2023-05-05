@@ -135,9 +135,9 @@
                         <td>
                             <div *ngIf="service.servicestatus.item_StatusID==6">
                                 <button pButton pRipple label="Xác nhận"
-                                    onclick="acceptservice(service.afterBuyServiceID)" [loading]="checkbtn"
+                                (click)="acceptservice(service.afterBuyServiceID)" [loading]="checkbtn"
                                     class="p-button-text text-sx"></button>
-                                <button pButton pRipple label="Hủy" onclick="cancelservice(service.afterBuyServiceID)" [loading]="checkbtn"
+                                <button pButton pRipple label="Hủy" (click)="cancelservice(service.afterBuyServiceID)" [loading]="checkbtn"
                                     class="p-button-text p-button-warning text-sx"></button>
                             </div>
                         </td>
