@@ -116,7 +116,7 @@
                                         </div>
                                     </div>
                                     <div class="col-5"
-                                        *ngIf="order.orderShip.shipStatusID=='5'||order.orderShip.shipStatusID=='45'||order.orderShip.shipStatusID=='6'">
+                                        *ngIf="order.orderShip!=undefined && (order.orderShip.shipStatusID=='5'||order.orderShip.shipStatusID=='45'||order.orderShip.shipStatusID=='6')">
                                         <button pButton pRipple label="Đánh giá" (click)="viewFeedbackDetail(item.orderDetailID)"
                                             class="p-button-text p-button-warning " [loading]="checkbtn"></button>
                                     </div>
@@ -124,7 +124,7 @@
 
                             </div>
                         </td>
-                        <td>
+                        <td *ngIf="order.orderShip!=undefined">
                             <div *ngIf="order.orderShip.shipStatusID=='-2'||order.orderShip.shipStatusID=='1'">
                                 <button pButton pRipple label="Hủy" icon="pi pi-times"  (click)="displayCancelOrder=true"
                                     class="p-button-text p-button-warning text-sx"></button>
