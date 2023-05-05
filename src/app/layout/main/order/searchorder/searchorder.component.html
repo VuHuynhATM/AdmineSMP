@@ -57,7 +57,7 @@
                             <div class="p-2">
                                 Tiền vận chuyển: {{order.feeShip}} VND
                             </div>
-                            <div class="p-2 cursor-pointer" (click)="op.show($event, getliststatus(order.orderID))">
+                            <div class="p-2 cursor-pointer" (click)="op.show($event, getliststatus(order.orderID))" *ngIf="order.orderShip!=undefined" >
                                 Trạng thái:
                                 <span *ngIf="order.orderStatus.item_StatusID==3;else nomarlstatus"
                                     class=" border-round-2xl border-1 border-red-500 p-1 pl-2 pr-2 surface-overlay justify-content-center">
