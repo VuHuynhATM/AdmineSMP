@@ -49,7 +49,7 @@
                                 Ngày đặt: {{order.create_Date}}
                             </div>
                             <div class="p-2">
-                                Mã vận đơn: {{order.orderShip.labelID}}
+                                Mã vận đơn: <span *ngIf="order.orderShip!=undefined">{{order.orderShip.labelID}}</span>
                             </div>
                             <div class="p-2">
                                 Tiền hàng: {{order.priceItem}} VND
