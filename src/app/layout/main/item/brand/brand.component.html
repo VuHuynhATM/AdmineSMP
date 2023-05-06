@@ -25,7 +25,7 @@
                 </p-dialog>
                 <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;"
                     *ngFor="let brand of brands">
-                    <div class="col-8 cursor-pointer" (click)="getsubcategory(brand.brandID)">
+                    <div class="col-8 cursor-pointer" (click)="getsubcategory(brand.brandID)" [ngClass]="{'text-cyan-500' :brandID == brand.brandID}">
                         <div class="flex text-base">{{brand.name}}</div>
                         <div class="flex text-base" *ngIf="brand.isActive; else cateblock">Hoạt động</div>
                         <ng-template #cateblock>

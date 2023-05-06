@@ -26,8 +26,8 @@
                 </p-dialog>
                 <div class="grid border-bottom-1 border-black-500" style="margin-top: 10px;"
                     *ngFor="let cate of categories">
-                    <div class="col-8 cursor-pointer" (click)="getsubcategory(cate.categoryID)">
-                        <div class="flex text-base">{{cate.name}}</div>
+                    <div class="col-8 cursor-pointer" (click)="getsubcategory(cate.categoryID)" [ngClass]="{'text-cyan-500' :categoryID == cate.categoryID}">
+                        <div class="flex text-base" >{{cate.name}}</div>
                         <div class="flex text-base" *ngIf="cate.isActive; else cateblock">Hoạt động</div>
                         <ng-template #cateblock>
                             khóa
